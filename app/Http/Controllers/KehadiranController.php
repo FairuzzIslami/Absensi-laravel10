@@ -13,7 +13,7 @@ class KehadiranController extends Controller
     public function index()
     {
         $data = Kehadiran::get();
-        return view('pages.kehadiran.index')->with('data',$data);
+        return view('pages.kehadiran.index')->with('data', $data);
     }
 
     /**
@@ -29,32 +29,34 @@ class KehadiranController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_kegiatan' => 'required|string',
-            'waktu_kegiatan' => 'required',
-            'tgl_kegiatan' => 'required',
-            'foto_kegiatan' => 'required',
-        ],
-        [
-            'nama_kegiatan.required' => 'nama wajib di isi',
-            'tgl_kegiatan.required' => 'tanggal kegiatan wajib di isi',
-            'nama_kegiatan.string' => 'nama kegiatan wajib text',
-        ]
-    );
+        $request->validate(
+            [
+                'nama_kegiatan' => 'required|string',
+                'waktu_kegiatan' => 'required',
+                'tgl_kegiatan' => 'required',
+                'foto_kegiatan' => 'required',
+            ],
+            [
+                'nama_kegiatan.required' => 'nama wajib di isi',
+                'tgl_kegiatan.required' => 'tanggal kegiatan wajib di isi',
+                'nama_kegiatan.string' => 'nama kegiatan wajib text',
+            ]
+        );
         if ($request->hasFile('foto_kegiatan')) {
             $fileName = 'foto-' . uniqid() . '.' . $request->file('foto_kegiatan')->extension();
             $request->file('foto_kegiatan')->move(public_path('image'), $fileName);
-        }else{
+        } else {
             $fileName = 'nophoto.jpg';
         }
-
+        // buat data
         $data = Kehadiran::create([
             'nama_kegiatan' => $request->nama_kegiatan,
-            'tgl_kegiatan' => $request->tgl_kegiatan. '' . $request->waktu_kegiatan,
-            'foto_kegiatan' => $fileName
+            'tgl_kegiatan' => $request->tgl_kegiatan,
+            'foto_kegiatan' => $fileName,
+            'waktu_kegiatan' => $request->waktu_kegiatan
         ]);
 
-        return redirect()->route('kehadiran.index',compact('data'));
+        return redirect()->route('kehadiran.index', compact('data'));
     }
 
     /**
@@ -62,7 +64,8 @@ class KehadiranController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = kehadiran::findOrfail($id);
+        return view('pages.kehadiran.detail',compact('data'));
     }
 
     /**
@@ -70,8 +73,8 @@ class KehadiranController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Kehadiran::find($id);
-        return view('pages.kehadiran.edit',compact('data'));
+        $data = Kehadiran::find($id)->first();
+        return view('pages.kehadiran.edit', compact('data'));
     }
 
     /**
@@ -79,14 +82,41 @@ class KehadiranController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate(
+            [
+                'nama_kegiatan' => 'required|string',
+                'waktu_kegiatan' => 'required',
+                'tgl_kegiatan' => 'required',
+                'foto_kegiatan' => 'required',
+            ]
+        );
+
+        if ($request->hasFile('foto_kegiatan')) {
+            $fileName = 'foto-' . uniqid() . '.' . $request->file('foto_kegiatan')->extension();
+            $request->file('foto_kegiatan')->move(public_path('image'), $fileName);
+        } else {
+            $fileName = 'nophoto.jpg';
+        }
+
+        $data = new Kehadiran();
+        $data = Kehadiran::findOrFail($id);
+        $data->nama_kegiatan = $request->nama_kegiatan;
+        $data->tgl_kegiatan = $request->tgl_kegiatan;
+        $data->foto_kegiatan = $fileName;
+        $data->waktu_kegiatan = $request->waktu_kegiatan;
+        $data->save();
+
+        return redirect()->route('kehadiran.index');
     }
 
     /**
-     * Remove the specified resource from storage.
+     *  Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $data = Kehadiran::where('id',$id);
+        $data->delete();
+
+        return redirect()->route('kehadiran.index');
     }
 }

@@ -37,6 +37,12 @@
                             <td>{{ $item->foto_kegiatan }}</td>
                             <td>
                                 <a href="{{route('kehadiran.edit',$item->id)}}" class="btn btn-warning">Edit</a>
+                                <a href="{{route('kehadiran.show',$item->id)}}" class="btn btn-info">Detail</a>
+                                <form action="{{route('kehadiran.destroy', $item->id)}}" method="POST" class="d-inline">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="btn btn-danger text-white" type="submit">Hapus</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

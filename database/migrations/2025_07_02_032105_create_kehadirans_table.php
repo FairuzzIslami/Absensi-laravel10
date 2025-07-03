@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('kehadirans', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kegiatan');
-            $table->string('slug');
+            $table->string('slug')->nullable();
             $table->datetime('tgl_kegiatan');
+            $table->time('waktu_kegiatan');
+            $table->string('foto_kegiatan');
             $table->timestamps();
         });
     }

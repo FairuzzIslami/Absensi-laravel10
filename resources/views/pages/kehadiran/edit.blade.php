@@ -10,13 +10,13 @@
                         <h4 class="card-title fw-bold">Edit Kegiatan</h4>
                     </div>
                     <div class="col text-end">
-                        <a href="{{route('kehadiran.update',$data->id)}}" class="btn btn-secondary">kembali</a>
+                        <a href="{{'/kehadiran'}}" class="btn btn-secondary">kembali</a>
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <tbody>
-                    <form action="{{'kehadiran'}}" method="POST">
+                    <form action="{{ route('kehadiran.update', $data->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
