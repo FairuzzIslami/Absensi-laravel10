@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kehadiran;
+use App\Models\KehadiranDetail;
 use Illuminate\Http\Request;
 
 class KehadiranController extends Controller
@@ -65,7 +66,8 @@ class KehadiranController extends Controller
     public function show(string $id)
     {
         $data = kehadiran::findOrfail($id);
-        return view('pages.kehadiran.detail',compact('data'));
+        $kehadiranDetail = KehadiranDetail::where('kehadiran_id',$id)->get();
+        return view('pages.kehadiran.detail.index',compact('data','kehadiranDetail'));
     }
 
     /**

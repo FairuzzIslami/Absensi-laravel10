@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\KehadiranController;
+use App\Models\KehadiranDetail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,9 @@ Route::get('/', function(){
 })->name('home'); // name untuk nama urlnya di blade
 
 Route::resource('kehadiran', KehadiranController::class);
+
+Route::delete('/kehadiran-detail/{id}',[KehadiranDetail::class,'destroy'])->name('kehadiran-detail.destroy');
+
+Route::get('/login',function(){
+    return view('pages.auth.login');
+})->name('login');
