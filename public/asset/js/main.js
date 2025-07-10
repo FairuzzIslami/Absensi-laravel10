@@ -1,14 +1,18 @@
-// Optional: Toggle password visibility
-        document.addEventListener('DOMContentLoaded', function() {
-            const passwordField = document.getElementById('password');
-            const togglePassword = document.querySelector('.form-control-icon .fa-eye');
+document.addEventListener("DOMContentLoaded", function () {
+        const toggleIcons = document.querySelectorAll('.toggle-password');
 
-            if (togglePassword) {
-                togglePassword.addEventListener('click', function() {
-                    const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-                    passwordField.setAttribute('type', type);
-                    this.classList.toggle('fa-eye');
-                    this.classList.toggle('fa-eye-slash');
-                });
-            }
+        toggleIcons.forEach(icon => {
+            icon.addEventListener('click', function () {
+                const input = this.closest('.input-group').querySelector('input');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                }
+            });
         });
+    });

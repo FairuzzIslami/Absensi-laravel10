@@ -1,8 +1,10 @@
 @extends('layout.layout')
 
 @section('content')
-    <h2 class="text-center fw-bold py-3">List Table Kehadiran</h2>
-    <div class="container my-4">
+
+    <section class="py-5">
+        <h2 class="text-center fw-bold py-3">List Table Kehadiran</h2>
+         <div class="container my-4">
         <div class="card">
             <div class="card-header">
                 <div class="row">
@@ -15,22 +17,21 @@
                 </div>
             </div>
             <div class="card-body">
-                
-                @if ($data => isempty() )
-                    <tr colspan = "5" class="text-center"></tr>
-                @endif
-
                 <table class="table table-striped" id="">
                     <thead>
                         <tr>
                             <th scope="col">id</th>
                             <th scope="col">Nama Kegiatan</th>
-                            <th scope="col">Tanggal Kegiatan</th>
+                            <th scope="col">Tanggal Kegiatan</t h>
                             <th scope="col">Waktu Kegiatan</th>
-                            <th scope="col">Foto Kegiatan</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
+                     @if ($data -> isempty() )
+                    <tr>
+                        <td colspan="6" class="text-center">Belum Ada Data</td>
+                    </tr>
+                @endif
                     <tbody>
                         @foreach ($data as $item)
                             <tr>
@@ -38,22 +39,25 @@
                                 <td>{{ $item->nama_kegiatan }}</td>
                                 <td>{{ date('d-M-y', strtotime($item->tgl_kegiatan)) }}</td>
                                 <td>{{ date('H:i', strtotime($item->waktu_kegiatan)) }}</td>
-                                <td>{{ $item->foto_kegiatan }}</td>
                                 <td>
-                                    <a href="{{ route('kehadiran.edit', $item->id) }}" class="btn btn-warning">Edit</a>
-                                    <a href="{{ route('kehadiran.show', $item->id) }}" class="btn btn-info">Detail</a>
-                                    <form action="{{ route('kehadiran.destroy', $item->id) }}" method="POST"
+                                    <a href="" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal-{{$item->id}}" >Edit</a>
+                                    <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#detailModal-{{ $item->id }}">Detail</a>
+                                    <form id="delete-form-{{ $item->id }}" action="{{ route('kehadiran.destroy', $item->id) }}" method="POST"
                                         class="d-inline">
                                         @method('DELETE')
                                         @csrf
-                                        <button class="btn btn-danger text-white" type="submit">Hapus</button>
+                                        <button class="btn btn-danger text-white" type="button" onclick="confirmDelete({{$item->id}})">Hapus</button>
                                     </form>
                                 </td>
                             </tr>
+                            @include('pages.kehadiran.model.detail')  {{-- include modal --}}
+                            @include('pages.kehadiran.model.edit')
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+    </section>
+
 @endsection

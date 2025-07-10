@@ -45,15 +45,6 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="mb-3">
-                                <label for="foto_kegiatan" class="form-label">Foto Kegiatan</label>
-                                <input type="file" name="foto_kegiatan" class="form-control" id="foto_kegiatan" value="{{old('foto_kegiatan')}}">
-                                @error('foto_kegiatan')
-                                    <div class="text-danger small">
-                                        {{$message}}
-                                    </div>
-                                @enderror
-                            </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </tbody>

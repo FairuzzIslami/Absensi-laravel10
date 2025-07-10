@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kehadiran;
-use App\Models\KehadiranDetail;
 use Illuminate\Http\Request;
 
 class KehadiranController extends Controller
@@ -14,7 +13,7 @@ class KehadiranController extends Controller
     public function index()
     {
         $data = Kehadiran::get();
-        return view('pages.kehadiran.index')->with('data', $data);
+        return view('pages.kehadiran.index',compact('data'));
     }
 
     /**
@@ -35,29 +34,22 @@ class KehadiranController extends Controller
                 'nama_kegiatan' => 'required|string',
                 'waktu_kegiatan' => 'required',
                 'tgl_kegiatan' => 'required',
-                'foto_kegiatan' => 'required',
             ],
             [
-                'nama_kegiatan.required' => 'nama wajib di isi',
-                'tgl_kegiatan.required' => 'tanggal kegiatan wajib di isi',
-                'nama_kegiatan.string' => 'nama kegiatan wajib text',
+                'nama_kegiatan.required' => 'Nama kegiatan wajib di isi',
+                'tgl_kegiatan.required' => 'Tanggal kegiatan wajib di isi',
+                'nama_kegiatan.string' => 'Nama kegiatan wajib berupa teks',
+                'waktu_kegiatan.required' => 'Waktu kegiatan wajib di isi',
             ]
         );
-        if ($request->hasFile('foto_kegiatan')) {
-            $fileName = 'foto-' . uniqid() . '.' . $request->file('foto_kegiatan')->extension();
-            $request->file('foto_kegiatan')->move(public_path('image'), $fileName);
-        } else {
-            $fileName = 'nophoto.jpg';
-        }
+
         // buat data
         $data = Kehadiran::create([
             'nama_kegiatan' => $request->nama_kegiatan,
             'tgl_kegiatan' => $request->tgl_kegiatan,
-            'foto_kegiatan' => $fileName,
             'waktu_kegiatan' => $request->waktu_kegiatan
         ]);
-
-        return redirect()->route('kehadiran.index', compact('data'));
+        return redirect()->route('kehadiran.index', compact('data'))->with('success','Data Kegiatan sudah di tambahkan!');
     }
 
     /**
@@ -66,7 +58,6 @@ class KehadiranController extends Controller
     public function show(string $id)
     {
         $data = kehadiran::findOrfail($id);
-        $kehadiranDetail = KehadiranDetail::where('kehadiran_id',$id)->get();
         return view('pages.kehadiran.detail.index',compact('data','kehadiranDetail'));
     }
 
@@ -89,26 +80,17 @@ class KehadiranController extends Controller
                 'nama_kegiatan' => 'required|string',
                 'waktu_kegiatan' => 'required',
                 'tgl_kegiatan' => 'required',
-                'foto_kegiatan' => 'required',
+
             ]
         );
-
-        if ($request->hasFile('foto_kegiatan')) {
-            $fileName = 'foto-' . uniqid() . '.' . $request->file('foto_kegiatan')->extension();
-            $request->file('foto_kegiatan')->move(public_path('image'), $fileName);
-        } else {
-            $fileName = 'nophoto.jpg';
-        }
-
         $data = new Kehadiran();
         $data = Kehadiran::findOrFail($id);
         $data->nama_kegiatan = $request->nama_kegiatan;
         $data->tgl_kegiatan = $request->tgl_kegiatan;
-        $data->foto_kegiatan = $fileName;
         $data->waktu_kegiatan = $request->waktu_kegiatan;
         $data->save();
 
-        return redirect()->route('kehadiran.index');
+        return redirect()->route('kehadiran.index')->with('success','Data Kegiatan sudah di tambahkan!');
     }
 
     /**
@@ -119,6 +101,6 @@ class KehadiranController extends Controller
         $data = Kehadiran::where('id',$id);
         $data->delete();
 
-        return redirect()->route('kehadiran.index');
+        return redirect()->route('kehadiran.index')->with('success','Data berhasil di hapus');
     }
 }

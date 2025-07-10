@@ -4,7 +4,7 @@
     <section class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-10 col-lg-8">
+                <div class="col-md-11 col-lg-9">
                     <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
                         <div class="row g-0">
                             <!-- Gambar Samping -->
