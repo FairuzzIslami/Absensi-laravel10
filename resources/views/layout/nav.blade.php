@@ -15,7 +15,7 @@
                     </li>
                 </ul>
                 <div class="d-flex" role="search">
-                    <a href="{{route('login.index')}}" class="btn btn-danger">Login   </a>
+                    <a href="{{route('login.index')}}" class="btn btn-danger"><i class="fas fa-sign-in-alt me-1"></i> Login</a>
                 </div>
             </div>
     </nav>
