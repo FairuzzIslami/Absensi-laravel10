@@ -79,7 +79,7 @@
                 popup: 'text-start'
             },
             confirmButtonText: 'Oke',
-            iconColor: '#d33'
+            iconColor: '#DA6C6C',
         });
     @endif
     function confirmDelete(id) {

@@ -25,36 +25,49 @@
                                     <p class="text-muted small">Masukkan akun yang sudah terdaftar</p>
                                 </div>
 
-                                <form action="{{ route('kehadiran.index') }}">
+                                <form action="{{ route('auth.login') }}" method="POST">
+                                    @csrf
+                                    @if (session('error'))
+                                        <div class="alert alert-danger">{{ session('error') }}</div>
+                                    @endif
                                     <div class="mb-3">
-                                        <label for="username" class="form-label">Username</label>
+                                        <label for="email" class="form-label">Username</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                            <input type="text" class="form-control" id="username"
-                                                placeholder="Masukkan username">
+                                            <input type="email" class="form-control" id="email"
+                                                placeholder="Masukkan email" name="email">
                                         </div>
-                                    </div>
+                                        @error('email')
+                                            <div class="text-danger small">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
 
-                                    <div class="mb-4">
-                                        <label for="password" class="form-label">Password</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                            <input type="password" class="form-control" id="password"
-                                                placeholder="Password user">
-                                            <span class="input-group-text bg-light">
-                                                <i class="fas fa-eye toggle-password" style="cursor: pointer;"></i>
-                                            </span>
+                                        <div class="mb-4">
+                                            <label for="password" class="form-label">Password</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                                <input type="password" class="form-control" id="password"
+                                                    placeholder="Password user" name="password">
+                                                <span class="input-group-text bg-light">
+                                                    <i class="fas fa-eye toggle-password" style="cursor: pointer;"></i>
+                                                </span>
+                                            </div>
+                                            @error('password')
+                                                <div class="text-danger small">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
-                                    </div>
 
-                                    <button type="submit" style="background-color: #0D5EA6"
-                                        class="btn w-100 fw-bold text-white">Login</button>
+                                        <button type="submit" style="background-color: #0D5EA6"
+                                            class="btn w-100 fw-bold text-white">Login</button>
 
-                                    <p class="text-center mt-3 text-muted small">Belum punya akun? Hubungi
-                                        <span class="user-select-none" style="color:blue ">
-                                            admin sekolah
-                                        </span>
-                                    </p>
+                                        <p class="text-center mt-3 text-muted small">Belum punya akun? Hubungi
+                                            <a class="user-select-none" style="text-decoration: none" href="https://api.whatsapp.com/send?phone=6285728826546">
+                                                    admin sekolah
+                                            </a>
+                                        </p>
                                 </form>
                             </div>
                         </div>

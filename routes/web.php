@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KehadiranController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,11 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function(){
-    return view('pages.index');
-})->name('home'); // name untuk nama urlnya di blade
 
-Route::resource('kehadiran', KehadiranController::class);
-Route::get('/login',function(){
-    return view('pages.auth.login');
-})->name('login');
+// login
+Route::get('/login',[AuthController::class,'index'])->name('login.index');
+Route::post('/login',[AuthController::class,'login'])->name('auth.login');
+
+Route::resource('kehadiran', KehadiranController::class)->middleware('auth');
+
