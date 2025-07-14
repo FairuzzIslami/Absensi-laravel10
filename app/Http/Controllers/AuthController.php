@@ -18,16 +18,16 @@ class AuthController extends Controller
         ],
         [
             'email.required' => 'email wajib di isi',
-            'email.eamil' => 'email wajib menggunakan @',
+            'email.email' => 'email wajib menggunakan @',
             'password.required' => 'password wajib di isi'
         ]
 
     );
 
         if(Auth::attempt(['email' => $request->email,'password' =>$request->password])){
-            return redirect()->route('kehadiran.index');
+            return redirect()->route('kehadiran.index')->with('success','Anda berhasil login');
         }else{
-            return back()->with('error','Email atau password salah');
+            return back()->with('errors','Email atau password salah');
         };
     }
 }

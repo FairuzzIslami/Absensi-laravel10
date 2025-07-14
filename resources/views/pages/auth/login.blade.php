@@ -27,8 +27,8 @@
 
                                 <form action="{{ route('auth.login') }}" method="POST">
                                     @csrf
-                                    @if (session('error'))
-                                        <div class="alert alert-danger">{{ session('error') }}</div>
+                                    @if (session('errors'))
+                                        <div class="alert alert-danger">{{ session('errors') }}</div>
                                     @endif
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Username</label>

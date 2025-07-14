@@ -91,7 +91,7 @@ class KehadiranController extends Controller
         $data->waktu_kegiatan = $request->waktu_kegiatan;
         $data->save();
 
-        return redirect()->route('kehadiran.index')->with('success','Data Kegiatan sudah di tambahkan!');
+        return redirect()->route('kehadiran.index')->with('success','Data Kegiatan sudah di Update');
     }
 
     /**

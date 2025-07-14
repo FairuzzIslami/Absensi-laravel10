@@ -22,3 +22,10 @@ Route::post('/login',[AuthController::class,'login'])->name('auth.login');
 
 Route::resource('kehadiran', KehadiranController::class)->middleware('auth');
 
+Route::get('/dashboard',function(){
+    return view('pages.admin.dashboardAdmin');
+});
+
+Route::get('/',function(){
+    return view('pages.index');
+});

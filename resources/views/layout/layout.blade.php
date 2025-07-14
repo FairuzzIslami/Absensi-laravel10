@@ -13,6 +13,7 @@
 
     {{-- icon link --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     {{-- link asset css --}}
     <link rel="stylesheet" href="{{ asset('asset/css/styles.css') }}">
@@ -32,12 +33,11 @@
 
 
     {{-- footer --}}
-    <footer class="text-center bg-body-tertiary">
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-            © 2020 Copyright:
-            <a class="text-body" href="https://mdbootstrap.com/">Bootstrap.com</a>
-        </div>
-    </footer>
+    @if (!Request::is('/'))
+        {{-- tampilkan nav kalau bukan url / --}}
+        @include('layout.footer') {{-- !request()is() => itu mengecek url browsernya --}}
+    @endif
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
