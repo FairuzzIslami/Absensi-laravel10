@@ -27,47 +27,52 @@
 
                                 <form action="{{ route('auth.login') }}" method="POST">
                                     @csrf
-                                    @if (session('errors'))
-                                        <div class="alert alert-danger">{{ session('errors') }}</div>
+
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            Email atau password salah
+                                        </div>
                                     @endif
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Username</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             <input type="email" class="form-control" id="email"
-                                                placeholder="Masukkan email" name="email">
+                                                placeholder="Masukkan email" name="email" value="{{ old('email') }}">
                                         </div>
                                         @error('email')
                                             <div class="text-danger small">
                                                 {{ $message }}
                                             </div>
                                         @enderror
+                                    </div>
 
-                                        <div class="mb-4">
-                                            <label for="password" class="form-label">Password</label>
-                                            <div class="input-group">
-                                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                                <input type="password" class="form-control" id="password"
-                                                    placeholder="Password user" name="password">
-                                                <span class="input-group-text bg-light">
-                                                    <i class="fas fa-eye toggle-password" style="cursor: pointer;"></i>
-                                                </span>
-                                            </div>
-                                            @error('password')
-                                                <div class="text-danger small">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
+                                    <div class="mb-4">
+                                        <label for="password" class="form-label">Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                            <input type="password" class="form-control" id="password"
+                                                placeholder="Password user" name="password">
+                                            <span class="input-group-text bg-light">
+                                                <i class="fas fa-eye toggle-password" style="cursor: pointer;"></i>
+                                            </span>
                                         </div>
+                                        @error('password')
+                                            <div class="text-danger small">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
 
-                                        <button type="submit" style="background-color: #0D5EA6"
-                                            class="btn w-100 fw-bold text-white">Login</button>
+                                    <button type="submit" style="background-color: #0D5EA6"
+                                        class="btn w-100 fw-bold text-white">Login</button>
 
-                                        <p class="text-center mt-3 text-muted small">Belum punya akun? Hubungi
-                                            <a class="user-select-none" style="text-decoration: none" href="https://api.whatsapp.com/send?phone=6285728826546">
-                                                    admin sekolah
-                                            </a>
-                                        </p>
+                                    <p class="text-center mt-3 text-muted small">Belum punya akun? Hubungi
+                                        <a class="user-select-none" style="text-decoration: none"
+                                            href="https://api.whatsapp.com/send?phone=6285728826546">
+                                            admin sekolah
+                                        </a>
+                                    </p>
                                 </form>
                             </div>
                         </div>

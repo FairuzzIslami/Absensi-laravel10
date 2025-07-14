@@ -27,7 +27,7 @@ class AuthController extends Controller
         if(Auth::attempt(['email' => $request->email,'password' =>$request->password])){
             return redirect()->route('kehadiran.index')->with('success','Anda berhasil login');
         }else{
-            return back()->with('errors','Email atau password salah');
+            return back()->with('error','Email atau password salah');
         };
     }
 }

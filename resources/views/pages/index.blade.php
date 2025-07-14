@@ -43,7 +43,7 @@
         <div class="container">
             <div class="row align-items-center g-5">
                 <div class="col-lg-6 text-center">
-                    <img src="{{asset('asset/image/homePage.png')}}" alt="Tentang Kami" class="img-fluid"
+                    <img src="{{asset('asset/image/homePage.png')}}" alt="Tentang Kami" class="img-fluid animation"
                         style="max-width: 400px;">
                 </div>
 
