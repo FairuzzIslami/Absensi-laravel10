@@ -4,23 +4,24 @@
     <!-- navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">E-Absensi</a>
+            <a class="navbar-brand fw-bold" href="#hero">E-Absensi</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navMenu">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="#">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#hero">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link" href="#tentang">Tentang Kami</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#manfaat">Manfaat</a></li>
                     <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
-                    <li class="nav-item"><a class="btn btn-blue ms-lg-3 mt-2 mt-lg-0" href="login.html">Login</a></li>
+                    <li class="nav-item"><a class="btn btn-blue ms-lg-3 mt-2 mt-lg-0" href="{{route('login.index')}}">Login</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Hero section -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
@@ -43,8 +44,7 @@
         <div class="container">
             <div class="row align-items-center g-5">
                 <div class="col-lg-6 text-center">
-                    <img src="{{asset('asset/image/homePage.png')}}" alt="Tentang Kami" class="img-fluid animation"
-                        style="max-width: 400px;">
+                    <img src="{{asset('asset/image/homePage.png')}}" alt="Tentang Kami" class="img-fluid animation  rounded mx-auto d-block">
                 </div>
 
                 <div class="col-lg-6">
@@ -164,22 +164,22 @@
 
             <div class="row g-4">
                 <div class="col-lg-5">
-                    <ul class="list-unstyled fs-6">
-                        <li class="mb-3"><i class="bi bi-geo-alt-fill color-blue me-2"></i><strong>Location:</strong>
+                    <ul class="list-unstyled fs-5">
+                        <li class="mb-3"><i class="fa-solid fa-location-dot color-blue me-2"></i> <strong>Location:</strong>
                             Boyolali, Jawa Tengah</li>
-                        <li class="mb-3"><i class="bi bi-telephone-fill color-blue me-2"></i><strong>Phone:</strong> +62
+                        <li class="mb-3"><i class="fa-solid fa-phone color-blue me-2"></i><strong>Phone:</strong> +62
                             822 2010 2177</li>
-                        <li class="mb-3"><i class="bi bi-envelope-fill color-blue me-2"></i><strong>Email:</strong>
+                        <li class="mb-3"><i class="fa-solid fa-envelope color-blue me-2"></i><strong>Email:</strong>
                             admin@eabsensi.id</li>
-                        <li class="mb-3"><i class="bi bi-instagram color-blue me-2"></i><strong>Instagram:</strong>
+                        <li class="mb-3"><i class="fa-brands fa-instagram color-blue me-2"></i> <strong>Instagram:</strong>
                             @eabsensi.id</li>
                     </ul>
                 </div>
 
                 <div class="col-lg-7">
                     <div class="ratio ratio-16x9 shadow rounded">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!..." allowfullscreen=""
-                            loading="lazy"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.406566936078!2d110.59388507500238!3d-7.530557192482604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a6eb6fddaa7bb%3A0x94f51cc0049817d8!2sSMK%20Muhammadiyah%204%20Boyolali!5e0!3m2!1sid!2sid!4v1752543341962!5m2!1sid!2sid" width="600" height="450"
+                            style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>

@@ -13,7 +13,7 @@ class KehadiranController extends Controller
      */
     public function index()
     {
-        $data = Kehadiran::get();
+        $data = Kehadiran::orderBy('nama_kegiatan', 'asc')->paginate(5);
         return view('pages.kehadiran.index',compact('data'));
     }
 
@@ -103,5 +103,18 @@ class KehadiranController extends Controller
         $data->delete();
 
         return redirect()->route('kehadiran.index')->with('success','Data berhasil di hapus');
+    }
+
+    public function search(Request $request){
+       $search = $request->input('search');
+
+       if($search){
+           $data = Kehadiran::where('nama_kegiatan', 'like', '%' . $search . '%')->paginate(5)->withQueryString();
+       }else{
+         $data = Kehadiran::orderBy('nama_kegiatan', 'asc')->paginate(5);
+       }
+
+
+    return view('pages.kehadiran.index', compact('data'));
     }
 }

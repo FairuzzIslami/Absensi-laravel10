@@ -12,8 +12,10 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request)
     {
-        if(!$request -> expectsJson()){
-            return route('auth.login');
-        };
+        // sebelum ke url dia haru lewati harus login dan ke route login
+        if (! $request->expectsJson()) {
+            session()->flash('error', 'Anda harus login terlebih dahulu.');
+            return route('login.index');
+        }
     }
 }
