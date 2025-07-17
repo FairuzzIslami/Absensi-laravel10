@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -11,7 +14,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        // Ambil data user + role + kelas
+        $users = User::with(['role', 'kelas'])->paginate(5);
+
+        // Ambil semua role & kelas untuk dropdown modal edit
+        $roles = Role::all();
+        $kelas = Kelas::all();
+
+        return view('pages.admin.user.index', compact('users', 'roles', 'kelas'));
     }
 
     /**
@@ -19,7 +29,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::all(); // ambil admin, guru, siswa
+        $kelas = Kelas::all(); // ambil kelas
+        return view('pages.admin.user.create', compact('roles', 'kelas'));
     }
 
     /**
@@ -28,6 +40,42 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate(
+            [
+                'username' => 'required|string|max:100',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|min:6',
+                'id_role' => 'required|exists:roles,role_id',
+                'id_kelas' => 'nullable|exists:kelas,id_kelas'
+            ],
+            [
+                'username.required' => 'Nama pengguna wajib diisi.',
+                'username.string' => 'Nama pengguna harus berupa teks.',
+                'username.max' => 'Nama pengguna maksimal 100 karakter.',
+
+                'email.required' => 'Email wajib diisi.',
+                'email.email' => 'Format email tidak valid.',
+                'email.unique' => 'Email ini sudah digunakan.',
+
+                'password.required' => 'Password wajib diisi.',
+                'password.min' => 'Password minimal 6 karakter.',
+
+                'id_role.required' => 'Role wajib dipilih.',
+                'id_role.exists' => 'Role yang dipilih tidak valid.',
+
+                'id_kelas.exists' => 'Kelas yang dipilih tidak valid.'
+            ]
+        );
+
+        User::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'id_role' => $request->id_role,
+            'id_kelas' => $request->id_kelas
+        ]);
+
+        return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan');
     }
 
     /**
@@ -51,7 +99,50 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $request->validate(
+            [
+                'username' => 'required|string|max:100',
+                'email' => 'required|email|unique:users,email,' . $user->id,
+                'password' => 'nullable|min:6', // password opsional
+                'id_role' => 'required|exists:roles,role_id',
+                'id_kelas' => 'nullable|exists:kelas,id_kelas'
+            ],
+            [
+                'username.required' => 'Nama pengguna wajib diisi.',
+                'username.string' => 'Nama pengguna harus berupa teks.',
+                'username.max' => 'Nama pengguna maksimal 100 karakter.',
+
+                'email.required' => 'Email wajib diisi.',
+                'email.email' => 'Format email tidak valid.',
+                'email.unique' => 'Email ini sudah digunakan.',
+
+                'password.min' => 'Password minimal 6 karakter.',
+
+                'id_role.required' => 'Role wajib dipilih.',
+                'id_role.exists' => 'Role yang dipilih tidak valid.',
+
+                'id_kelas.exists' => 'Kelas yang dipilih tidak valid.'
+            ]
+        );
+
+        // Update data
+        $data = [
+            'username' => $request->username,
+            'email' => $request->email,
+            'id_role' => $request->id_role,
+            'id_kelas' => $request->id_kelas
+        ];
+
+        // Jika password diisi, update password
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('user.index')->with('success', 'Data user berhasil diperbarui');
     }
 
     /**
@@ -59,6 +150,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('user.index')->with('success', 'User berhasil dihapus');
     }
 }

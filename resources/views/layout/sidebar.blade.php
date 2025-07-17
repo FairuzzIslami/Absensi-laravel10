@@ -16,7 +16,7 @@
 
         <!-- Menu Admin -->
         <div class="text-white-50 text-uppercase mt-3 mb-2 px-3 small">Menu Admin</div>
-        <a href="{{ route('admin.create') }}" class="sidebar-link">
+        <a href="" class="sidebar-link">
             <i class="fas fa-users me-2"></i> Data User
         </a>
         <a href="#" class="sidebar-link">

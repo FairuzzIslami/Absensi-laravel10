@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KehadiranController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,9 +34,7 @@ Route::get('/',function(){
 
 
 // admin Create User
-Route::get('/dashboard/user',function(){
-    return view('pages.admin.user.index');
-})->name('admin.create');
+Route::resource('user', UserController::class)->middleware('auth');
 
 // Admin Home
 Route::get('/dashboard',function(){

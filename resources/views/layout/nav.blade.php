@@ -1,21 +1,23 @@
-    <nav class="navbar shadow-sm navbar-expand-lg bg-body-tertiary p-2">
-        <div class="container">
-            <a class="navbar-brand" href="">{{ env('APP_NAME') }}</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link " href="{{ route('kehadiran.index') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ '/kehadiran' }}">Daftar Absensi</a>
+<!-- Navbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white shadow-sm fixed-top default" id="mainNavbar">
+            <div class="container-fluid">
+
+                <!-- Tombol Toggle Sidebar -->
+                <button class="btn btn-outline-primary me-3" id="toggleSidebar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <!-- User Info -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                            data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-1"></i> Fairuz
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Profil</a></li>
+                            <li><a class="dropdown-item" href="#">Keluar</a></li>
+                        </ul>
                     </li>
                 </ul>
-                <div class="d-flex" role="search">
-                    <a href="{{route('login.index')}}" class="btn btn-danger"><i class="fas fa-sign-in-alt me-1"></i> Login</a>
-                </div>
             </div>
-    </nav>
+        </nav>
