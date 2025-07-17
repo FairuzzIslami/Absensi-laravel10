@@ -33,22 +33,18 @@
         @include('layout.sidebar')
     @endif
 
-    @if (!Request::is('login'))
-        {{-- kecuali url login --}}
-        @include('layout.nav')
-    @endif
-
     @yield('content')
 
     @if (!Request::is('/'))
         @include('layout.footer')
     @endif
 
+    {{-- boostrap --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('asset/js/main.js') }}"></script>
 
+    {{-- sweet alert --}}
     @include('sweetalert::alert')
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         @if (session('success'))

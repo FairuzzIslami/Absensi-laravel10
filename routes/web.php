@@ -23,10 +23,6 @@ Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
 Route::resource('kehadiran', KehadiranController::class)->middleware('auth');
 
-Route::get('/dashboard',function(){
-    return view('pages.admin.dashboardAdmin');
-});
-
 // search
 Route::get('/search',[KehadiranController::class,'search'])->name('search');
 
@@ -35,7 +31,13 @@ Route::get('/',function(){
     return view('pages.index');
 });
 
-// user
+
+// admin Create User
 Route::get('/dashboard/user',function(){
     return view('pages.admin.user.index');
-});
+})->name('admin.create');
+
+// Admin Home
+Route::get('/dashboard',function(){
+    return view('pages.admin.dashboardAdmin');
+})->name('admin.index');

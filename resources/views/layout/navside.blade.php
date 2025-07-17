@@ -6,17 +6,6 @@
                 <button class="btn btn-outline-primary me-3" id="toggleSidebar">
                     <i class="fa-solid fa-bars"></i>
                 </button>
-
-                <!-- Form Pencarian -->
-                <form class="d-none d-sm-inline-block me-auto">
-                    <div class="input-group search-input">
-                        <input type="text" class="form-control form-control-sm" placeholder="Search..." />
-                        <button class="btn btn-primary btn-sm" type="button">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </div>
-                </form>
-
                 <!-- User Info -->
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">

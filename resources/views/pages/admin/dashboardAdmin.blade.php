@@ -6,7 +6,7 @@
         <section id="Konten">
             <div class="content pt-5 mt-4" id="mainContent">
                 <h1 class="h4 mb-4">
-                    <i class="fa-solid fa-gauge"></i> Dashboard
+                    <i class="fa-solid fa-gauge"></i> Dashboard Admin
                 </h1>
 
                 <div class="row g-3">

@@ -27,14 +27,15 @@
 
                                 <form action="{{ route('auth.login') }}" method="POST">
                                     @csrf
-
-                                    @if ($errors->any())
+                                    @if (session('error'))
                                         <div class="alert alert-danger">
-                                            Email atau password salah
+                                            {{ session('error')}}
                                         </div>
                                     @endif
+
+
                                     <div class="mb-3">
-                                        <label for="email" class="form-label">Username</label>
+                                        <label for="email" class="form-label">Email</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             <input type="email" class="form-control" id="email"

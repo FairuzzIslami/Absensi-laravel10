@@ -39,8 +39,8 @@
 
             <!-- Tabel Kehadiran -->
             <div class="table-responsive">
-                <table class="table table-bordered table-hover align-middle text-center">
-                    <thead class="p-3 mb-2 bg-primary text-white">
+                <table class="table table-striped table-bordered table-hover table-sm align-middle text-center">
+                    <thead class="bg-primary text-white">
                         <tr>
                             <th>#</th>
                             <th>Nama</th>
