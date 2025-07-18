@@ -6,6 +6,7 @@ use App\Models\Kelas;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserController extends Controller
 {
@@ -89,10 +90,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function edit(string $id) {}
 
     /**
      * Update the specified resource in storage.
@@ -154,5 +152,73 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('user.index')->with('success', 'User berhasil dihapus');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        if ($search) {
+            $users = User::where('username', 'like', '%' . $search . '%')
+                ->orderBy('username', 'asc')
+                ->paginate(5);
+        } else {
+            $users = User::orderBy('username', 'asc')->paginate(5);
+        }
+        $roles = Role::all(); // ambil table role dan kelas  dari user
+        $kelas = Kelas::all();
+        return view('pages.admin.user.index', compact('users', 'search', 'roles', 'kelas'));
+    }
+
+
+    public function exportPdf(Request $request)
+    {
+        $search = $request->input('search');
+
+        $query = User::with(['role', 'kelas']);
+
+        if ($search) {
+            $query->where('username', 'like', "%{$search}%");
+        }
+
+        $users = $query->get(); // Semua data tanpa pagination
+
+        $pdf = Pdf::loadView('pdf.user', compact('users'))
+            ->setPaper('a4', 'landscape'); // Bisa portrait juga
+
+        return $pdf->download('data-user.pdf');
+    }
+    public function exportCsv()
+    {
+        $fileName = 'data-user.csv';
+        $users = \App\Models\User::with('role')->get();
+
+        $headers = [
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        ];
+
+        $columns = ['No', 'Nama', 'Email', 'Role'];
+
+        $callback = function () use ($users, $columns) {
+            $file = fopen('php://output', 'w');
+            // Tulis header kolom
+            fputcsv($file, $columns);
+
+            foreach ($users as $index => $user) {
+                fputcsv($file, [
+                    $index + 1,
+                    $user->username,
+                    $user->email,
+                    ucfirst($user->role->nama_role)
+                ]);
+            }
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 }

@@ -22,10 +22,7 @@ Route::get('/login',[AuthController::class,'index'])->name('login.index');
 Route::post('/login',[AuthController::class,'login'])->name('auth.login');
 Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
-Route::resource('kehadiran', KehadiranController::class)->middleware('auth');
 
-// search
-Route::get('/search',[KehadiranController::class,'search'])->name('search');
 
 // home
 Route::get('/',function(){
@@ -35,6 +32,15 @@ Route::get('/',function(){
 
 // admin Create User
 Route::resource('user', UserController::class)->middleware('auth');
+Route::get('/search/user',[UserController::class,'search'])->name('search');
+
+// export pdf
+Route::get('/users/export/pdf', [UserController::class, 'exportPdf'])->name('users.export.pdf');
+
+// csv
+Route::get('/users/export/csv', [UserController::class, 'exportCsv'])->name('users.export.csv');
+
+
 
 // Admin Home
 Route::get('/dashboard',function(){

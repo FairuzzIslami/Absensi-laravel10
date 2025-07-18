@@ -13,20 +13,23 @@
                     <i class="fa-solid fa-plus"></i> Tambah Data
                 </a>
                 <div class="d-flex gap-2">
-                    <a href="#" class="btn btn-outline-danger">
+                    <a href="{{ route('users.export.pdf', ['search' => request('search')]) }}"
+                        class="btn btn-outline-danger">
                         <i class="bi bi-file-earmark-pdf-fill"></i> PDF
                     </a>
-                    <a href="#" class="btn btn-outline-success">
-                        <i class="bi bi-file-earmark-excel-fill"></i> Excel
+
+                    <a href="{{ route('users.export.csv') }}" class="btn btn-outline-success">
+                        <i class="bi bi-file-earmark-excel-fill"></i> CSV
                     </a>
+
                 </div>
             </div>
 
             <!-- Form Pencarian -->
             <div class="d-flex justify-content-end mb-3">
-                <form class="d-flex" role="search" method="GET" action="#">
+                <form class="d-flex" role="search" method="GET" action="{{ route('search') }}">
                     <input class="form-control me-2" type="search" name="search" placeholder="Cari Nama...."
-                        aria-label="Search">
+                        aria-label="Search" value="{{ request('search') }}">
                     <button class="btn btn-primary" type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
@@ -35,7 +38,7 @@
 
             <!-- Tabel User -->
             <div class="table-responsive shadow-sm rounded">
-                <table class="table table-hover align-middle text-center">
+                <table class="table table-striped table-hover align-middle text-center">
                     <thead class="table-primary">
                         <tr>
                             <th>#</th>
@@ -62,7 +65,7 @@
                                         $roleClass = $roleColors[$user->role->nama_role] ?? 'bg-secondary';
                                     @endphp
 
-                                    <span class="badge {{ $roleClass }}">
+                                    <span class="badge {{ $roleClass }} px-3 py-2">
                                         {{ ucfirst($user->role->nama_role) }}
                                     </span>
                                 </td>
@@ -79,7 +82,7 @@
                                             <span class="badge bg-secondary">Tanpa Keterangan</span>
                                         @endif
                                     @else
-                                        <span class="badge bg-secondary">Belum Ada Data</span>
+                                        <span class="badge bg-secondary px-3 py-2">Belum Ada Data</span>
                                     @endif
                                 </td>
                                 <td>

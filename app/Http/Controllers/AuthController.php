@@ -10,7 +10,7 @@ class AuthController extends Controller
     public function index(){
         // notif sudah login jadi gak usah kemabli lagi
         if (Auth::check()) {
-        return redirect()->route('kehadiran.index')->with('success', 'Anda sudah login');
+        return redirect()->route('user.index')->with('success', 'Anda sudah login');
     }
         return view('pages.auth.login');
     }
