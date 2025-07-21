@@ -7,35 +7,51 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         // notif sudah login jadi gak usah kemabli lagi
         if (Auth::check()) {
-        return redirect()->route('user.index')->with('success', 'Anda sudah login');
-    }
+            return redirect()->route('user.index')->with('success', 'Anda sudah login');
+        }
         return view('pages.auth.login');
     }
 
-    public function login(Request $request){
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ],
-        [
-            'email.required' => 'email wajib di isi',
-            'email.email' => 'email wajib menggunakan @',
-            'password.required' => 'password wajib di isi'
-        ]
+    public function login(Request $request)
+    {
+        $request->validate(
+            [
+                'email' => 'required|email',
+                'password' => 'required'
+            ],
+            [
+                'email.required' => 'email wajib di isi',
+                'email.email' => 'email wajib menggunakan @',
+                'password.required' => 'password wajib di isi'
+            ]
+        );
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $user = Auth::user(); // Ambil user yang login
 
-    );
-        if(Auth::attempt(['email' => $request->email,'password' =>$request->password])){
-            return redirect()->route('admin.index')->with('success','Anda berhasil login');
-        }else{
-            return back()->with('error','Email atau password salah');
-        };
+            // Redirect sesuai role
+            if ($user->role->nama_role === 'admin') {
+                return redirect()->route('admin.index')->with('success', 'Selamat datang, Admin!');
+            } elseif ($user->role->nama_role === 'guru') {
+                return redirect()->route('guru.index')->with('success', 'Selamat datang, Guru!');
+            } elseif ($user->role->nama_role === 'siswa') {
+                return redirect()->route('siswa.index')->with('success', 'Selamat datang, Siswa!');
+            }
+
+            // Jika role tidak dikenal
+            Auth::logout();
+            return back()->with('error', 'Role tidak valid.');
+        } else {
+            return back()->with('error', 'Email atau password salah');
+        }
     }
 
-    public function logout(){
-         Auth::logout();
+    public function logout()
+    {
+        Auth::logout();
         return redirect()->route('login.index')->with('success', 'Anda berhasil logout');
     }
 }

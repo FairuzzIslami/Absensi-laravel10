@@ -19,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+
+// home
+Route::get('/',function(){
+    return view('pages.index');
+});
 // login
 Route::get('/login',[AuthController::class,'index'])->name('login.index');
 Route::post('/login',[AuthController::class,'login'])->name('auth.login');
@@ -26,26 +31,18 @@ Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
 
 
-// home
-Route::get('/',function(){
-    return view('pages.index');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    // Dashboard admin
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.index');
+
+    // CRUD User
+    Route::resource('user', UserController::class);
+    Route::get('/search/user', [UserController::class, 'search'])->name('search');
+
+    // Export data
+    Route::get('/users/export/pdf', [UserController::class, 'exportPdf'])->name('users.export.pdf');
+    Route::get('/users/export/csv', [UserController::class, 'exportCsv'])->name('users.export.csv');
+
+    // CRUD Kelas
+    Route::resource('/kelas', KelasContoller::class);
 });
-
-
-// admin Create User
-Route::resource('user', UserController::class)->middleware('auth');
-Route::get('/search/user',[UserController::class,'search'])->name('search');
-
-// export pdf
-Route::get('/users/export/pdf', [UserController::class, 'exportPdf'])->name('users.export.pdf');
-
-// csv
-Route::get('/users/export/csv', [UserController::class, 'exportCsv'])->name('users.export.csv');
-
-
-
-// Admin Home
-Route::get('/dashboard',[DashboardController::class,'index'])->name('admin.index')->middleware('auth');
-
-// admin kelas
-Route::resource('/kelas',KelasContoller::class)->middleware('auth');
