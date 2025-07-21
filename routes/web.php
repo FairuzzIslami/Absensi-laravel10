@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KehadiranController;
+use App\Http\Controllers\KelasContoller;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +45,7 @@ Route::get('/users/export/csv', [UserController::class, 'exportCsv'])->name('use
 
 
 // Admin Home
-Route::get('/dashboard',function(){
-    return view('pages.admin.dashboardAdmin');
-})->name('admin.index');
+Route::get('/dashboard',[DashboardController::class,'index'])->name('admin.index')->middleware('auth');
+
+// admin kelas
+Route::resource('/kelas',KelasContoller::class)->middleware('auth');

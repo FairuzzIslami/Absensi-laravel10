@@ -10,7 +10,7 @@
         <hr class="border-light opacity-25 mx-3" />
 
         <!-- Menu Dashboard -->
-        <a href="{{ route('admin.index') }}" class="sidebar-link">
+        <a href="{{route('admin.index')}}" class="sidebar-link">
             <i class="fas fa-tachometer-alt me-2"></i> Dashboard
         </a>
 
@@ -27,7 +27,7 @@
 
         <!-- Menu Rekap -->
         <div class="text-white-50 text-uppercase mt-3 mb-2 px-3 small">Manajemen Data</div>
-        <a href="#" class="sidebar-link">
+        <a href="{{route('kelas.index')}}" class="sidebar-link">
             <i class="fas fa-school me-2"></i> Buat Kelas
         </a>
     </div>

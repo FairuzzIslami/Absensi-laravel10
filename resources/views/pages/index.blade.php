@@ -22,7 +22,7 @@
     </nav>
 
     <!-- Hero section -->
-    <section class="hero" id="hero">
+    <section class="hero" id="hero" data-aos="fade-up" data-aos-duration="1000">
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
@@ -46,12 +46,12 @@
             <div class="row align-items-center g-5">
 
                 <!-- Gambar -->
-                <div class="col-lg-6 text-center">
+                <div class="col-lg-6 text-center" data-aos="fade-up"  data-aos-duration="1000">
                     <img src="{{ asset('asset/image/homePage.png') }}" alt="Tentang Kami" class="img-fluid animation">
                 </div>
 
                 <!-- Konten -->
-                <div class="col-lg-6">
+                <div class="col-lg-6" data-aos="fade-up-left"  data-aos-duration="1000">
                     <h2 class="fw-bold mb-3 text-primary">Tentang Aplikasi</h2>
                     <p class="lead text-muted">
                         <strong class="app-title">E-ABSENSI</strong> hadir untuk menjawab kebutuhan sekolah di era digital.
@@ -76,7 +76,7 @@
 
     <!-- manfaat section -->
     <section id="manfaat" class="py-5 bg-light">
-        <div class="container">
+        <div class="container"  data-aos="fade-down-left" data-aos-duration="1000">
             <h2 class="text-center fw-bold text-primary mb-5">Manfaat Dari Aplikasi <span class="highlight">E-ABSENSI</span>
             </h2>
 
@@ -184,7 +184,7 @@
                 <p class="text-muted">Kami siap membantu Anda. Hubungi kami atau kunjungi lokasi kami.</p>
             </div>
 
-            <div class="row g-4 align-items-center">
+            <div class="row g-4 align-items-center" data-aos="fade-up-right" data-aos-duration="1000">
                 <!-- Info Kontak -->
                 <div class="col-lg-5">
                     <div class="p-4 bg-white shadow rounded">
@@ -222,7 +222,7 @@
                 </div>
 
                 <!-- Peta -->
-                <div class="col-lg-7">
+                <div class="col-lg-7" data-aos="fade-up-left" data-aos-duration="1000">
                     <div class="ratio ratio-16x9 shadow rounded overflow-hidden">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.4065668674734!2d110.59646000000001!3d-7.5305572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a6eb6fddaa7bb%3A0x94f51cc0049817d8!2sSMK%20Muhammadiyah%204%20Boyolali!5e0!3m2!1sid!2sid!4v1752721886853!5m2!1sid!2sid"

@@ -28,11 +28,12 @@ class AuthController extends Controller
 
     );
         if(Auth::attempt(['email' => $request->email,'password' =>$request->password])){
-            return redirect()->route('user.index')->with('success','Anda berhasil login');
+            return redirect()->route('admin.index')->with('success','Anda berhasil login');
         }else{
             return back()->with('error','Email atau password salah');
         };
     }
+
     public function logout(){
          Auth::logout();
         return redirect()->route('login.index')->with('success', 'Anda berhasil logout');

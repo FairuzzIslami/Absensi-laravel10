@@ -200,3 +200,7 @@ footer {
     color: #fff;
     border: none;
 }
+
+.text-uppercase {
+    text-transform: uppercase;
+}

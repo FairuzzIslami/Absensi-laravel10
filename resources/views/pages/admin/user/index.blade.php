@@ -27,13 +27,14 @@
 
             <!-- Form Pencarian -->
             <div class="d-flex justify-content-end mb-3">
-                <form class="d-flex" role="search" method="GET" action="{{ route('search') }}">
+                <form class="d-flex" role="search" method="GET" action="{{ route('user.index') }}">
                     <input class="form-control me-2" type="search" name="search" placeholder="Cari Nama...."
                         aria-label="Search" value="{{ request('search') }}">
                     <button class="btn btn-primary" type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                 </form>
+
             </div>
 
             <!-- Tabel User -->

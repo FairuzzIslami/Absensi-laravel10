@@ -13,16 +13,21 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil data user + role + kelas
-        $users = User::with(['role', 'kelas'])->paginate(5);
+        $search = $request->input('search');
 
-        // Ambil semua role & kelas untuk dropdown modal edit
+        $users = User::with(['role', 'kelas'])
+            ->when($search, function ($query, $search) {
+                $query->where('username', 'like', '%' . $search . '%');
+            })
+            ->orderBy('username', 'asc')
+            ->paginate(5);
+
         $roles = Role::all();
         $kelas = Kelas::all();
 
-        return view('pages.admin.user.index', compact('users', 'roles', 'kelas'));
+        return view('pages.admin.user.index', compact('users', 'roles', 'kelas', 'search'));
     }
 
     /**
@@ -183,7 +188,7 @@ class UserController extends Controller
 
         $users = $query->get(); // Semua data tanpa pagination
 
-        $pdf = Pdf::loadView('pdf.user', compact('users'))
+        $pdf = Pdf::loadView('pages.admin.user.pdf', compact('users'))
             ->setPaper('a4', 'landscape'); // Bisa portrait juga
 
         return $pdf->download('data-user.pdf');

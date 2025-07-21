@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ env('APP_NAME') }}</title>
+    <link rel="shortcut icon" href="{{asset('asset/image/logoSmk-removebg-preview.png')}}" type="image/x-icon">
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -20,6 +21,9 @@
 
     {{-- icon link --}}
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+    {{-- aos init --}}
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body>
@@ -42,6 +46,12 @@
     {{-- boostrap --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('asset/js/main.js') }}"></script>
+
+    {{-- Aos init --}}
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 
     {{-- sweet alert --}}
     @include('sweetalert::alert')
