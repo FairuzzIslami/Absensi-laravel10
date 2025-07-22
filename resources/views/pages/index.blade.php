@@ -4,7 +4,7 @@
     <!-- navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#hero">E-Absensi</a>
+            <a class="navbar-brand fw-bold " href="#hero">E-Absensi</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -14,8 +14,9 @@
                     <li class="nav-item"><a class="nav-link" href="#tentang">Tentang Kami</a></li>
                     <li class="nav-item"><a class="nav-link" href="#manfaat">Manfaat</a></li>
                     <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
-                    <li class="nav-item"><a class="btn btn-blue ms-lg-3 mt-2 mt-lg-0"
-                            href="{{ route('login.index') }}">Login</a></li>
+                    <li class="nav-item">
+                       <a href="{{route('login.index')}}" class="btn btn-primary">Login</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -44,129 +45,156 @@
     <section id="tentang" class="py-5 bg-white">
         <div class="container">
             <div class="row align-items-center g-5">
-
                 <!-- Gambar -->
-                <div class="col-lg-6 text-center" data-aos="fade-up"  data-aos-duration="1000">
-                    <img src="{{ asset('asset/image/homePage.png') }}" alt="Tentang Kami" class="img-fluid animation">
+                <div class="col-lg-6 text-center" data-aos="fade-up" data-aos-duration="1000">
+                    <img src="{{ asset('asset/image/homePage.png') }}" alt="Tentang Kami"
+                        class="img-fluid rounded animation">
                 </div>
 
                 <!-- Konten -->
-                <div class="col-lg-6" data-aos="fade-up-left"  data-aos-duration="1000">
-                    <h2 class="fw-bold mb-3 text-primary">Tentang Aplikasi</h2>
+                <div class="col-lg-6" data-aos="fade-up-left" data-aos-duration="1000">
+                    <h2 class="fw-bold mb-3 text-primary">
+                        Tentang Kami
+                    </h2>
                     <p class="lead text-muted">
-                        <strong class="app-title">E-ABSENSI</strong> hadir untuk menjawab kebutuhan sekolah di era digital.
-                        Aplikasi ini memudahkan proses pencatatan kehadiran secara <span class="highlight">praktis</span>
-                        dan <span class="highlight">efisien</span>.
+                        <strong class="app-title text-dark">E-ABSENSI</strong> adalah solusi modern untuk mencatat
+                        kehadiran di era digital. Aplikasi ini dirancang agar proses absensi menjadi
+                        <span class="fw-bold text-dark">lebih praktis</span> dan
+                        <span class="fw-bold text-dark">lebih efisien</span>.
                     </p>
-                    <p class="text-muted">
+                    <p class="text-muted mb-4">
                         Dengan tampilan modern dan sistem yang terintegrasi, guru, siswa, dan admin dapat mengakses data
-                        absensi <strong>kapan saja</strong>, <strong>di mana saja</strong>.
+                        kehadiran <span class="fw-semibold">kapan saja</span> dan <span class="fw-semibold">di mana
+                            saja</span>
+                        tanpa hambatan.
                     </p>
 
-                    <ul class="list-unstyled feature-list">
-                        <li><i class="bi bi-pencil-square text-primary"></i> Pencatatan lebih akurat dan real-time</li>
-                        <li><i class="bi bi-globe text-success"></i> Bisa diakses dari berbagai perangkat</li>
-                        <li><i class="bi bi-bar-chart-line text-warning"></i> Laporan absensi otomatis & efisien</li>
-                    </ul>
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6 d-flex align-items-start">
+                            <i class="bi bi-pencil-square text-primary fs-3 me-3"></i>
+                            <span>Pencatatan lebih akurat dan real-time</span>
+                        </div>
+                        <div class="col-12 col-md-6 d-flex align-items-start">
+                            <i class="bi bi-globe text-success fs-3 me-3"></i>
+                            <span>Bisa diakses dari berbagai perangkat</span>
+                        </div>
+                        <div class="col-12 col-md-6 d-flex align-items-start">
+                            <i class="bi bi-bar-chart-line text-warning fs-3 me-3"></i>
+                            <span>Laporan absensi otomatis & efisien</span>
+                        </div>
+                        <div class="col-12 col-md-6 d-flex align-items-start">
+                            <i class="bi bi-shield-lock text-danger fs-3 me-3"></i>
+                            <span>Data absensi lebih aman</span>
+                        </div>
+                    </div>
+
+                    <a href="#manfaat" class="btn btn-primary mt-4 px-4">
+                        Pelajari Lebih Lanjut <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
+
 
 
     <!-- manfaat section -->
-    <section id="manfaat" class="py-5 bg-light">
-        <div class="container"  data-aos="fade-down-left" data-aos-duration="1000">
-            <h2 class="text-center fw-bold text-primary mb-5">Manfaat Dari Aplikasi <span class="highlight">E-ABSENSI</span>
+    <section id="manfaat" class="py-5" style="background: linear-gradient(135deg, #f8f9fa, #eef5ff);">
+        <div class="container" data-aos="fade-up" data-aos-duration="1000">
+            <h2 class="text-center fw-bold text-primary mb-4">
+                Manfaat <span class="text-dark">E-ABSENSI</span>
             </h2>
+            <p class="text-center text-muted mb-5">
+                E-ABSENSI memberikan kemudahan bagi semua pihak. Berikut manfaat yang bisa dirasakan:
+            </p>
 
             <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm border-0 manfaat-card">
-                        <div class="card-body text-center">
-                            <div class="icon-box bg-primary text-white mb-3">
-                                <i class="bi bi-person-badge"></i>
-                            </div>
-                            <h5 class="card-title fw-bold">Untuk Guru</h5>
-                            <ul class="list-unstyled mt-3 text-muted text-start">
-                                <li>✅ Mencatat kehadiran lebih cepat</li>
-                                <li>✅ Memantau siswa absen langsung</li>
-                                <li>✅ Akses laporan setiap saat</li>
-                                <li>✅ Penghematan waktu</li>
-                            </ul>
+                <!-- Untuk Guru -->
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card h-100 shadow border-0 manfaat-card text-center p-3 hover-card">
+                        <div class="icon-box mx-auto bg-primary text-white mb-3 rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 70px; height: 70px;">
+                            <i class="bi bi-person-badge fs-2"></i>
                         </div>
+                        <h5 class="fw-bold">Untuk Guru</h5>
+                        <p class="text-muted small">Mempermudah pengelolaan absensi harian siswa.</p>
+                        <ul class="list-unstyled text-muted text-start mt-3">
+                            <li>✅ Mencatat kehadiran lebih cepat</li>
+                            <li>✅ Memantau siswa absen langsung</li>
+                            <li>✅ Akses laporan setiap saat</li>
+                            <li>✅ Penghematan waktu</li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm border-0 manfaat-card">
-                        <div class="card-body text-center">
-                            <div class="icon-box bg-success text-white mb-3">
-                                <i class="bi bi-mortarboard"></i>
-                            </div>
-                            <h5 class="card-title fw-bold">Untuk Siswa</h5>
-                            <ul class="list-unstyled mt-3 text-muted text-start">
-                                <li>✅ Tahu kehadiran sendiri</li>
-                                <li>✅ Tidak bisa titip absen</li>
-                                <li>✅ Bisa cek riwayat kehadiran</li>
-                                <li>✅ Mudah saat daring/luring</li>
-                                <li>✅ Lebih transparan</li>
-                            </ul>
+                <!-- Untuk Siswa -->
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card h-100 shadow border-0 manfaat-card text-center p-3 hover-card">
+                        <div class="icon-box mx-auto bg-success text-white mb-3 rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 70px; height: 70px;">
+                            <i class="bi bi-mortarboard fs-2"></i>
                         </div>
+                        <h5 class="fw-bold">Untuk Siswa</h5>
+                        <p class="text-muted small">Transparansi kehadiran lebih jelas.</p>
+                        <ul class="list-unstyled text-muted text-start mt-3">
+                            <li>✅ Tahu kehadiran sendiri</li>
+                            <li>✅ Tidak bisa titip absen</li>
+                            <li>✅ Bisa cek riwayat kehadiran</li>
+                            <li>✅ Mudah saat daring/luring</li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm border-0 manfaat-card">
-                        <div class="card-body text-center">
-                            <div class="icon-box bg-warning text-white mb-3">
-                                <i class="bi bi-building"></i>
-                            </div>
-                            <h5 class="card-title fw-bold">Untuk Sekolah</h5>
-                            <ul class="list-unstyled mt-3 text-muted text-start">
-                                <li>✅ Data terpusat & aman</li>
-                                <li>✅ Meningkatkan kedisiplinan</li>
-                                <li>✅ Monitoring realtime</li>
-                                <li>✅ Modernisasi sistem</li>
-                            </ul>
+                <!-- Untuk Sekolah -->
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card h-100 shadow border-0 manfaat-card text-center p-3 hover-card">
+                        <div class="icon-box mx-auto bg-warning text-white mb-3 rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 70px; height: 70px;">
+                            <i class="bi bi-building fs-2"></i>
                         </div>
+                        <h5 class="fw-bold">Untuk Sekolah</h5>
+                        <p class="text-muted small">Data terpusat untuk administrasi yang lebih baik.</p>
+                        <ul class="list-unstyled text-muted text-start mt-3">
+                            <li>✅ Data terpusat & aman</li>
+                            <li>✅ Meningkatkan kedisiplinan</li>
+                            <li>✅ Monitoring realtime</li>
+                            <li>✅ Modernisasi sistem</li>
+                        </ul>
                     </div>
                 </div>
             </div>
 
+            <!-- Untuk Orang Tua & Admin -->
             <div class="row justify-content-center g-4 mt-3">
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm border-0 manfaat-card">
-                        <div class="card-body text-center">
-                            <div class="icon-box bg-info text-white mb-3">
-                                <i class="bi bi-people"></i>
-                            </div>
-                            <h5 class="card-title fw-bold">Untuk Orang Tua</h5>
-                            <ul class="list-unstyled mt-3 text-muted text-start">
-                                <li>✅ Memantau kehadiran anak</li>
-                                <li>✅ Dapat notifikasi langsung</li>
-                                <li>✅ Bisa diakses dari rumah</li>
-                                <li>✅ Menumbuhkan disiplin</li>
-                            </ul>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card h-100 shadow border-0 manfaat-card text-center p-3 hover-card">
+                        <div class="icon-box mx-auto bg-info text-white mb-3 rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 70px; height: 70px;">
+                            <i class="bi bi-people fs-2"></i>
                         </div>
+                        <h5 class="fw-bold">Untuk Orang Tua</h5>
+                        <p class="text-muted small">Pantau kehadiran anak dengan mudah.</p>
+                        <ul class="list-unstyled text-muted text-start mt-3">
+                            <li>✅ Memantau kehadiran anak</li>
+                            <li>✅ Dapat notifikasi langsung</li>
+                            <li>✅ Bisa diakses dari rumah</li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm border-0 manfaat-card">
-                        <div class="card-body text-center">
-                            <div class="icon-box bg-danger text-white mb-3">
-                                <i class="bi bi-shield-lock"></i>
-                            </div>
-                            <h5 class="card-title fw-bold">Untuk Admin</h5>
-                            <ul class="list-unstyled mt-3 text-muted text-start">
-                                <li>✅ Kelola semua akun</li>
-                                <li>✅ Jadwal & data kelas rapi</li>
-                                <li>✅ Backup otomatis</li>
-                                <li>✅ Sistem terkontrol</li>
-                                <li>✅ Kendali penuh</li>
-                            </ul>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card h-100 shadow border-0 manfaat-card text-center p-3 hover-card">
+                        <div class="icon-box mx-auto bg-danger text-white mb-3 rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 70px; height: 70px;">
+                            <i class="bi bi-shield-lock fs-2"></i>
                         </div>
+                        <h5 class="fw-bold">Untuk Admin</h5>
+                        <p class="text-muted small">Kendali penuh terhadap sistem absensi.</p>
+                        <ul class="list-unstyled text-muted text-start mt-3">
+                            <li>✅ Kelola semua akun</li>
+                            <li>✅ Jadwal & data kelas rapi</li>
+                            <li>✅ Backup otomatis</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -174,60 +202,66 @@
     </section>
 
 
+
     <!-- kontak section -->
-    <section id="kontak" class="py-5 bg-light">
+    <section id="kontak" class="py-5" style="background: linear-gradient(135deg, #f8f9fa, #eef5ff);">
         <div class="container">
             <!-- Judul -->
             <div class="text-center mb-5">
                 <h6 class="fw-semibold text-primary">Kontak Kami</h6>
-                <h2 class="fw-bold text-dark">Temukan Kami di Bawah</h2>
-                <p class="text-muted">Kami siap membantu Anda. Hubungi kami atau kunjungi lokasi kami.</p>
+                <h2 class="fw-bold text-dark position-relative d-inline-block">
+                    Temukan Kami
+                    <span class="d-block mx-auto mt-2" style="width: 50px; height: 3px; background: #007bff;"></span>
+                </h2>
+                <p class="text-muted mt-2">Kami siap membantu Anda. Hubungi kami atau kunjungi lokasi kami.</p>
             </div>
 
-            <div class="row g-4 align-items-center" data-aos="fade-up-right" data-aos-duration="1000">
+            <div class="row g-4 align-items-start" data-aos="fade-up" data-aos-duration="1000">
                 <!-- Info Kontak -->
                 <div class="col-lg-5">
-                    <div class="p-4 bg-white shadow rounded">
+                    <div class="p-4 bg-white shadow rounded h-100">
                         <ul class="list-unstyled fs-6 mb-0">
                             <li class="mb-4 d-flex align-items-center">
-                                <i class="fa-solid fa-location-dot text-primary fs-4 me-3"></i>
+                                <i class="fa-solid fa-location-dot contact-icon"></i>
                                 <div>
                                     <strong class="d-block">Location:</strong>
                                     Boyolali, Jawa Tengah
                                 </div>
                             </li>
                             <li class="mb-4 d-flex align-items-center">
-                                <i class="fa-solid fa-phone text-primary fs-4 me-3"></i>
+                                <i class="fa-solid fa-phone contact-icon"></i>
                                 <div>
                                     <strong class="d-block">Phone:</strong>
                                     +62 822 2010 2177
                                 </div>
                             </li>
                             <li class="mb-4 d-flex align-items-center">
-                                <i class="fa-solid fa-envelope text-primary fs-4 me-3"></i>
+                                <i class="fa-solid fa-envelope contact-icon"></i>
                                 <div>
                                     <strong class="d-block">Email:</strong>
                                     admin@eabsensi.id
                                 </div>
                             </li>
                             <li class="d-flex align-items-center">
-                                <i class="fa-brands fa-instagram text-primary fs-4 me-3"></i>
+                                <i class="fa-brands fa-instagram contact-icon"></i>
                                 <div>
                                     <strong class="d-block">Instagram:</strong>
                                     @eabsensi.id
                                 </div>
                             </li>
                         </ul>
+                        <a href="https://wa.me/6285728826546" class="btn btn-success w-100 mt-3" target="_blank">
+                            <i class="bi bi-whatsapp"></i> Hubungi via WhatsApp
+                        </a>
                     </div>
                 </div>
 
-                <!-- Peta -->
-                <div class="col-lg-7" data-aos="fade-up-left" data-aos-duration="1000">
-                    <div class="ratio ratio-16x9 shadow rounded overflow-hidden">
+                <!-- Peta + Form -->
+                <div class="col-lg-7">
+                    <div class="ratio ratio-16x9 shadow rounded overflow-hidden mb-3">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.4065668674734!2d110.59646000000001!3d-7.5305572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a6eb6fddaa7bb%3A0x94f51cc0049817d8!2sSMK%20Muhammadiyah%204%20Boyolali!5e0!3m2!1sid!2sid!4v1752721886853!5m2!1sid!2sid"
-                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            style="border:0; filter: grayscale(20%);" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </div>
             </div>
@@ -241,4 +275,10 @@
             © 2025 Fairuz Aqila Islami. All rights reserved.
         </div>
     </footer>
+
+    <!-- Tombol Scroll to Top -->
+    <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="btn btn-primary rounded-circle position-fixed"
+        style="bottom:20px; right:20px;">
+        <i class="bi bi-arrow-up"></i>
+    </button>
 @endsection

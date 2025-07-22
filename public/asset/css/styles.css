@@ -182,6 +182,17 @@ footer {
     background-color: #4e73df;
     color: #fff;
 }
+.contact-icon {
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-right: 12px;
+    transition: transform 0.3s, color 0.3s;
+}
+.contact-icon:hover {
+    transform: scale(1.2);
+    color: #0056b3;
+}
+
 /* pagination */
 .pagination .page-link {
     color: #0d6efd;
@@ -204,3 +215,11 @@ footer {
 .text-uppercase {
     text-transform: uppercase;
 }
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+

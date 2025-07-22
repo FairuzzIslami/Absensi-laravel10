@@ -9,10 +9,26 @@ class AuthController extends Controller
 {
     public function index()
     {
-        // notif sudah login jadi gak usah kemabli lagi
+        // Jika user sudah login, arahkan sesuai role
         if (Auth::check()) {
-            return redirect()->route('user.index')->with('success', 'Anda sudah login');
+            $role = strtolower(auth()->user()->role->nama_role);
+            if ($role === 'admin') {
+                return redirect()->route('admin.index')
+                    ->with('success', 'Anda sudah login sebagai Admin');
+            } elseif ($role === 'guru') {
+                return redirect()->route('guru.index')
+                    ->with('success', 'Anda sudah login sebagai Guru');
+            } elseif ($role === 'siswa') {
+                return redirect()->route('siswa.index')
+                    ->with('success', 'Anda sudah login sebagai Siswa');
+            } else {
+                return redirect()->route('login.index')
+                    ->with('error', 'Role tidak dikenali. Hubungi admin.');
+            }   
         }
+
+
+
         return view('pages.auth.login');
     }
 
