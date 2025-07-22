@@ -1,6 +1,22 @@
 @extends('layout.layout')
 
 @section('content')
+    <style>
+        * {
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+
+        .container,
+        .row {
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+            overflow-x: hidden;
+        }
+    </style>
+    
     <!-- navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
         <div class="container">
@@ -15,7 +31,7 @@
                     <li class="nav-item"><a class="nav-link" href="#manfaat">Manfaat</a></li>
                     <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
                     <li class="nav-item">
-                       <a href="{{route('login.index')}}" class="btn btn-primary">Login</a>
+                        <a href="{{ route('login.index') }}" class="btn btn-primary">Login</a>
                     </li>
                 </ul>
             </div>
@@ -44,7 +60,7 @@
     <!-- tentang section -->
     <section id="tentang" class="py-5 bg-white">
         <div class="container">
-            <div class="row align-items-center g-5">
+            <div class="row align-items-center g-5" style="overflow-y: hidden">
                 <!-- Gambar -->
                 <div class="col-lg-6 text-center" data-aos="fade-up" data-aos-duration="1000">
                     <img src="{{ asset('asset/image/homePage.png') }}" alt="Tentang Kami"
@@ -205,7 +221,7 @@
 
     <!-- kontak section -->
     <section id="kontak" class="py-5" style="background: linear-gradient(135deg, #f8f9fa, #eef5ff);">
-        <div class="container">
+        <div class="container" style="overflow-y: hidden">
             <!-- Judul -->
             <div class="text-center mb-5">
                 <h6 class="fw-semibold text-primary">Kontak Kami</h6>
