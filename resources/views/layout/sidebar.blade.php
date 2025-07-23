@@ -10,7 +10,7 @@
         <hr class="border-light opacity-25 mx-3" />
 
         <!-- Menu Dashboard -->
-        @if(auth()->user()->role->nama_role === 'admin')
+        @if (auth()->user()->role->nama_role === 'admin')
             <a href="{{ route('admin.index') }}" class="sidebar-link">
                 <i class="fas fa-tachometer-alt me-2"></i> Dashboard
             </a>
@@ -20,9 +20,10 @@
             <a href="{{ route('user.index') }}" class="sidebar-link">
                 <i class="fas fa-users me-2"></i> Data User
             </a>
-            <a href="#" class="sidebar-link">
+            <a href="{{ route('admin.kehadiran.index') }}" class="sidebar-link">
                 <i class="fas fa-clipboard-check me-2"></i> Data Kehadiran
             </a>
+
 
             <hr class="border-light opacity-25 mx-3" />
 
@@ -44,7 +45,7 @@
                 <i class="fas fa-user-check me-2"></i> Absensi Saya
             </a>
             <a href="{{ route('guru.riwayat') }}" class="sidebar-link">
-                 <i class="fa-solid fa-clock-rotate-left me-2"></i> Riwayat Absensi
+                <i class="fa-solid fa-clock-rotate-left me-2"></i> Riwayat Absensi
             </a>
         @endif
     </div>

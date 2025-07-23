@@ -16,7 +16,7 @@
             overflow-x: hidden;
         }
     </style>
-    
+
     <!-- navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
         <div class="container">
@@ -30,7 +30,7 @@
                     <li class="nav-item"><a class="nav-link" href="#tentang">Tentang Kami</a></li>
                     <li class="nav-item"><a class="nav-link" href="#manfaat">Manfaat</a></li>
                     <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
-                    <li class="nav-item">
+                    <li class="nav-item me-2">
                         <a href="{{ route('login.index') }}" class="btn btn-primary">Login</a>
                     </li>
                 </ul>
@@ -293,8 +293,8 @@
     </footer>
 
     <!-- Tombol Scroll to Top -->
-    <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="btn btn-primary rounded-circle position-fixed"
-        style="bottom:20px; right:20px;">
+    <button onclick="window.scrollTo({top:0, behavior:'smooth'})"
+        style="bottom:20px; right:20px;" class="btn btn-primary rounded-circle position-fixed">
         <i class="bi bi-arrow-up"></i>
     </button>
 @endsection

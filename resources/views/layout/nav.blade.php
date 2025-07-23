@@ -21,20 +21,23 @@
                         <small class="text-muted">{{ Auth::user()->email }}</small>
                     </li>
                     <li>
-                        <a class="dropdown-item d-flex align-items-center gap-2" href="#">
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('profile') }}">
                             <i class="bi bi-person-lines-fill text-primary"></i> Profil
                         </a>
                     </li>
-                    <li>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="button" onclick="confirmLogout()" class="dropdown-item">
-                                <i class="fa-solid fa-sign-out-alt me-1"></i> Logout
-                            </button>
-                        </form>
-                    </li>
-                </ul>
+
             </li>
+            <li>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="button" onclick="confirmLogout()" class="dropdown-item">
+                        <i class="fa-solid fa-sign-out-alt me-1"></i> Logout
+                    </button>
+                </form>
+            </li>
+        </ul>
+        </li>
         </ul>
 
     </div>

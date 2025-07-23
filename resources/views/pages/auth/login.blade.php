@@ -29,7 +29,7 @@
                                     @csrf
                                     @if (session('error'))
                                         <div class="alert alert-danger">
-                                            {{ session('error')}}
+                                            {{ session('error') }}
                                         </div>
                                     @endif
 
@@ -48,20 +48,19 @@
                                         @enderror
                                     </div>
 
-                                    <div class="mb-4">
+                                    <!-- Password -->
+                                    <div class="mb-3">
                                         <label for="password" class="form-label">Password</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                             <input type="password" class="form-control" id="password"
-                                                placeholder="Password user" name="password">
-                                            <span class="input-group-text bg-light">
-                                                <i class="fas fa-eye toggle-password" style="cursor: pointer;"></i>
+                                                placeholder="Masukkan password" name="password" required>
+                                            <span class="input-group-text toggle-password">
+                                                <i class="fa fa-eye"></i>
                                             </span>
                                         </div>
                                         @error('password')
-                                            <div class="text-danger small">
-                                                {{ $message }}
-                                            </div>
+                                            <div class="text-danger small">{{ $message }}</div>
                                         @enderror
                                     </div>
 

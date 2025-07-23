@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\KelasContoller;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,10 +26,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('pages.index');
 });
+
 // login
 Route::get('/login', [AuthController::class, 'index'])->name('login.index');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Profile
+Route::get('/profil', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
+Route::get('/profil/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
+Route::post('/profil/update', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
+
+Route::get('/profil/password', [ProfileController::class, 'passwordForm'])->name('password.change')->middleware('auth');
+Route::post('/profil/password', [ProfileController::class, 'updatePassword'])->name('password.update')->middleware('auth');
 
 
 // Admin
@@ -46,6 +56,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // CRUD Kelas
     Route::resource('/kelas', KelasContoller::class);
+
+    Route::get('/admin/kehadiran', [KehadiranController::class, 'index'])->name('admin.kehadiran.index');
 });
 
 
@@ -64,4 +76,8 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
 
     // Riwayat
     Route::get('/guru/riwayat', [GuruController::class, 'riwayat'])->name('guru.riwayat');
+
+    // Export PDF & CSV
+    Route::get('/guru/kelas/{id}/export/pdf', [GuruController::class, 'exportPdf'])->name('guru.kelas.export.pdf');
+    Route::get('/guru/kelas/{id}/export/csv', [GuruController::class, 'exportCsv'])->name('guru.kelas.export.csv');
 });

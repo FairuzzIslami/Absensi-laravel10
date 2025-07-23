@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\kehadiran;
 use App\Models\Kelas;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class GuruController extends Controller
@@ -98,5 +99,67 @@ class GuruController extends Controller
             ->paginate(10);
 
         return view('pages.guru.riwayat', compact('riwayat'));
+    }
+    public function exportPdf(Request $request, $id)
+    {
+        $search = $request->input('search');
+        $kelas = Kelas::findOrFail($id);
+
+        $query = $kelas->users()->with('kehadiran');
+        if ($search) {
+            $query->where('username', 'like', "%{$search}%");
+        }
+        $siswa = $query->get();
+
+        $pdf = Pdf::loadView('pages.guru.kelas.pdf', compact('kelas', 'siswa'))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download('detail-siswa-kelas-' . $kelas->kelas . '.pdf');
+    }
+    public function exportCsv(Request $request, $id)
+    {
+        $search = $request->input('search');
+        $kelas = Kelas::findOrFail($id);
+
+        $query = $kelas->users()->with('kehadiran');
+        if ($search) {
+            $query->where('username', 'like', "%{$search}%");
+        }
+        $siswa = $query->get();
+
+        $filename = 'detail-siswa-kelas-' . $kelas->kelas . '.csv';
+
+        $headers = [
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$filename",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        ];
+
+        $columns = ['No', 'Nama Siswa', 'Email', 'Absensi Hari Ini'];
+
+        $callback = function () use ($siswa, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($siswa as $index => $s) {
+                $absenHariIni = $s->kehadiran
+                    ->where('tanggal_kehadiran', date('Y-m-d'))
+                    ->first();
+                $status = $absenHariIni->status ?? 'Belum Ada';
+
+                fputcsv($file, [
+                    $index + 1,
+                    $s->username,
+                    $s->email,
+                    $status
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 }

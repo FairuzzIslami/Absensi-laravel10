@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Laporan Data User</title>
@@ -8,43 +9,89 @@
             font-family: DejaVu Sans, sans-serif;
             font-size: 12px;
             color: #333;
+            margin: 0;
+            padding: 0;
         }
-        h2 {
+
+        h1 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            color: #2c3e50;
         }
+
+        h3.sub-header {
+            text-align: center;
+            font-size: 11px;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #000;
             padding: 6px 8px;
             text-align: center;
         }
+
         th {
-            background-color: #e8f0fe;
+            background-color: #2c3e50;
+            color: white;
             font-weight: bold;
+            font-size: 12px;
         }
+
         td.text-start {
             text-align: left;
         }
+
         .badge {
             padding: 3px 6px;
             border-radius: 4px;
             font-size: 11px;
             color: #fff;
+            display: inline-block;
         }
-        .bg-danger { background: #dc3545; }
-        .bg-primary { background: #0d6efd; }
-        .bg-success { background: #198754; }
-        .bg-secondary { background: #6c757d; }
-        .bg-warning { background: #ffc107; color: #000; }
+
+        .bg-danger {
+            background: #dc3545;
+        }
+
+        .bg-primary {
+            background: #0d6efd;
+        }
+
+        .bg-success {
+            background: #198754;
+        }
+
+        .bg-secondary {
+            background: #6c757d;
+        }
+
+        .bg-warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 11px;
+            text-align: right;
+            color: #777;
+        }
     </style>
 </head>
+
 <body>
-    <h2>Laporan Data User</h2>
+    <h1>Laporan Data User</h1>
+    <h3 class="sub-header">Dicetak pada {{ \Carbon\Carbon::now()->translatedFormat('d F Y H:i') }}</h3>
     <table>
         <thead>
             <tr>
@@ -56,7 +103,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($users as $index => $user)
+            @foreach ($users as $index => $user)
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td class="text-start">{{ $user->username }}</td>
@@ -94,5 +141,7 @@
             @endforeach
         </tbody>
     </table>
+    <p class="footer">© {{ date('Y') }} Sistem E-Absensi Sekolah</p>
 </body>
+
 </html>

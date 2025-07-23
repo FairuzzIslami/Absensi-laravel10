@@ -5,18 +5,21 @@ document.addEventListener("DOMContentLoaded", function () {
     toggleIcons.forEach(icon => {
         icon.addEventListener('click', function () {
             const input = this.closest('.input-group').querySelector('input');
+            const eyeIcon = this.querySelector('i');
+
             if (input.type === 'password') {
                 input.type = 'text';
-                this.classList.remove('fa-eye');
-                this.classList.add('fa-eye-slash');
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
             } else {
                 input.type = 'password';
-                this.classList.remove('fa-eye-slash');
-                this.classList.add('fa-eye');
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
             }
         });
     });
 });
+
 
 // side bar
 const toggleButton = document.getElementById('toggleSidebar');

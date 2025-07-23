@@ -7,20 +7,38 @@
                 <i class="fa-solid fa-users"></i> Detail Siswa - Kelas {{ $kelas->kelas }} ({{ $kelas->jurusan }})
             </h1>
 
-            <!-- Tombol Kembali & Search -->
             <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                <!-- Kiri -->
                 <a href="{{ route('guru.kelas') }}" class="btn btn-secondary">
                     <i class="fa-solid fa-arrow-left"></i> Kembali
                 </a>
-                <form class="d-flex" role="search" method="GET"
-                    action="{{ route('guru.kelas.detail', $kelas->id_kelas) }}">
-                    <input class="form-control me-2" type="search" name="search" placeholder="Cari Nama Siswa..."
-                        aria-label="Search" value="{{ request('search') }}">
-                    <button class="btn btn-primary" type="submit">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form>
+
+                <!-- Kanan -->
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="{{ route('guru.kelas.export.pdf', ['id' => $kelas->id_kelas, 'search' => request('search')]) }}"
+                        class="btn btn-outline-danger">
+                        <i class="bi bi-file-earmark-pdf-fill"></i> PDF
+                    </a>
+
+                    <a href="{{ route('guru.kelas.export.csv', ['id' => $kelas->id_kelas, 'search' => request('search')]) }}"
+                        class="btn btn-outline-success">
+                        <i class="bi bi-file-earmark-excel-fill"></i> CSV
+                    </a>
+
+                    <form class="d-flex" role="search" method="GET"
+                        action="{{ route('guru.kelas.detail', $kelas->id_kelas) }}">
+                        <input class="form-control me-2" type="search" name="search" placeholder="Cari Nama Siswa..."
+                            aria-label="Search" value="{{ request('search') }}">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
+
+
+
+
 
             <!-- Tabel Siswa -->
             <div class="table-responsive shadow-sm rounded">
