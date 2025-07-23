@@ -47,15 +47,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard/admin', [DashboardController::class, 'index'])->name('admin.index');
 
     // CRUD User
-    Route::resource('user', UserController::class);
-    Route::get('/search/user', [UserController::class, 'search'])->name('search');
+    Route::resource('/admin/user', UserController::class);
+    Route::get('/admin/search/user', [UserController::class, 'search'])->name('search');
 
     // Export data
-    Route::get('/users/export/pdf', [UserController::class, 'exportPdf'])->name('users.export.pdf');
-    Route::get('/users/export/csv', [UserController::class, 'exportCsv'])->name('users.export.csv');
+    Route::get('/admin/users/export/pdf', [UserController::class, 'exportPdf'])->name('users.export.pdf');
+    Route::get('/admin/users/export/csv', [UserController::class, 'exportCsv'])->name('users.export.csv');
 
     // CRUD Kelas
-    Route::resource('/kelas', KelasContoller::class);
+    Route::resource('/admin/kelas', KelasContoller::class);
 
     Route::get('/admin/kehadiran', [KehadiranController::class, 'index'])->name('admin.kehadiran.index');
 });
