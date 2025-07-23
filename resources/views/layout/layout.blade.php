@@ -79,11 +79,12 @@
 
         @if ($errors->any())
             Swal.fire({
-                icon: 'error',
-                title: 'Isi semua data!',
-                confirmButtonText: 'Oke',
-                iconColor: '#DA6C6C'
-            });
+            icon: 'error',
+            title: 'Terjadi Kesalahan!',
+            html: '',
+            confirmButtonText: 'Oke',
+            iconColor: '#DA6C6C'
+        });
         @endif
         function confirmDelete(id) {
             Swal.fire({

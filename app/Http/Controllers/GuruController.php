@@ -70,35 +70,46 @@ class GuruController extends Controller
             ->where('tanggal_kehadiran', date('Y-m-d'))
             ->first();
 
-        return view('pages.guru.absensi.index', compact('absenHariIni'));
+            // jiak sudah mengisi bakal ada swet alert
+        if ($absenHariIni) {
+            return redirect()->route('guru.index')
+                ->with('info', 'Anda sudah melakukan absensi hari ini.');
+        }
+        return view('pages.guru.absensi.create', compact('absenHariIni'));
     }
 
     public function storeAbsensi(Request $request)
     {
         $request->validate([
             'tanggal_kehadiran' => 'required|date',
-            'status' => 'required|string',
+            'status'            => 'required|string',
+        ], [
+            'tanggal_kehadiran.required' => 'Tanggal kehadiran wajib dipilih.',
+            'tanggal_kehadiran.date'     => 'Tanggal kehadiran harus berupa tanggal yang valid.',
+            'status.required'            => 'Status kehadiran wajib dipilih.',
+            'status.string'              => 'Status kehadiran harus berupa teks yang valid.',
         ]);
 
         Kehadiran::updateOrCreate(
             [
-                'user_id' => auth()->id(),
+                'user_id'           => auth()->id(),
                 'tanggal_kehadiran' => $request->tanggal_kehadiran,
             ],
             [
-                'status' => $request->status
+                'status' => $request->status,
             ]
         );
 
         return redirect()->route('guru.index')->with('success', 'Absensi Anda berhasil disimpan!');
     }
+
     public function riwayat()
     {
         $riwayat = Kehadiran::where('user_id', auth()->id())
             ->orderBy('tanggal_kehadiran', 'desc')
             ->paginate(10);
 
-        return view('pages.guru.riwayat', compact('riwayat'));
+        return view('pages.guru.absensi.riwayat', compact('riwayat'));
     }
     public function exportPdf(Request $request, $id)
     {
@@ -141,7 +152,7 @@ class GuruController extends Controller
 
         $callback = function () use ($siswa, $columns) {
             $file = fopen('php://output', 'w');
-            fputcsv($file, $columns);
+               fputcsv($file, $columns);
 
             foreach ($siswa as $index => $s) {
                 $absenHariIni = $s->kehadiran
