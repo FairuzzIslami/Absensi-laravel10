@@ -22,26 +22,22 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
         $request->validate([
-            'username' => 'required|string|max:100',
-            'email'    => 'required|email|unique:users,email,' . $user->id,
-            'foto'     => 'nullable|image|mimes:jpg,png,jpeg|max:2048'
+            'username' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $user->username = $request->username;
-        $user->email = $request->email;
+        $data = $request->only(['username', 'email']);
 
-        // Upload foto profil jika ada
         if ($request->hasFile('foto')) {
-            $fotoName = time() . '.' . $request->foto->extension();
-            $request->foto->move(public_path('uploads/profile'), $fotoName);
-            $user->foto = 'uploads/profile/' . $fotoName;
+            $fotoPath = $request->file('foto')->store('foto', 'public');
+            $data['foto'] = $fotoPath;
         }
 
-        $user = Auth::user();
-        $user->save();
+        $user->update($data);
 
         return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui.');
     }
@@ -62,7 +58,7 @@ class ProfileController extends Controller
             'new_password.required'     => 'Password baru wajib diisi.',
             'new_password.min'          => 'Password baru harus memiliki minimal 6 karakter.',
             'new_password.confirmed'    => 'Konfirmasi password baru tidak sesuai.',
-             'new_password_confirmation.required' => 'Konfirmasi password baru wajib diisi.',
+            'new_password_confirmation.required' => 'Konfirmasi password baru wajib diisi.',
         ]);
 
         $user = Auth::user();

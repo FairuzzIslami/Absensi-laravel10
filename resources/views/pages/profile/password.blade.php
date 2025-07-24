@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-    <div class="content mt-5 py-4">
+    <div class="content mt-5 py-4" id="mainContent">
         <h3><i class="bi bi-key-fill"></i> Ubah Password</h3>
 
         {{-- Pesan sukses --}}

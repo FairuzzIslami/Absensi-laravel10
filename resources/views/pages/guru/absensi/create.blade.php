@@ -11,18 +11,6 @@
                 </div>
 
                 <div class="card-body">
-                    {{-- Alert Sukses --}}
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            <i class="fa-solid fa-circle-check me-1"></i> {{ session('success') }}
-                        </div>
-                    @endif
-
-                    @if ($absenHariIni)
-                        <div class="alert alert-info">
-                            <i class="fa-solid fa-circle-info me-1"></i> Anda sudah absen hari ini.
-                        </div>
-                    @else
                         {{-- Form Absensi --}}
                         <form action="{{ route('guru.absensi.store') }}" method="POST">
                             @csrf

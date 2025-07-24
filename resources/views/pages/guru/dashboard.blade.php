@@ -7,48 +7,56 @@
                 <i class="fa-solid fa-gauge"></i> Dashboard Guru
             </h1>
 
+            <div class="mb-5 p-3 bg-light rounded shadow-sm">
+                <h5 class="fw-bold mb-1">Hai, {{ Auth::user()->username }} 👋</h5>
+                <p class="text-muted mb-0">
+                    Semoga harimu menyenangkan! Di bawah ini ringkasan aktivitasmu hari ini. Tetap semangat mengajar! 📚✨
+                </p>
+            </div>
+
+
             <div class="row g-3">
-                <!-- Card: Status Absensi -->
-                <!-- Card: Status Absensi -->
+                <!-- Absensi Hari Ini -->
                 <div class="col-sm-6 col-lg-3">
-                    <div class="card text-white bg-success shadow-sm border-0 p-3 text-center">
-                        <i class="fa-solid fa-user-check fa-2x mb-2"></i>
-                        <h5 class="card-title">Absensi Hari Ini</h5>
+                    <div class="card bg-success text-white shadow-sm border-0 p-3 text-center h-100">
+                        <i class="fa-solid fa-user-check fa-2x mb-3"></i>
+                        <h6 class="card-title">Absensi Hari Ini</h6>
                         @if (!empty($absenHariIni))
-                            <h4 class="fw-bold">{{ $absenHariIni->status }}</h4>
+                            <span class="badge bg-light text-success px-3 py-2 fw-bold">
+                                {{ $absenHariIni->status }}
+                            </span>
                         @else
-                            <a href="{{ route('guru.absensi') }}" class="btn btn-light btn-sm mt-2">
+                            <a href="{{ route('guru.absensi') }}" class="btn btn-light btn-sm mt-2 fw-semibold">
                                 Isi Absensi
                             </a>
                         @endif
                     </div>
                 </div>
 
-
-                <!-- Card: Jumlah Kelas -->
+                <!-- Jumlah Kelas -->
                 <div class="col-sm-6 col-lg-3">
-                    <div class="card text-white bg-primary shadow-sm border-0 p-3 text-center">
-                        <i class="fa-solid fa-door-open fa-2x mb-2"></i>
-                        <h5 class="card-title">Jumlah Kelas</h5>
+                    <div class="card bg-primary text-white shadow-sm border-0 p-3 text-center h-100">
+                        <i class="fa-solid fa-door-open fa-2x mb-3"></i>
+                        <h6 class="card-title">Jumlah Kelas</h6>
                         <h4 class="fw-bold">{{ $jumlahKelas ?? 0 }}</h4>
                     </div>
                 </div>
 
-                <!-- Card: Jumlah Siswa -->
+                <!-- Total Siswa -->
                 <div class="col-sm-6 col-lg-3">
-                    <div class="card text-white bg-info shadow-sm border-0 p-3 text-center">
-                        <i class="fa-solid fa-users fa-2x mb-2"></i>
-                        <h5 class="card-title">Total Siswa</h5>
+                    <div class="card bg-info text-white shadow-sm border-0 p-3 text-center h-100">
+                        <i class="fa-solid fa-users fa-2x mb-3"></i>
+                        <h6 class="card-title">Total Siswa</h6>
                         <h4 class="fw-bold">{{ $totalSiswa ?? 0 }}</h4>
                     </div>
                 </div>
 
-                <!-- Card: Riwayat Absensi -->
+                <!-- Riwayat -->
                 <div class="col-sm-6 col-lg-3">
-                    <div class="card text-dark bg-danger shadow-sm border-0 p-3 text-center">
-                        <i class="fa-solid fa-clock-rotate-left fa-2x mb-2"></i>
-                        <h5 class="card-title">Riwayat</h5>
-                        <a href="{{route('guru.riwayat')}}" class="btn btn-light btn-sm mt-2">
+                    <div class="card bg-danger text-white shadow-sm border-0 p-3 text-center h-100">
+                        <i class="fa-solid fa-clock-rotate-left fa-2x mb-3"></i>
+                        <h6 class="card-title">Riwayat Absensi</h6>
+                        <a href="{{ route('guru.riwayat') }}" class="btn btn-light btn-sm mt-2 fw-semibold">
                             Lihat Riwayat
                         </a>
                     </div>
