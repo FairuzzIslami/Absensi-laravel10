@@ -1,9 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuruController;
-use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\KelasContoller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -44,20 +43,25 @@ Route::post('/profil/password', [ProfileController::class, 'updatePassword'])->n
 // Admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
     // Dashboard admin
-    Route::get('/dashboard/admin', [DashboardController::class, 'index'])->name('admin.index');
+    Route::get('/dashboard/admin', [AdminController::class, 'dashboardAdmin'])->name('admin.index');
 
     // CRUD User
     Route::resource('/admin/user', UserController::class);
     Route::get('/admin/search/user', [UserController::class, 'search'])->name('search');
 
-    // Export data
+    // Export data user
     Route::get('/admin/users/export/pdf', [UserController::class, 'exportPdf'])->name('users.export.pdf');
     Route::get('/admin/users/export/csv', [UserController::class, 'exportCsv'])->name('users.export.csv');
+
+    // export data kehadiran
+   Route::get('/admin/kehadiran/export-pdf', [AdminController::class, 'exportPdfKehadiran'])->name('admin.kehadiran.export');
+
+
 
     // CRUD Kelas
     Route::resource('/admin/kelas', KelasContoller::class);
 
-    Route::get('/admin/kehadiran', [KehadiranController::class, 'index'])->name('admin.kehadiran.index');
+    Route::get('/admin/kehadiran', [AdminController::class, 'kehadiran'])->name('admin.kehadiran.index');
 });
 
 

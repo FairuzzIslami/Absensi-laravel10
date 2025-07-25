@@ -8,13 +8,17 @@
         <div class="card shadow-sm border-0 rounded-3">
             <div class="card-body p-4">
                 <div class="row align-items-center">
-                    <!-- Foto Profil -->
                     <div class="col-md-3 text-center mb-3 mb-md-0">
-                        <img src="{{ $user->foto ? asset('storage/' . $user->foto) : asset('asset/image/girl.png') }}"
-                            class="rounded-circle shadow-sm border p-1" alt="Foto Profil"
-                            style="width: 140px; height: 140px; object-fit: cover;">
+                        @if ($user->foto)
+                            <img src="{{ asset('storage/' . $user->foto) }}" class="rounded-circle shadow-sm border p-1"
+                                alt="Foto Profil" style="width: 140px; height: 140px; object-fit: cover;">
+                        @else
+                            <div class="bg-secondary text-white rounded-circle d-flex justify-content-center align-items-center border p-1 shadow-sm"
+                                style="width: 140px; height: 140px;">
+                                <i class="fa-solid fa-user fa-3x"></i>
+                            </div>
+                        @endif
                     </div>
-
 
                     <!-- Info Profil -->
                     <div class="col-md-9">

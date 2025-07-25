@@ -23,7 +23,7 @@ class CheckRole
 
         // Cek apakah role user sesuai
         if (Auth::user()->role->nama_role !== $role) {
-            return abort(403, 'Anda tidak memiliki akses ke halaman ini.');
+            return redirect()->back()->with('error','Anda tidak memiliki izin untuk mengakses halaman ini.');
         }
 
         return $next($request);
