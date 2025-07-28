@@ -47,6 +47,19 @@
             <a href="{{ route('guru.riwayat') }}" class="sidebar-link">
                 <i class="fa-solid fa-clock-rotate-left me-2"></i> Riwayat Absensi
             </a>
+        @elseif (auth()->user()->role->nama_role === 'siswa')
+            <a href="{{ route('siswa.index') }}" class="sidebar-link text-white d-block mb-2">
+                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+            </a>
+
+            <div class="text-uppercase text-white-50 small mt-4 mb-2">Menu Siswa</div>
+
+            <a href="{{ route('siswa.absen.form') }}" class="sidebar-link text-white d-block mb-2">
+                <i class="fas fa-user-clock me-2"></i> Absen Sekarang
+            </a>
+            <a href="{{ route('siswa.riwayat') }}" class="sidebar-link text-white d-block mb-2">
+                <i class="fas fa-history me-2"></i> Riwayat Kehadiran
+            </a>
         @endif
     </div>
 </section>

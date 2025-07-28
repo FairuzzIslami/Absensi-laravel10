@@ -43,26 +43,34 @@ class KelasContoller extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'kelas' => 'required|in:10,11,12',
-                'jurusan' => 'required|in:tkr,tsm,rpl,animasi,farmasi,tmi,tataboga'
-            ],
-            [
-                'kelas.required' => 'Kelas Wajib di pilih',
-                'kelas.in' => 'Kelas Yg di pilih tidak valid',
+        $request->validate([
+            'kelas' => 'required|in:10,11,12',
+            'jurusan' => 'required|in:tkr,tsm,rpl,animasi,farmasi,tmi,tataboga'
+        ], [
+            'kelas.required' => 'Kelas wajib dipilih',
+            'kelas.in' => 'Kelas yang dipilih tidak valid',
+            'jurusan.required' => 'Jurusan wajib dipilih',
+            'jurusan.in' => 'Jurusan yang dipilih tidak valid'
+        ]);
 
-                'jurusan.required' => 'Jurusan Wajib di Pilih',
-                'jurusan.in' => 'Kelas yg di pilih tidak valid'
-            ]
-        );
+        // Cek duplikat
+        $cekDuplikat = Kelas::where('kelas', $request->kelas)
+            ->where('jurusan', $request->jurusan)
+            ->exists();
 
+        if ($cekDuplikat) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['kelas' => 'Kelas dengan jurusan ini sudah dibuat.']);
+        }
+
+        // Simpan ke database
         Kelas::create([
             'kelas' => $request->kelas,
             'jurusan' => $request->jurusan
         ]);
 
-        return redirect()->route('kelas.index')->with('success', 'Data kelas berhasil di tambahkan');
+        return redirect()->route('kelas.index')->with('success', 'Data kelas berhasil ditambahkan');
     }
 
     /**
@@ -107,7 +115,7 @@ class KelasContoller extends Controller
             'jurusan' => $request->jurusan
         ]);
 
-        return redirect()->route('kelas.index')->with('success','Data kelas berhasil di update');
+        return redirect()->route('kelas.index')->with('success', 'Data kelas berhasil di update');
     }
 
     /**

@@ -22,10 +22,6 @@
                 <a href="{{ route('admin.kehadiran.export', ['tanggal' => $tanggal]) }}" class="btn btn-danger">
                     <i class="bi bi-file-earmark-pdf-fill"></i> Export PDF
                 </a>
-
-                <a href="" class="btn btn-sm btn-outline-success">
-                    <i class="bi bi-file-earmark-excel-fill"></i> CSV
-                </a>
             </div>
         </div>
 

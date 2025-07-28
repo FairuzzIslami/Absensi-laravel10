@@ -24,7 +24,7 @@ class AuthController extends Controller
             } else {
                 return redirect()->route('login.index')
                     ->with('error', 'Role tidak dikenali. Hubungi admin.');
-            }   
+            }
         }
 
 
