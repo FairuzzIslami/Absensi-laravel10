@@ -44,7 +44,7 @@
 
                 <!-- Total Siswa -->
                 <div class="col-sm-6 col-lg-3">
-                    <div class="card bg-info text-white shadow-sm border-0 p-3 text-center h-100">
+                    <div class="card bg-warning text-white shadow-sm border-0 p-3 text-center h-100">
                         <i class="fa-solid fa-users fa-2x mb-3"></i>
                         <h6 class="card-title">Total Siswa</h6>
                         <h4 class="fw-bold">{{ $totalSiswa ?? 0 }}</h4>

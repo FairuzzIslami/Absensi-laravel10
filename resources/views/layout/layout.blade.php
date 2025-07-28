@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ env('APP_NAME') }}</title>
-    <link rel="shortcut icon" href="{{asset('asset/image/logoSmk-removebg-preview.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('asset/image/logoSmk-removebg-preview (1).png') }}" type="image/x-icon">
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('asset/css/styles.css') }}">
@@ -79,12 +80,12 @@
 
         @if ($errors->any())
             Swal.fire({
-            icon: 'error',
-            title: 'Terjadi Kesalahan!',
-            html: '',
-            confirmButtonText: 'Oke',
-            iconColor: '#DA6C6C'
-        });
+                icon: 'error',
+                title: 'Terjadi Kesalahan!',
+                html: '',
+                confirmButtonText: 'Oke',
+                iconColor: '#DA6C6C'
+            });
         @endif
         function confirmDelete(id) {
             Swal.fire({

@@ -25,7 +25,7 @@
                                 {{ $absenHariIni->status }}
                             </span>
                         @else
-                            <a href="{{ route('siswa.absen.formx') }}" class="btn btn-light btn-sm mt-2 fw-semibold">
+                            <a href="{{ route('siswa.absen.form') }}" class="btn btn-light btn-sm mt-2 fw-semibold">
                                 Isi Absensi
                             </a>
                         @endif

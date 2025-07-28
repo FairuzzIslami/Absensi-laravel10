@@ -54,7 +54,7 @@
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                             <input type="password" class="form-control" id="password"
-                                                placeholder="Masukkan password" name="password" required>
+                                                placeholder="Masukkan password" name="password">
                                             <span class="input-group-text toggle-password">
                                                 <i class="fa fa-eye"></i>
                                             </span>

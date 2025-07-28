@@ -9,7 +9,7 @@
 
         .container,
         .row {
-            margin-left: auto;
+            margin-left: auto;  
             margin-right: auto;
             padding-left: 15px;
             padding-right: 15px;
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="col-lg-6 text-center">
-                    <img src="{{ asset('asset/image/homePage2.png') }}" alt="Ilustrasi"
+                    <img src="{{ asset('asset/image/homePage2 (1).png')}}" alt="Ilustrasi"
                         class="img-fluid rounded mx-auto d-block animation">
                 </div>
             </div>
@@ -63,7 +63,7 @@
             <div class="row align-items-center g-5" style="overflow-y: hidden">
                 <!-- Gambar -->
                 <div class="col-lg-6 text-center" data-aos="fade-up" data-aos-duration="1000">
-                    <img src="{{ asset('asset/image/homePage.png') }}" alt="Tentang Kami"
+                    <img src="{{ asset('asset/image/homePage (1).png') }}" alt="Tentang Kami"
                         class="img-fluid rounded animation">
                 </div>
 

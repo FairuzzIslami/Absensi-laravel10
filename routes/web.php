@@ -84,6 +84,7 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/guru/kelas/{id}/export/csv', [GuruController::class, 'exportCsv'])->name('guru.kelas.export.csv');
 });
 
+// siswa
 Route::middleware(['auth', 'role:siswa'])->group(function () {
     Route::get('/dashboard/siswa', [SiswaController::class, 'dashboard'])->name('siswa.index');
     Route::get('/siswa/absen', [SiswaController::class, 'formAbsen'])->name('siswa.absen.form');

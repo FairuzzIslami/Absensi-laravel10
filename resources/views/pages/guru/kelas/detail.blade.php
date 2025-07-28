@@ -36,9 +36,16 @@
                 </div>
             </div>
 
-
-
-
+            <!-- Badge Tanggal Hari Ini dan Total Data -->
+            <div class="alert alert-info d-flex justify-content-between align-items-center shadow-sm">
+                <span>
+                    <i class="fa-solid fa-calendar-day me-1"></i>
+                    <strong>Hari Ini:</strong> {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
+                </span>
+                <span class="badge bg-primary">
+                    Total Data: {{ $siswa->total() }}
+                </span>
+            </div>
 
             <!-- Tabel Siswa -->
             <div class="table-responsive shadow-sm rounded">
@@ -66,7 +73,7 @@
 
                                     @if ($absenHariIni)
                                         @php
-                                            $status = $absenHariIni->status;
+                                            $status = ucfirst(trim($absenHariIni->status));
                                             $badgeClass =
                                                 [
                                                     'Hadir' => 'bg-success',
@@ -75,7 +82,7 @@
                                                     'Alpa' => 'bg-danger',
                                                 ][$status] ?? 'bg-secondary';
                                         @endphp
-                                        <span class="badge {{ $badgeClass }}">{{ $status }}</span>
+                                        <span class="badge {{ $badgeClass }}">{{ $absenHariIni->status }}</span>
                                     @else
                                         <span class="badge bg-secondary">Belum ada keterangan</span>
                                     @endif

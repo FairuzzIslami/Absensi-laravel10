@@ -33,5 +33,3 @@ toggleButton.addEventListener('click', () => {
     navbar.classList.toggle('expanded');
     navbar.classList.toggle('default');
 });
-
-
