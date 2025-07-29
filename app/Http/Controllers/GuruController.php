@@ -72,8 +72,7 @@ class GuruController extends Controller
 
             // jiak sudah mengisi bakal ada swet alert
         if ($absenHariIni) {
-            return redirect()->route('guru.index')
-                ->with('info', 'Anda sudah melakukan absensi hari ini.');
+            return back()->with('info', 'Anda sudah melakukan absensi hari ini.');
         }
         return view('pages.guru.absensi.create', compact('absenHariIni'));
     }

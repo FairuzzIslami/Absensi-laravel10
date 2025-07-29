@@ -37,7 +37,7 @@ class SiswaController extends Controller
             ->exists();
 
         if ($sudahAbsen) {
-            return redirect()->route('siswa.index')->with('info', 'Kamu sudah absen hari ini!');
+            return back()->with('info', 'Kamu sudah absen hari ini!');
         }
 
         return view('pages.siswa.absen');
