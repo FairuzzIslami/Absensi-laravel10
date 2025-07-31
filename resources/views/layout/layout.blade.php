@@ -64,7 +64,13 @@
                 title: 'Berhasil!',
                 text: '{{ session('success') }}',
                 timer: 3000,
-                showConfirmButton: false
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'custom-popup',
+                    title: 'custom-title',
+                    icon: 'custom-icon',
+                    confirmButton: 'custom-button'
+                }
             });
         @endif
 
@@ -113,7 +119,12 @@
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
                 confirmButtonText: 'Ya, logout',
-                cancelButtonText: 'Batal'
+                cancelButtonText: 'Batal',
+                customClass: {
+        popup: 'swal-custom',
+        confirmButton: 'swal-confirm-btn',
+        cancelButton: 'swal-cancel-btn'
+    }
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById('logout-form').submit();

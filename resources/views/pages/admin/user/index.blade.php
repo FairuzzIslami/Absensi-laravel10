@@ -7,6 +7,17 @@
                 <i class="fa-solid fa-user"></i> Data User
             </h1>
 
+            <!-- Badge Tanggal Hari Ini dan Total Data -->
+            <div class="alert alert-info d-flex justify-content-between align-items-center shadow-sm">
+                <span>
+                    <i class="fa-solid fa-calendar-day me-1"></i>
+                    <strong>Hari Ini:</strong> {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
+                </span>
+                <span class="badge bg-primary">
+                    Total Data: {{ $users->total() }}
+                </span>
+            </div>
+
             <!-- Baris Atas -->
             <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                 <a href="{{ route('user.create') }}" class="btn btn-primary">
@@ -72,9 +83,9 @@
                                 </td>
                                 <td>
                                     @if ($user->kehadiran->isNotEmpty())
-                                        @php $status = $user->kehadiran->last()->status; @endphp
+                                        @php $status = $user->kehadiran->first()->status; @endphp
                                         @if ($status == 'hadir')
-                                            <span class="badge bg-success">Masuk</span>
+                                            <span class="badge bg-success">Hadir</span>
                                         @elseif($status == 'izin')
                                             <span class="badge bg-warning text-dark">Izin</span>
                                         @elseif($status == 'sakit')
@@ -83,9 +94,10 @@
                                             <span class="badge bg-secondary">Tanpa Keterangan</span>
                                         @endif
                                     @else
-                                        <span class="badge bg-secondary px-3 py-2">Belum Ada Data</span>
+                                        <span class="badge bg-secondary">Belum Absen</span>
                                     @endif
                                 </td>
+
                                 <td>
                                     <div class="btn-group" role="group">
                                         <!-- Edit -->

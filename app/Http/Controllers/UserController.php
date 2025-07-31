@@ -7,17 +7,25 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index(Request $request)
     {
         $search = $request->input('search');
-
-        $users = User::with(['role', 'kelas'])
+        $today = Carbon::today();
+        $users = User::with([
+            'role',
+            'kelas',
+            'kehadiran' => function ($query) use ($today) {
+                $query->whereDate('tanggal_kehadiran', $today);
+            }
+        ])
             ->when($search, function ($query, $search) {
                 $query->where('username', 'like', '%' . $search . '%');
             })
@@ -29,7 +37,6 @@ class UserController extends Controller
 
         return view('pages.admin.user.index', compact('users', 'roles', 'kelas', 'search'));
     }
-
     /**
      * Show the form for creating a new resource.
      */

@@ -4,7 +4,7 @@
     <section>
         <div class="content pt-5 mt-4" id="mainContent">
             <div class="card shadow-sm border-0">
-                <div class="card-header bg-success text-white">
+                <div class="card-header bg-primary text-white">
                     <h5 class="mb-0">
                         <i class="fa-solid fa-user-check me-2"></i> Absensi Siswa
                     </h5>
@@ -15,7 +15,7 @@
                     <form action="{{ route('siswa.absen.store') }}" method="POST">
                         @csrf
 
-                        <!-- Tanggal Otomatis (readonly) -->
+                        <!-- Tanggal -->
                         <div class="mb-3">
                             <label class="form-label fw-bold">Tanggal Hari Ini</label>
                             <div class="input-group w-auto">
@@ -44,7 +44,7 @@
 
                         <!-- Tombol -->
                         <div class="d-flex justify-content-end mt-4">
-                            <button type="submit" class="btn btn-success">
+                            <button type="submit" class="btn btn-primary">
                                 <i class="fa-solid fa-paper-plane me-1"></i> Kirim Absensi
                             </button>
                         </div>

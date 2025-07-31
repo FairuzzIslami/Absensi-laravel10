@@ -4,13 +4,6 @@
     <div class="content mt-5 py-4" id="mainContent">
         <h3><i class="bi bi-key-fill"></i> Ubah Password</h3>
 
-        {{-- Pesan sukses --}}
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
         <div class="card shadow-sm mt-3">
             <div class="card-body">
                 <form action="{{ route('password.update') }}" method="POST">

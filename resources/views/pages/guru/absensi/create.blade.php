@@ -17,12 +17,12 @@
 
                         <!-- Pilih Tanggal -->
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Tanggal Kehadiran</label>
+                            <label class="form-label fw-bold">Absen Hari Ini</label>
                             <div class="input-group w-auto">
                                 <span class="input-group-text"><i class="fa-solid fa-calendar"></i></span>
                                 <input type="date" name="tanggal_kehadiran"
                                     class="form-control @error('tanggal_kehadiran') is-invalid @enderror"
-                                    value="{{ old('tanggal_kehadiran') }}">
+                                    value="{{now()->format('Y-m-d')}}">
                                 @error('tanggal_kehadiran')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror

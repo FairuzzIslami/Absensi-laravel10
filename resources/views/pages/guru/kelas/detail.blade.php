@@ -43,7 +43,7 @@
                     <strong>Hari Ini:</strong> {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
                 </span>
                 <span class="badge bg-primary">
-                    Total Data: {{ $siswa->total() }}
+                    Total Siswa: {{ $siswa->total() }}
                 </span>
             </div>
 

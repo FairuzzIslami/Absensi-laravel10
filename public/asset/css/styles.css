@@ -228,4 +228,63 @@ footer {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
+/* sweet alert */
+.swal2-popup {
+font-family: 'Poppins', sans-serif;
+border-radius: 16px;
+padding: 1.5rem;
+}
+
+.swal2-title {
+color: #333;
+font-weight: 600;
+}
+
+.swal2-html-container {
+color: #555;
+}
+
+.swal2-confirm {
+background-color: #0c86be !important;
+border: none !important;
+}
+
+.swal2-cancel {
+background-color: #6c757d !important;
+border: none !important;
+}
+.custom-popup {
+border-radius: 16px;
+padding: 20px;
+font-family: 'Segoe UI', sans-serif;
+}
+
+.custom-title {
+color: #198754;
+font-weight: bold;
+}
+
+.custom-icon {
+color: #198754 !important;
+}
+
+.custom-button {
+background-color: #198754 !important;
+color: white !important;
+}
+.swal-custom {
+font-family: 'Roboto', sans-serif;
+border-radius: 12px;
+}
+
+.swal-confirm-btn {
+background-color: #0e9e5b !important;
+color: white !important;
+}
+
+.swal-cancel-btn {
+background-color: #6c7d7c !important;
+color: white !important;
+}
+
 

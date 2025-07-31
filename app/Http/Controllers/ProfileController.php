@@ -49,6 +49,7 @@ class ProfileController extends Controller
 
     public function updatePassword(Request $request)
     {
+
         $request->validate([
             'current_password' => 'required',
             'new_password'     => 'required|min:6|confirmed',
@@ -61,16 +62,15 @@ class ProfileController extends Controller
             'new_password_confirmation.required' => 'Konfirmasi password baru wajib diisi.',
         ]);
 
-        $user = Auth::user();
+        $user = auth()->user();
 
         if (!Hash::check($request->current_password, $user->password)) {
-            return back()->withErrors(['current_password' => 'Password lama tidak sesuai.']);
+            return back()->withErrors(['current_password' => 'Password lama salah']);
         }
 
-        // Update password dan simpan
-        $user->password = Hash::make($request->new_password);
-        $user->save();  // save
+        $user->password = bcrypt($request->new_password);
+        $user->save();
 
-        return redirect()->route('profile')->with('success', 'Password berhasil diubah.');
+        return back()->with('success', 'Password berhasil diubah');
     }
 }
