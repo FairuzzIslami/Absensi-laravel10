@@ -41,5 +41,13 @@
                                 <h4 class="fw-bold">{{ $totalKelas }}</h4>
                             </div>
                         </div>
+                        <!-- Card: Kehadiran Hari Ini -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card text-white bg-success shadow-sm border-0 p-3 text-center">
+                                <i class="fa-solid fa-calendar-check fa-2x mb-2"></i>
+                                <h5 class="card-title">Kehadiran Hari Ini</h5>
+                                <h4 class="fw-bold">{{ $totalKehadiranHariIni }}</h4>
+                            </div>
+                        </div>
             </section>
         @endsection

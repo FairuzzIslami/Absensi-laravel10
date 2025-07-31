@@ -6,6 +6,7 @@ use App\Models\kehadiran;
 use App\Models\Kelas;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -13,11 +14,13 @@ class AdminController extends Controller
     // Dashboard Admin
     public function dashboardAdmin(Request $request)
     {
+        $today = Carbon::today();
         $totalGuru  = User::where('id_role', 2)->count();  // role guru = 2
         $totalSiswa = User::where('id_role', 3)->count();  // role siswa = 3
         $totalKelas = Kelas::count();
 
-        return view('pages.admin.dashboardAdmin', compact('totalGuru', 'totalSiswa', 'totalKelas'));
+        $totalKehadiranHariIni = Kehadiran::whereDate('tanggal_kehadiran', $today)->count();
+        return view('pages.admin.dashboardAdmin', compact('totalGuru', 'totalSiswa', 'totalKelas','totalKehadiranHariIni'));
     }
 
     // Kehadiran Admin
