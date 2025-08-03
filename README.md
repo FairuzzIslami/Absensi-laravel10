@@ -1,22 +1,19 @@
+
 # 📚 Aplikasi Absensi Siswa Berbasis Website
 
-Aplikasi ini dibuat untuk membantu proses absensi siswa secara digital dan efisien. Dibangun menggunakan Laravel 10 dan dirancang untuk digunakan oleh tiga peran utama: **Admin**, **Guru**, dan **Siswa**.
+Aplikasi ini dibuat untuk mendigitalisasi proses absensi siswa di sekolah. Dibangun menggunakan Laravel 10, aplikasi ini menyediakan fitur login berdasarkan role (admin, guru, dan siswa), pengelolaan kelas, pencatatan absensi, dan rekap data kehadiran.
 
 ---
 
-## 🎯 Tujuan
-- Meningkatkan efisiensi dalam pencatatan absensi siswa.
-- Meminimalisir kesalahan dalam rekap absensi manual.
-- Memberikan akses absensi real-time bagi guru dan siswa.
+## 🎯 Tujuan & Manfaat
 
-## 📌 Alasan
-- Sistem manual sulit dikontrol dan mudah hilang datanya.
-- Sekolah membutuhkan sistem digital yang mudah digunakan dan cepat.
+### Tujuan:
+- Membantu sekolah melakukan pencatatan absensi secara digital.
 
-## ✅ Manfaat
-- Memudahkan monitoring absensi.
-- Mempermudah rekapitulasi data kehadiran.
-- Meningkatkan transparansi dan akurasi data absensi.
+### Manfaat:
+- Mempermudah guru dalam mengelola absensi siswa.
+- Memberikan kemudahan akses bagi siswa untuk mengisi absensi mandiri.
+- Meningkatkan efisiensi dan akurasi data kehadiran.
 
 ---
 
@@ -26,55 +23,114 @@ Aplikasi ini dibuat untuk membantu proses absensi siswa secara digital dan efisi
 
 ---
 
-## 🧩 Struktur Database
-
-![Database Schema](tableAbsensi.png)
-
----
-
 ## 🛠️ Tech Stack
 
-### Backend
-- Laravel 10 (PHP Framework)
-
-### Frontend/UI
-- Bootstrap 5 (UI Framework)
-
-### JS Libraries
-- SweetAlert (Notifikasi interaktif)
-- AOS Init (Animasi scroll)
-
-### Database
-- MySQL (via XAMPP)
+- **Framework**: Laravel 10
+- **UI Framework**: Bootstrap 5
+- **JavaScript Library**: SweetAlert, AOS Init
+- **Database**: MySQL (via XAMPP)
 
 ---
 
-## 🚀 Fitur Utama
+## 🔧 Cara Instalasi Cepat
 
-### 👤 Admin
-- Membuat akun Siswa & Guru
-- Membuat Kelas & Jurusan
-- Merekap data absensi per hari
+Ikuti langkah-langkah di bawah ini untuk menjalankan aplikasi secara lokal:
 
-### 👨‍🏫 Guru
-- Mengisi data absensi siswa
-- Melihat riwayat absensi per tanggal
-- Melihat data kelas
-
-### 👨‍🎓 Siswa
-- Mengisi absensi sendiri
-- Melihat riwayat absensi
-
----
-
-## 📥 Instalasi
-
-### 
-1. Clone Repository
-bash
+```bash
+# 1. Clone repository
 git clone https://github.com/username/absensi-siswa.git
 cd absensi-siswa
 
-2. Install Dependency Backend
-bash
+# 2. Install dependency Laravel
 composer install
+
+# 3. Copy file konfigurasi environment
+cp .env.example .env
+
+# 4. Generate application key
+php artisan key:generate
+
+# 5. Atur konfigurasi database di file .env
+# Contoh:
+# DB_DATABASE=absensi_sekolah
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+# 6. Jalankan migrasi & seeder (opsional untuk demo)
+php artisan migrate --seed
+
+# 7. Jalankan server lokal Laravel
+php artisan serve
+```
+
+Akses di browser:
+```
+http://127.0.0.1:8000
+```
+
+---
+
+## 👥 Role & Fitur Akses
+
+### 🔐 Admin
+- Menambahkan akun guru & siswa
+- Membuat kelas & jurusan
+- Melihat dan merekap absensi berdasarkan tanggal
+
+### 👨‍🏫 Guru
+- Mengisi absensi siswa per kelas
+- Melihat data kelas
+- Melihat riwayat absensi per tanggal
+
+### 👨‍🎓 Siswa
+- Mengisi absensi secara mandiri
+- Melihat riwayat absensi pribadi
+
+---
+
+## 🧪 Akun Login Demo
+
+Berikut adalah akun yang dapat digunakan untuk mencoba sistem:
+
+```text
+🔐 Admin
+Email    : admin@gmail.com
+Password : 123456
+
+👨‍🏫 Guru
+Email    : rini@gmail.com
+Password : 123456
+
+👨‍🎓 Siswa
+Email    : restu@gmail.com
+Password : 123456
+```
+
+> 📌 *Note: Email & password di atas tersedia jika kamu menjalankan seeder (`php artisan migrate --seed`).*
+
+---
+
+## 🗃️ Struktur Database
+
+![Database Schema](tableAbsensi.png)
+
+**Tabel Utama:**
+- `users` → Menyimpan data pengguna (siswa/guru/admin)
+- `roles` → Menentukan peran pengguna
+- `kelas` → Data kelas dan jurusan
+- `kehadiran` → Menyimpan absensi tiap user
+
+---
+
+## 📜 Lisensi
+
+Proyek ini open-source dan menggunakan lisensi **MIT**.  
+Silakan gunakan, modifikasi, dan distribusikan dengan bebas.
+
+---
+
+## 🙋‍♂️ Developer
+
+**Fairuz Aqila Islami**  
+SMK MUHAMMDIYAH 04 BOYOLALI (BARKAB)  
+Bidang: REKAYASA DAN PERANGKAT LUNAK (RPL)
