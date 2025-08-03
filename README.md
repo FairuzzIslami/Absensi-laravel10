@@ -19,7 +19,7 @@ Aplikasi ini dibuat untuk mendigitalisasi proses absensi siswa di sekolah. Diban
 
 ## 🧠 Flow Sistem
 
-![Flow Absensi Sekolah](<img width="1144" height="531" alt="Image" src="https://github.com/user-attachments/assets/820b8b07-8a27-4065-8fd8-aaa170354e49" />)
+![Flow Absensi Sekolah]<img width="1144" height="531" alt="Image" src="https://github.com/user-attachments/assets/820b8b07-8a27-4065-8fd8-aaa170354e49" />
 
 ---
 
