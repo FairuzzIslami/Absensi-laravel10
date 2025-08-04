@@ -60,6 +60,21 @@ body {
     margin-top: 20px;
     margin-bottom: 10px;
 }
+/* Dropdown menu dark style */
+.dropdown-menu {
+    background-color: #ffff; /* Warna gelap */
+    border: none;
+}
+
+.dropdown-menu .dropdown-item {
+    color: #000000;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #0D5EA6;
+}
+
 
 .navbar {
     transition: margin-left 0.3s ease;
@@ -286,5 +301,3 @@ color: white !important;
 background-color: #6c7d7c !important;
 color: white !important;
 }
-
-

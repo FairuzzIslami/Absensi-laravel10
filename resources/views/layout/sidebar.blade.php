@@ -24,6 +24,25 @@
                 <i class="fas fa-clipboard-check me-2"></i> Data Kehadiran
             </a>
 
+            <div class="dropdown">
+                <a class="sidebar-link dropdown-toggle text-white d-block mb-2" href="#" role="button"
+                    id="dropdownKode" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-key me-2"></i> Kode Kehadiran
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownKode">
+                    <li>
+                        <a class="dropdown-item" href="{{ route('admin.kode.create') }}">
+                            <i class="fas fa-plus me-2"></i> Buat Kode Baru
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{route('admin.kode.index')}}">
+                            <i class="fas fa-list me-2"></i> Lihat Daftar Kode
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
 
             <hr class="border-light opacity-25 mx-3" />
 
@@ -41,7 +60,7 @@
             <a href="{{ route('guru.kelas') }}" class="sidebar-link">
                 <i class="fas fa-door-open me-2"></i> Data Kelas
             </a>
-            <a href="{{ route('guru.absensi') }}" class="sidebar-link">
+            <a href="{{ route('guru.kode.form') }}" class="sidebar-link">
                 <i class="fas fa-user-check me-2"></i> Absensi Saya
             </a>
             <a href="{{ route('guru.riwayat') }}" class="sidebar-link">
@@ -54,7 +73,7 @@
 
             <div class="text-uppercase text-white-50 small mt-4 mb-2">Menu Siswa</div>
 
-            <a href="{{ route('siswa.absen.form') }}" class="sidebar-link text-white d-block mb-2">
+            <a href="{{ route('siswa.absen.kode') }}" class="sidebar-link text-white d-block mb-2">
                 <i class="fas fa-user-clock me-2"></i> Absen Sekarang
             </a>
             <a href="{{ route('siswa.riwayat') }}" class="sidebar-link text-white d-block mb-2">

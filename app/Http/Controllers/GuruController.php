@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\kehadiran;
 use App\Models\Kelas;
+use App\Models\KodeAbsensi;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -66,11 +67,14 @@ class GuruController extends Controller
 
     public function absensi()
     {
+        if (!session('kode_absen_valid')) {
+            return redirect()->route('guru.kode.cek')->with('error', 'Silakan masukkan kode absensi terlebih dahulu.');
+        }
         $absenHariIni = Kehadiran::where('user_id', auth()->id())
             ->where('tanggal_kehadiran', date('Y-m-d'))
             ->first();
 
-            // jiak sudah mengisi bakal ada swet alert
+        // jiak sudah mengisi bakal ada swet alert
         if ($absenHariIni) {
             return back()->with('info', 'Anda sudah melakukan absensi hari ini.');
         }
@@ -98,6 +102,7 @@ class GuruController extends Controller
                 'status' => $request->status,
             ]
         );
+        session()->forget('kode_absen_valid_guru');
 
         return redirect()->route('guru.index')->with('success', 'Absensi Anda berhasil disimpan!');
     }
@@ -151,7 +156,7 @@ class GuruController extends Controller
 
         $callback = function () use ($siswa, $columns) {
             $file = fopen('php://output', 'w');
-               fputcsv($file, $columns);
+            fputcsv($file, $columns);
 
             foreach ($siswa as $index => $s) {
                 $absenHariIni = $s->kehadiran
@@ -171,5 +176,43 @@ class GuruController extends Controller
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+    public function formKodeAbsen()
+    {
+
+        $userId = auth()->id();
+        $today = now()->toDateString();
+
+        $sudahAbsen = Kehadiran::where('user_id', $userId)
+            ->whereDate('tanggal_kehadiran', $today)
+            ->exists();
+
+        if ($sudahAbsen) {
+            return redirect()->route('guru.index')->with('info', 'Anda sudah absen hari ini!');
+        }
+
+        return view('pages.guru.kode.kode-absen'); // ganti sesuai lokasi blade kamu
+    }
+
+    public function cekKodeAbsen(Request $request)
+    {
+        $request->validate([
+            'kode' => 'required|exists:kode_absensi,kode',
+        ], [
+            'kode.required' => 'Kode absensi wajib diisi.',
+            'kode.exists'   => 'Kode absensi tidak ditemukan atau tidak valid.',
+        ]);
+
+        $kode = KodeAbsensi::where('kode', $request->kode)
+            ->where('untuk_role', 'guru') // Hanya untuk guru
+            ->where('tanggal', now()->toDateString())
+            ->first();
+
+        if (!$kode) {
+            return back()->with('error', 'Kode tidak valid atau sudah kedaluwarsa.');
+        }
+
+        session(['kode_absen_valid' => true]); // Tanda sudah lolos
+        return redirect()->route('guru.absensi')->with('success', 'Kode berhasil! Silakan isi absensi.');
     }
 }

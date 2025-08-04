@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\KelasContoller;
+use App\Http\Controllers\KodeAbsensiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
@@ -60,6 +61,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/kehadiran', [AdminController::class, 'kehadiran'])->name('admin.kehadiran.index');
     // export data kehadiran
     Route::get('/admin/kehadiran/export-pdf', [AdminController::class, 'exportPdfKehadiran'])->name('admin.kehadiran.export');
+
+    // Input kode
+    Route::get('/kode', [KodeAbsensiController::class, 'index'])->name('admin.kode.index');
+    Route::get('/admin/kode', [KodeAbsensiController::class, 'create'])->name('admin.kode.create');
+    Route::post('/admin/kode', [KodeAbsensiController::class, 'store'])->name('admin.kode.store');
+    Route::delete('/kode/{id}', [KodeAbsensiController::class, 'destroy'])->name('admin.kode.destroy');
 });
 
 
@@ -82,6 +89,10 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     // Export PDF & CSV
     Route::get('/guru/kelas/{id}/export/pdf', [GuruController::class, 'exportPdf'])->name('guru.kelas.export.pdf');
     Route::get('/guru/kelas/{id}/export/csv', [GuruController::class, 'exportCsv'])->name('guru.kelas.export.csv');
+
+    // kode absen   
+    Route::get('/guru/kode-absen', [GuruController::class, 'formKodeAbsen'])->name('guru.kode.form');
+    Route::post('/guru/kode-absen', [GuruController::class, 'cekKodeAbsen'])->name('guru.kode.cek');
 });
 
 // siswa
@@ -90,4 +101,8 @@ Route::middleware(['auth', 'role:siswa'])->group(function () {
     Route::get('/siswa/absen', [SiswaController::class, 'formAbsen'])->name('siswa.absen.form');
     Route::post('/siswa/absen', [SiswaController::class, 'absen'])->name('siswa.absen.store');
     Route::get('/siswa/riwayat', [SiswaController::class, 'riwayat'])->name('siswa.riwayat');
+
+    // Kode absen
+    Route::get('siswa/absen/kode', [SiswaController::class, 'formKodeAbsen'])->name('siswa.absen.kode');
+    Route::post('siswa/absen/kode', [SiswaController::class, 'cekKodeAbsen'])->name('siswa.absen.kode.cek');
 });
