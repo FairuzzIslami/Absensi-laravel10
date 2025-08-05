@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\kehadiran;
 use App\Models\Kelas;
+use App\Models\KodeAbsensi;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -18,9 +19,19 @@ class AdminController extends Controller
         $totalGuru  = User::where('id_role', 2)->count();  // role guru = 2
         $totalSiswa = User::where('id_role', 3)->count();  // role siswa = 3
         $totalKelas = Kelas::count();
+        $totalKehadiranHariIni = Kehadiran::whereDate('tanggal_kehadiran', $today)->count();
+
+        $kodeHariIniSiswa = KodeAbsensi::whereDate('tanggal', $today)
+            ->where('untuk_role', 'siswa') // 3 = siswa
+            ->first();
+
+
+        $kodeHariIniGuru = KodeAbsensi::whereDate('tanggal', $today)
+            ->where('untuk_role', 'guru') // 2 = guru
+            ->first();
 
         $totalKehadiranHariIni = Kehadiran::whereDate('tanggal_kehadiran', $today)->count();
-        return view('pages.admin.dashboardAdmin', compact('totalGuru', 'totalSiswa', 'totalKelas','totalKehadiranHariIni'));
+        return view('pages.admin.dashboardAdmin', compact('totalGuru', 'totalSiswa', 'totalKelas', 'totalKehadiranHariIni', 'totalKehadiranHariIni', 'kodeHariIniSiswa','kodeHariIniGuru'));
     }
 
     // Kehadiran Admin

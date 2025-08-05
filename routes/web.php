@@ -90,7 +90,7 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/guru/kelas/{id}/export/pdf', [GuruController::class, 'exportPdf'])->name('guru.kelas.export.pdf');
     Route::get('/guru/kelas/{id}/export/csv', [GuruController::class, 'exportCsv'])->name('guru.kelas.export.csv');
 
-    // kode absen   
+    // kode absen
     Route::get('/guru/kode-absen', [GuruController::class, 'formKodeAbsen'])->name('guru.kode.form');
     Route::post('/guru/kode-absen', [GuruController::class, 'cekKodeAbsen'])->name('guru.kode.cek');
 });

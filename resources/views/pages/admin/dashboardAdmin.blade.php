@@ -49,5 +49,54 @@
                                 <h4 class="fw-bold">{{ $totalKehadiranHariIni }}</h4>
                             </div>
                         </div>
+
+                        <!-- Kode Absensi Hari Ini -->
+                        <div class="row mt-4">
+                            <!-- Guru -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card shadow-sm border-0 p-4 h-100">
+                                    <h5 class="mb-3 text-success">
+                                        <i class="fa-solid fa-user-tie me-2"></i> Kode Absensi <strong>Guru</strong> Hari
+                                        Ini
+                                    </h5>
+
+                                    @if ($kodeHariIniGuru)
+                                        <div class="alert alert-success mb-0">
+                                            Kode absensi: <span class="fw-bold">{{ $kodeHariIniGuru->kode }}</span>
+                                        </div>
+                                    @else
+                                        <div
+                                            class="alert alert-warning d-flex justify-content-between align-items-center mb-0">
+                                            <span>Belum ada kode absensi untuk guru.</span>
+                                            <a href="{{ route('admin.kode.create', ['role' => 'guru']) }}"
+                                                class="btn btn-sm btn-outline-success">Buat</a>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <!-- Siswa -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card shadow-sm border-0 p-4 h-100">
+                                    <h5 class="mb-3 text-primary">
+                                        <i class="fa-solid fa-user-graduate me-2"></i> Kode Absensi <strong>Siswa</strong>
+                                        Hari Ini
+                                    </h5>
+
+                                    @if ($kodeHariIniSiswa)
+                                        <div class="alert alert-primary mb-0">
+                                            Kode absensi: <span class="fw-bold">{{ $kodeHariIniSiswa->kode }}</span>
+                                        </div>
+                                    @else
+                                        <div
+                                            class="alert alert-warning d-flex justify-content-between align-items-center mb-0">
+                                            <span>Belum ada kode absensi untuk siswa.</span>
+                                            <a href="{{ route('admin.kode.create', ['role' => 'siswa']) }}"
+                                                class="btn btn-sm btn-outline-primary">Buat</a>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
             </section>
         @endsection
