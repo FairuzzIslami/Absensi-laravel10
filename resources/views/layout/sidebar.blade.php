@@ -60,7 +60,7 @@
             <a href="{{ route('guru.kelas') }}" class="sidebar-link">
                 <i class="fas fa-door-open me-2"></i> Data Kelas
             </a>
-            <a href="{{ route('guru.kode.form') }}" class="sidebar-link">
+            <a href="{{ route('guru.absensi') }}" class="sidebar-link">
                 <i class="fas fa-user-check me-2"></i> Absensi Saya
             </a>
             <a href="{{ route('guru.riwayat') }}" class="sidebar-link">
@@ -73,7 +73,7 @@
 
             <div class="text-uppercase text-white-50 small mt-4 mb-2">Menu Siswa</div>
 
-            <a href="{{ route('siswa.absen.kode') }}" class="sidebar-link text-white d-block mb-2">
+            <a href="{{ route('siswa.absen.form') }}" class="sidebar-link text-white d-block mb-2">
                 <i class="fas fa-user-clock me-2"></i> Absen Sekarang
             </a>
             <a href="{{ route('siswa.riwayat') }}" class="sidebar-link text-white d-block mb-2">
