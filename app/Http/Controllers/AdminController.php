@@ -23,11 +23,13 @@ class AdminController extends Controller
 
         $kodeHariIniSiswa = KodeAbsensi::whereDate('tanggal', $today)
             ->where('untuk_role', 'siswa') // 3 = siswa
+            ->where('expired_at', '>=', now())
             ->first();
 
 
         $kodeHariIniGuru = KodeAbsensi::whereDate('tanggal', $today)
             ->where('untuk_role', 'guru') // 2 = guru
+            ->where('expired_at', '>=', now())
             ->first();
 
         $totalKehadiranHariIni = Kehadiran::whereDate('tanggal_kehadiran', $today)->count();

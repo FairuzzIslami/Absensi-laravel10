@@ -9,6 +9,7 @@ class KodeAbsensiController extends Controller
 {
     public function index()
     {
+        KodeAbsensi::where('expired_at', '<', now())->delete();
         $kodeAbsensi = KodeAbsensi::orderBy('created_at', 'desc')->get();
         return view('pages.admin.kode.index', compact('kodeAbsensi'));
     }
@@ -24,6 +25,7 @@ class KodeAbsensiController extends Controller
             'kode' => 'required|string|unique:kode_absensi,kode',
             'tanggal' => 'required|date',
             'untuk_role' => 'required|in:guru,siswa',
+            'durasi' => 'required|integer|min:1',
         ], [
             'kode.required' => 'Kolom kode absensi wajib diisi.',
             'kode.string' => 'Kode absensi harus berupa teks.',
@@ -32,7 +34,11 @@ class KodeAbsensiController extends Controller
             'tanggal.required' => 'Tanggal berlaku wajib diisi.',
             'tanggal.date' => 'Format tanggal tidak valid.',
 
-            'untuk_role.required' => 'Silakan pilih ditujukan untuk siapa kode ini.'
+            'untuk_role.required' => 'Silakan pilih ditujukan untuk siapa kode ini.',
+
+            'durasi.required' => 'Durasi waktu wajib diisi.',
+            'durasi.integer' => 'Durasi harus berupa angka.',
+            'durasi.min' => 'Durasi minimal 1 menit.',
         ]);
 
         // Cek apakah sudah ada kode untuk tanggal dan role tersebut
@@ -44,7 +50,14 @@ class KodeAbsensiController extends Controller
             return redirect()->back()->with('error', 'Kode absensi untuk tanggal dan role tersebut sudah dibuat.');
         }
 
-        KodeAbsensi::create($request->all());
+        $expiredAt = now()->addMinutes($request->durasi);
+
+        KodeAbsensi::create([
+            'kode'        => $request->kode,
+            'tanggal'     => $request->tanggal,
+            'untuk_role'  => $request->untuk_role,
+            'expired_at'  => $expiredAt,
+        ]);
 
         return redirect()->route('admin.index')->with('success', 'Kode absensi berhasil dibuat.');
     }

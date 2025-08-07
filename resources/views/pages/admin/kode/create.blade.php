@@ -20,11 +20,18 @@
                 {{-- KODE --}}
                 <div class="mb-3">
                     <label for="kode" class="form-label fw-semibold">Kode Absensi</label>
-                    <input type="text" name="kode" class="form-control shadow-sm @error('kode') is-invalid @enderror"
-                        placeholder="Contoh: ABC123" value="{{ old('kode') }}">
+                    <div class="input-group">
+                        <input type="text" name="kode" id="kode"
+                            class="form-control shadow-sm @error('kode') is-invalid @enderror"
+                            placeholder="Klik tombol untuk membuat kode otomatis" value="{{ old('kode') }}">
+                        <button class="btn btn-outline-primary" type="button" onclick="generateKode()">
+                            <i class="fas fa-random me-1"></i> Generate Kode
+                        </button>
+                    </div>
                     @error('kode')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
+
                 </div>
 
                 {{-- TANGGAL --}}
@@ -48,6 +55,17 @@
                         <option value="guru" {{ old('untuk_role') == 'guru' ? 'selected' : '' }}>Guru</option>
                     </select>
                     @error('untuk_role')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- DURASI (Menit) --}}
+                <div class="mb-4">
+                    <label for="durasi" class="form-label fw-semibold">Durasi Berlaku (Menit)</label>
+                    <input type="number" name="durasi"
+                        class="form-control shadow-sm @error('durasi') is-invalid @enderror" placeholder="Contoh: 10"
+                        min="1" value="{{ old('durasi', 5) }}">
+                    @error('durasi')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>

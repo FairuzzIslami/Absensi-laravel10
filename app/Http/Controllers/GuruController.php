@@ -20,7 +20,30 @@ class GuruController extends Controller
         $jumlahKelas = Kelas::count();
         $totalSiswa  = \App\Models\User::where('id_role', 3)->count(); // role 3 = siswa
 
-        return view('pages.guru.dashboard', compact('absenHariIni', 'jumlahKelas', 'totalSiswa'));
+        $bulanIni = date('m');
+        $tahunIni = date('Y');
+
+        $totalHadir = Kehadiran::where('user_id', auth()->id())
+            ->whereMonth('tanggal_kehadiran', $bulanIni)
+            ->whereYear('tanggal_kehadiran', $tahunIni)
+            ->where('status', 'Hadir')
+            ->count();
+
+        $totalIzin = Kehadiran::where('user_id', auth()->id())
+            ->whereMonth('tanggal_kehadiran', $bulanIni)
+            ->whereYear('tanggal_kehadiran', $tahunIni)
+            ->where('status', 'Izin')
+            ->count();
+
+        $totalSakit = Kehadiran::where('user_id', auth()->id())
+            ->whereMonth('tanggal_kehadiran', $bulanIni)
+            ->whereYear('tanggal_kehadiran', $tahunIni)
+            ->where('status', 'Sakit')
+            ->count();
+
+
+        return view('pages.guru.dashboard', compact('absenHariIni', 'jumlahKelas', 'totalSiswa'
+            ,'totalHadir','totalIzin','totalSakit'));
     }
 
 

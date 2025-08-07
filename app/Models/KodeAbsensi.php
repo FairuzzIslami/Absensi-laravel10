@@ -11,10 +11,5 @@ class KodeAbsensi extends Model
 
     protected $table = 'kode_absensi';
 
-    protected $fillable = ['kode', 'tanggal', 'untuk_role'];
-
-    public function pengguna()
-    {
-        return $this->hasMany(PenggunaanKode::class, 'kode_absensi_id');
-    }
+    protected $fillable = ['kode', 'tanggal', 'untuk_role','expired_at'];
 }

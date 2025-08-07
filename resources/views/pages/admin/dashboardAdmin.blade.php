@@ -51,52 +51,90 @@
                         </div>
 
                         <!-- Kode Absensi Hari Ini -->
+                        <!-- Kode Absensi Hari Ini -->
                         <div class="row mt-4">
                             <!-- Guru -->
                             <div class="col-md-6 mb-4">
-                                <div class="card shadow-sm border-0 p-4 h-100">
-                                    <h5 class="mb-3 text-success">
-                                        <i class="fa-solid fa-user-tie me-2"></i> Kode Absensi <strong>Guru</strong> Hari
-                                        Ini
-                                    </h5>
+                                <div class="card shadow-sm border-0 h-100">
+                                    <div class="card-body p-4">
+                                        <h5 class="mb-3 text-success d-flex align-items-center">
+                                            <i class="fa-solid fa-user-tie me-2"></i>
+                                            Kode Absensi Guru Hari Ini
+                                        </h5>
 
-                                    @if ($kodeHariIniGuru)
-                                        <div class="alert alert-success mb-0">
-                                            Kode absensi: <span class="fw-bold">{{ $kodeHariIniGuru->kode }}</span>
-                                        </div>
-                                    @else
-                                        <div
-                                            class="alert alert-warning d-flex justify-content-between align-items-center mb-0">
-                                            <span>Belum ada kode absensi untuk guru.</span>
-                                            <a href="{{ route('admin.kode.create', ['role' => 'guru']) }}"
-                                                class="btn btn-sm btn-outline-success">Buat</a>
-                                        </div>
-                                    @endif
+                                        @if ($kodeHariIniGuru)
+                                            @if ($kodeHariIniGuru->expired_at >= now())
+                                                <div
+                                                    class="alert alert-success d-flex justify-content-between align-items-center mb-0">
+                                                    <div>
+                                                        <div>Kode: <span class="fw-bold">{{ $kodeHariIniGuru->kode }}</span>
+                                                        </div>
+                                                        <small class="text-muted">Berlaku hingga
+                                                            {{ \Carbon\Carbon::parse($kodeHariIniGuru->expired_at)->format('H:i') }}</small>
+                                                    </div>
+                                                    <span class="badge bg-success">Aktif</span>
+                                                </div>
+                                            @else
+                                                <div
+                                                    class="alert alert-danger d-flex justify-content-between align-items-center mb-0">
+                                                    <span>Kode <strong>kadaluarsa</strong></span>
+                                                    <a href="{{ route('admin.kode.create', ['role' => 'guru']) }}"
+                                                        class="btn btn-sm btn-outline-danger">Buat Baru</a>
+                                                </div>
+                                            @endif
+                                        @else
+                                            <div
+                                                class="alert alert-warning d-flex justify-content-between align-items-center mb-0">
+                                                <span>Belum ada kode absensi.</span>
+                                                <a href="{{ route('admin.kode.create', ['role' => 'guru']) }}"
+                                                    class="btn btn-sm btn-outline-success">Buat</a>
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- Siswa -->
                             <div class="col-md-6 mb-4">
-                                <div class="card shadow-sm border-0 p-4 h-100">
-                                    <h5 class="mb-3 text-primary">
-                                        <i class="fa-solid fa-user-graduate me-2"></i> Kode Absensi <strong>Siswa</strong>
-                                        Hari Ini
-                                    </h5>
+                                <div class="card shadow-sm border-0 h-100">
+                                    <div class="card-body p-4">
+                                        <h5 class="mb-3 text-primary d-flex align-items-center">
+                                            <i class="fa-solid fa-user-graduate me-2"></i>
+                                            Kode Absensi Siswa Hari Ini
+                                        </h5>
 
-                                    @if ($kodeHariIniSiswa)
-                                        <div class="alert alert-primary mb-0">
-                                            Kode absensi: <span class="fw-bold">{{ $kodeHariIniSiswa->kode }}</span>
-                                        </div>
-                                    @else
-                                        <div
-                                            class="alert alert-warning d-flex justify-content-between align-items-center mb-0">
-                                            <span>Belum ada kode absensi untuk siswa.</span>
-                                            <a href="{{ route('admin.kode.create', ['role' => 'siswa']) }}"
-                                                class="btn btn-sm btn-outline-primary">Buat</a>
-                                        </div>
-                                    @endif
+                                        @if ($kodeHariIniSiswa)
+                                            @if ($kodeHariIniSiswa->expired_at >= now())
+                                                <div
+                                                    class="alert alert-primary d-flex justify-content-between align-items-center mb-0">
+                                                    <div>
+                                                        <div>Kode: <span
+                                                                class="fw-bold">{{ $kodeHariIniSiswa->kode }}</span></div>
+                                                        <small class="text-muted">Berlaku hingga
+                                                            {{ \Carbon\Carbon::parse($kodeHariIniSiswa->expired_at)->format('H:i') }}</small>
+                                                    </div>
+                                                    <span class="badge bg-primary">Aktif</span>
+                                                </div>
+                                            @else
+                                                <div
+                                                    class="alert alert-danger d-flex justify-content-between align-items-center mb-0">
+                                                    <span>Kode <strong>kadaluarsa</strong></span>
+                                                    <a href="{{ route('admin.kode.create', ['role' => 'siswa']) }}"
+                                                        class="btn btn-sm btn-outline-danger">Buat Baru</a>
+                                                </div>
+                                            @endif
+                                        @else
+                                            <div
+                                                class="alert alert-warning d-flex justify-content-between align-items-center mb-0">
+                                                <span>Belum ada kode absensi.</span>
+                                                <a href="{{ route('admin.kode.create', ['role' => 'siswa']) }}"
+                                                    class="btn btn-sm btn-outline-primary">Buat</a>
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
             </section>
         @endsection

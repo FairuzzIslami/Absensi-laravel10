@@ -33,3 +33,13 @@ toggleButton.addEventListener('click', () => {
     navbar.classList.toggle('expanded');
     navbar.classList.toggle('default');
 });
+
+// kode random
+function generateKode() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let kode = '';
+    for (let i = 0; i < 6; i++) {
+        kode += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    document.getElementById('kode').value = kode;
+}
