@@ -119,7 +119,7 @@ Password : 123456
 
 ## 🗃️ Struktur Database
 
-![Database Schema]<img width="944" height="544" alt="Image" src="https://github.com/user-attachments/assets/ab9c19f2-9012-4de7-bb4b-fcab742c9956" />
+![Database Schema]<img width="1002" height="497" alt="Image" src="https://github.com/user-attachments/assets/e6927bed-c6fc-4f58-972a-41d11e3d2f87" />
 
 **Tabel Utama:**
 - `users` → Menyimpan data pengguna (siswa/guru/admin)
