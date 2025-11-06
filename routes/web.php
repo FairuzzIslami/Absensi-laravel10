@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 // home
 Route::get('/', function () {
-    return view('pages.index');
+    return view('pages.home');
 });
 
 // login

@@ -24,9 +24,7 @@ class AdminController extends Controller
         $kodeHariIniSiswa = KodeAbsensi::whereDate('tanggal', $today)
             ->where('untuk_role', 'siswa') // 3 = siswa
             ->where('expired_at', '>=', now())
-            ->first();
-
-
+            ->first();  
         $kodeHariIniGuru = KodeAbsensi::whereDate('tanggal', $today)
             ->where('untuk_role', 'guru') // 2 = guru
             ->where('expired_at', '>=', now())
