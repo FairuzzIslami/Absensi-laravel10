@@ -25,7 +25,7 @@
 
             <!-- Tabel Riwayat -->
             <div class="table-responsive shadow-sm rounded">
-                <table class="table table-striped table-hover align-middle text-center">
+                <table class="table table-striped table-hover align-middle text-center responsive-table">
                     <thead class="table-primary">
                         <tr>
                             <th>#</th>
@@ -36,8 +36,8 @@
                     <tbody>
                         @forelse ($riwayat as $index => $r)
                             <tr>
-                                <td>{{ $riwayat->firstItem() + $index }}</td>
-                                <td>
+                                <td data-label="#">{{ $riwayat->firstItem() + $index }}</td>
+                                <td data-label="Tanggal">
                                     <span class="badge bg-light text-dark border">
                                         <i class="fa-solid fa-calendar-day text-primary"></i>
                                         {{ \Carbon\Carbon::parse($r->tanggal_kehadiran)->translatedFormat('d M Y') }}
@@ -53,7 +53,7 @@
                                         default => 'bg-secondary',
                                     };
                                 @endphp
-                                <td>
+                                <td data-label="Status">
                                     <span class="badge {{ $badgeClass }}">
                                         {{ $status }}
                                     </span>

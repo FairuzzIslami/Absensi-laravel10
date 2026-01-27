@@ -78,6 +78,8 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     // view kehadiran siswa
     Route::get('guru/kelas', [GuruController::class, 'kelas'])->name('guru.kelas');
     Route::get('guru/kelas/{id}', [GuruController::class, 'detailSiswa'])->name('guru.kelas.detail');
+    Route::post('/guru/absen-siswa', [GuruController::class, 'absenSiswa'])
+    ->name('guru.absen.siswa');
 
     // Guru absen
     Route::get('/guru/absensi', [GuruController::class, 'absensi'])->name('guru.absensi');

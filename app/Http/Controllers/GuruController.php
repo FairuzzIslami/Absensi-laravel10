@@ -238,4 +238,25 @@ class GuruController extends Controller
         session(['kode_absen_valid' => true]); // Tanda sudah lolos
         return redirect()->route('guru.absensi')->with('success', 'Kode berhasil! Silakan isi absensi.');
     }
+    public function absenSiswa(Request $request)
+{
+    $request->validate([
+        'user_id' => 'required',
+        'tanggal_kehadiran' => 'required|date',
+        'status' => 'required'
+    ]);
+
+    Kehadiran::updateOrCreate(
+        [
+            'user_id' => $request->user_id,
+            'tanggal_kehadiran' => $request->tanggal_kehadiran
+        ],
+        [
+            'status' => $request->status
+        ]
+    );
+
+    return back()->with('success', 'Absensi siswa berhasil diperbarui.');
+}
+
 }

@@ -418,7 +418,7 @@
                             <a class="nav-link fw-semibold" href="#kontak">Kontak</a>
                         </li>
                         <li class="nav-item ms-lg-2">
-                            <a href="login.html" class="btn btn-login">Login</a>
+                            <a href="/login" class="btn btn-login">Login</a>
                         </li>
                     </ul>
                 </div>

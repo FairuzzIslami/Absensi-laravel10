@@ -28,7 +28,7 @@
 
             <!-- Tabel Kelas -->
             <div class="table-responsive shadow-sm rounded">
-                <table class="table table-striped table-hover align-middle text-center">
+                <table class="table table-striped table-hover align-middle text-center responsive-table">
                     <thead class="table-primary">
                         <tr>
                             <th>#</th>
@@ -40,7 +40,7 @@
                     <tbody>
                         @forelse($kelas as $index => $k)
                             <tr>
-                                <td>{{ $index + $kelas->firstItem() }}</td>
+                                <td data-label="#">{{ $index + $kelas->firstItem() }}</td>
                                 @php
                                     $kelasColor =
                                         [
@@ -50,13 +50,13 @@
                                         ][$k->kelas] ?? '';
                                 @endphp
 
-                                <td>
+                                <td data-label="Kelas">
                                     <span class="badge {{ $kelasColor }}">
                                         {{ $k->kelas }}
                                     </span>
                                 </td>
-                                <td class="text-uppercase">{{ $k->jurusan ?? '-' }}</td>
-                                <td>
+                                <td class="text-uppercase" data-label="Jurusan">{{ $k->jurusan ?? '-' }}</td>
+                                <td data-label="Aksi">
                                     <div class="btn-group" role="group">
                                         <!-- Edit -->
                                         <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal"

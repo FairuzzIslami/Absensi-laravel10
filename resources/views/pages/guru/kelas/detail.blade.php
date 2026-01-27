@@ -39,8 +39,11 @@
             <!-- Badge Tanggal Hari Ini dan Total Data -->
             <div class="alert alert-info d-flex justify-content-between align-items-center shadow-sm">
                 <span>
-                    <i class="fa-solid fa-calendar-day me-1"></i>
+                     <i class="fa-solid fa-calendar-day me-1"></i>
                     <strong>Hari Ini:</strong> {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
+                        |
+                    <i class="fa-solid fa-clock ms-2 me-1"></i>
+                    <span id="liveClock"></span>
                 </span>
                 <span class="badge bg-primary">
                     Total Siswa: {{ $siswa->total() }}
@@ -49,22 +52,23 @@
 
             <!-- Tabel Siswa -->
             <div class="table-responsive shadow-sm rounded">
-                <table class="table table-striped table-hover align-middle text-center">
+                <table class="table table-striped table-hover align-middle text-center responsive-table">
                     <thead class="table-primary">
                         <tr>
                             <th>#</th>
                             <th>Nama Siswa</th>
                             <th>Email</th>
                             <th>Absensi Hari Ini</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($siswa as $index => $s)
                             <tr>
-                                <td>{{ $siswa->firstItem() + $index }}</td>
-                                <td>{{ $s->username }}</td>
-                                <td>{{ $s->email }}</td>
-                                <td>
+                                <td data-label="#">{{ $siswa->firstItem() + $index }}</td>
+                                <td data-label="Nama">{{ $s->username }}</td>
+                                <td data-label="Email">{{ $s->email }}</td>
+                                <td data-label="Status">
                                     @php
                                         $absenHariIni = $s->kehadiran
                                             ->where('tanggal_kehadiran', date('Y-m-d'))
@@ -86,6 +90,21 @@
                                     @else
                                         <span class="badge bg-secondary">Belum ada keterangan</span>
                                     @endif
+                                </td>
+
+                                <td data-label="Aksi">
+                                    <form action="{{ route('guru.absen.siswa') }}" method="POST"
+                                        class="d-flex justify-content-center gap-1">
+                                        @csrf
+
+                                        <input type="hidden" name="user_id" value="{{ $s->id }}">
+                                        <input type="hidden" name="tanggal_kehadiran" value="{{ date('Y-m-d') }}">
+
+                                        <button name="status" value="Hadir" class="btn btn-sm btn-success">H</button>
+                                        <button name="status" value="Izin" class="btn btn-sm btn-warning">I</button>
+                                        <button name="status" value="Sakit" class="btn btn-sm btn-info">S</button>
+                                        <button name="status" value="tanpa keterangan" class="btn btn-sm btn-danger">A</button>
+                                    </form>
                                 </td>
                             </tr>
                         @empty

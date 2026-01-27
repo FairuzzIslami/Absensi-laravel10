@@ -14,7 +14,7 @@ class Kelas extends Model
 
     public function allUsers()
     {
-        return $this->hasMany(User::class, 'id_kelas'); // Semua user
+        return $this->hasMany(User::class, 'id_kelas'); 
     }
 
     public function users()

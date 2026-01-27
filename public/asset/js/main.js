@@ -43,3 +43,18 @@ function generateKode() {
     }
     document.getElementById('kode').value = kode;
 }
+
+function updateClock() {
+    const now = new Date();
+
+    const time = now.toLocaleTimeString('id-ID', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+
+    document.getElementById('liveClock').innerText = time;
+}
+
+setInterval(updateClock, 1000);
+updateClock();

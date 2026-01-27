@@ -50,7 +50,7 @@
 
             <!-- Tabel User -->
             <div class="table-responsive shadow-sm rounded">
-                <table class="table table-striped table-hover align-middle text-center">
+                <table class="table table-striped table-hover align-middle text-center responsive-table">
                     <thead class="table-primary">
                         <tr>
                             <th>#</th>
@@ -64,10 +64,10 @@
                     <tbody>
                         @forelse($users as $index => $user)
                             <tr>
-                                <td>{{ $index + $users->firstItem() }}</td>
-                                <td class="text-start">{{ $user->username }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>
+                                <td data-label="#">{{ $index + $users->firstItem() }}</td>
+                                <td class="text-start" data-label="Nama">{{ $user->username }}</td>
+                                <td data-label="Email">{{ $user->email }}</td>
+                                <td data-label="Role">
                                     @php
                                         $roleColors = [
                                             'admin' => 'bg-danger', // merah
@@ -81,7 +81,7 @@
                                         {{ ucfirst($user->role->nama_role) }}
                                     </span>
                                 </td>
-                                <td>
+                                <td data-label="Status">
                                     @if ($user->kehadiran->isNotEmpty())
                                         @php $status = $user->kehadiran->first()->status; @endphp
                                         @if ($status == 'hadir')
@@ -98,7 +98,7 @@
                                     @endif
                                 </td>
 
-                                <td>
+                                <td data-label="Aksi">
                                     <div class="btn-group" role="group">
                                         <!-- Edit -->
                                         <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal"

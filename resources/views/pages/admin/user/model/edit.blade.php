@@ -28,9 +28,9 @@
                     <!-- Role -->
                     <div class="mb-3">
                         <label class="form-label fw-bold"><i class="fas fa-user-tag me-1"></i> Role</label>
-                        <select name="id_role" class="form-select" required>
+                       <select name="id_role" class="form-select" required>
                             @foreach ($roles as $role)
-                                <option value="{{ $role->role_id }}" {{ $user->id_role == $role->role_id ? 'selected' : '' }}>
+                                <option value="{{ $role->id_role }}" {{ $user->id_role == $role->id_role ? 'selected' : '' }}>
                                     {{ ucfirst($role->nama_role) }}
                                 </option>
                             @endforeach

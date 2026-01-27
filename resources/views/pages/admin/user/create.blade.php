@@ -20,7 +20,7 @@
                             <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
                             <input type="text" name="username"
                                    class="form-control @error('username') is-invalid @enderror"
-                                   placeholder="Masukkan nama" value="{{ old('username') }}" >
+                                   placeholder="Masukkan nama" value="{{ old('username') }}">
                             @error('username')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -34,7 +34,7 @@
                             <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
                             <input type="email" name="email"
                                    class="form-control @error('email') is-invalid @enderror"
-                                   placeholder="Masukkan email" value="{{ old('email') }}" >
+                                   placeholder="Masukkan email" value="{{ old('email') }}">
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -48,7 +48,7 @@
                             <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
                             <input type="password" name="password"
                                    class="form-control @error('password') is-invalid @enderror"
-                                   placeholder="Minimal 6 karakter" >
+                                   placeholder="Minimal 6 karakter">
                             @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -59,10 +59,10 @@
                     <div class="mb-3">
                         <label class="form-label fw-bold">Role</label>
                         <select name="id_role"
-                                class="form-select @error('id_role') is-invalid @enderror" >
+                                class="form-select @error('id_role') is-invalid @enderror">
                             <option value="">-- Pilih Role --</option>
                             @foreach ($roles as $role)
-                                <option value="{{ $role->role_id }}" {{ old('id_role') == $role->role_id ? 'selected' : '' }}>
+                                <option value="{{ $role->id_role }}" {{ old('id_role') == $role->id_role ? 'selected' : '' }}>
                                     {{ ucfirst($role->nama_role) }}
                                 </option>
                             @endforeach

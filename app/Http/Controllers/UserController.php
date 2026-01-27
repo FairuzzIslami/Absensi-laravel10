@@ -58,7 +58,7 @@ class UserController extends Controller
                 'username' => 'required|string|max:100',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|min:6',
-                'id_role' => 'required|exists:roles,role_id',
+                'id_role' => 'required|exists:roles,id_role',
                 'id_kelas' => 'nullable|exists:kelas,id_kelas'
             ],
             [
@@ -116,7 +116,7 @@ class UserController extends Controller
                 'username' => 'required|string|max:100',
                 'email' => 'required|email|unique:users,email,' . $user->id,
                 'password' => 'nullable|min:6', // password opsional
-                'id_role' => 'required|exists:roles,role_id',
+                'id_role' => 'required|exists:roles,id_role',
                 'id_kelas' => 'nullable|exists:kelas,id_kelas'
             ],
             [
