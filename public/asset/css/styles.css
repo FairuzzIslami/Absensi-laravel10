@@ -13,8 +13,10 @@ body {
     border-left: none;
 }
 
+/* ================= SIDEBAR ================= */
+
 .sidebar {
-     position: fixed;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -26,10 +28,12 @@ body {
     z-index: 1030;
 }
 
+/* COLLAPSE MODE */
 .sidebar.collapsed {
-    margin-left: -220px;
+    transform: translateX(-220px);
 }
 
+/* SIDEBAR LINK */
 .sidebar a {
     color: white;
     padding: 12px 20px;
@@ -38,13 +42,14 @@ body {
     font-size: 15px;
     border-radius: 6px;
     margin: 2px 12px;
-    transition: background 0.3s;
+    transition: 0.3s;
 }
+
 .sidebar a:hover,
 .sidebar a.active {
     background-color: rgba(255, 255, 255, 0.15);
-    transition: 0.3s ease;
 }
+
 .sidebar-link:hover i {
     transform: scale(1.1);
 }
@@ -60,6 +65,77 @@ body {
     margin-top: 20px;
     margin-bottom: 10px;
 }
+/* Overlay gelap */
+.sidebar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 9000;
+    display: none;
+}
+
+.sidebar-backdrop.active {
+    display: block;
+}
+
+
+/* ================= CONTENT ================= */
+
+#mainContent {
+    margin-left: 220px;
+    transition: all 0.3s ease;
+}
+
+/* ================= NAVBAR ================= */
+
+#mainNavbar {
+    margin-left: 220px;
+    transition: all 0.3s ease;
+}
+
+/* ================= EXPANDED MODE ================= */
+
+#mainContent.expanded,
+#mainNavbar.expanded {
+    margin-left: 0;
+}
+
+/* ================= MOBILE MODE ================= */
+
+@media (max-width: 768px) {
+
+    #mainContent,
+    #mainNavbar {
+        margin-left: 0;
+    }
+
+    .sidebar {
+        transform: translateX(-220px);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+}
+/* MOBILE SIDEBAR OVERLAY FIX */
+@media (max-width: 768px) {
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 9999; /* NAIKIN PRIORITAS */
+        background-color: #0D5EA6;
+    }
+
+}
+
+
 /* Dropdown menu dark style */
 .dropdown-menu {
     background-color: #ffff; /* Warna gelap */

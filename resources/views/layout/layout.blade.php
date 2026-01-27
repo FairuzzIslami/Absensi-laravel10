@@ -38,6 +38,8 @@
         @include('layout.sidebar')
     @endif
 
+    <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
     @yield('content')
 
     @if (!Request::is('/'))

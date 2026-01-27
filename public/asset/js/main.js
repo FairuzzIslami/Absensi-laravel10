@@ -20,19 +20,46 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
 
-// side bar
-const toggleButton = document.getElementById('toggleSidebar');
-const sidebar = document.getElementById('sidebar');
-const mainContent = document.getElementById('mainContent');
-const navbar = document.getElementById('mainNavbar');
+    const toggleButton = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('sidebarBackdrop');
+    const mainContent = document.getElementById('mainContent');
+    const navbar = document.getElementById('mainNavbar');
 
-toggleButton.addEventListener('click', () => {
-    sidebar.classList.toggle('collapsed');
-    mainContent.classList.toggle('expanded');
-    navbar.classList.toggle('expanded');
-    navbar.classList.toggle('default');
+    // Mobile default close
+    if (window.innerWidth <= 768) {
+        sidebar.classList.remove('active');
+        backdrop.classList.remove('active');
+    }
+
+    toggleButton.addEventListener('click', function () {
+
+        if (window.innerWidth <= 768) {
+
+            sidebar.classList.toggle('active');
+            backdrop.classList.toggle('active');
+
+        } else {
+
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+            navbar.classList.toggle('expanded');
+
+        }
+
+    });
+
+    // Klik backdrop auto close
+    backdrop.addEventListener('click', function () {
+        sidebar.classList.remove('active');
+        backdrop.classList.remove('active');
+    });
+
 });
+
+
 
 // kode random
 function generateKode() {
