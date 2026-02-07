@@ -239,24 +239,36 @@ class GuruController extends Controller
         return redirect()->route('guru.absensi')->with('success', 'Kode berhasil! Silakan isi absensi.');
     }
     public function absenSiswa(Request $request)
-{
-    $request->validate([
-        'user_id' => 'required',
-        'tanggal_kehadiran' => 'required|date',
-        'status' => 'required'
-    ]);
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'tanggal_kehadiran' => 'required|date',
+            'status' => 'required'
+        ]);
 
-    Kehadiran::updateOrCreate(
-        [
-            'user_id' => $request->user_id,
-            'tanggal_kehadiran' => $request->tanggal_kehadiran
-        ],
-        [
-            'status' => $request->status
-        ]
-    );
+        Kehadiran::updateOrCreate(
+            [
+                'user_id' => $request->user_id,
+                'tanggal_kehadiran' => $request->tanggal_kehadiran
+            ],
+            [
+                'status' => $request->status
+            ]
+        );
 
-    return back()->with('success', 'Absensi siswa berhasil diperbarui.');
-}
+        return back()->with('success', 'Absensi siswa berhasil diperbarui.');
+    }
+    public function jadwalMengajar()
+    {
+        $guruId = auth()->id();
+
+        $jadwal = \App\Models\JadwalMengajar::with('kelas')
+            ->where('guru_id', $guruId)
+            ->orderBy('hari')
+            ->orderBy('jam_mulai')
+            ->get();
+
+        return view('pages.guru.jadwal.index', compact('jadwal'));
+    }
 
 }

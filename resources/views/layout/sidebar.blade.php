@@ -51,6 +51,10 @@
             <a href="{{ route('kelas.index') }}" class="sidebar-link">
                 <i class="fas fa-school me-2"></i> Buat Kelas
             </a>
+            <a href="{{ route('jadwal.index') }}" class="sidebar-link">
+                <i class="fa-solid fa-calendar-days me-2"></i> Jadwal Mengajar
+            </a>
+
         @elseif(auth()->user()->role->nama_role === 'guru')
             <a href="{{ route('guru.index') }}" class="sidebar-link">
                 <i class="fas fa-tachometer-alt me-2"></i> Dashboard
@@ -65,6 +69,9 @@
             </a>
             <a href="{{ route('guru.riwayat') }}" class="sidebar-link">
                 <i class="fa-solid fa-clock-rotate-left me-2"></i> Riwayat Absensi
+            </a>
+            <a href="{{ route('guru.jadwal') }}" class="sidebar-link">
+                <i class="fa-solid fa-calendar-days me-2"></i> Jadwal Mengajar
             </a>
         @elseif (auth()->user()->role->nama_role === 'siswa')
             <a href="{{ route('siswa.index') }}" class="sidebar-link text-white d-block mb-2">

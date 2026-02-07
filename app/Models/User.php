@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\JadwalMengajar;
 
 class User extends Authenticatable
 {
@@ -30,5 +31,9 @@ class User extends Authenticatable
     public function kehadiran()
     {
         return $this->hasMany(Kehadiran::class, 'user_id');
+    }
+    public function jadwalMengajar()
+    {
+        return $this->hasMany(JadwalMengajar::class, 'guru_id');
     }
 }

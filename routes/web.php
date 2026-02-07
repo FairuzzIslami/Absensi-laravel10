@@ -9,6 +9,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JadwalMengajarController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +69,22 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/kode', [KodeAbsensiController::class, 'create'])->name('admin.kode.create');
     Route::post('/admin/kode', [KodeAbsensiController::class, 'store'])->name('admin.kode.store');
     Route::delete('/kode/{id}', [KodeAbsensiController::class, 'destroy'])->name('admin.kode.destroy');
+
+     // Jadwal Mengajar
+    Route::get('/admin/jadwal', [JadwalMengajarController::class, 'index'])
+        ->name('jadwal.index');
+
+    Route::get('/admin/jadwal/create', [JadwalMengajarController::class, 'create'])
+        ->name('jadwal.create');
+
+    Route::post('/admin/jadwal', [JadwalMengajarController::class, 'store'])
+        ->name('jadwal.store');
+
+    Route::put('/admin/jadwal/{id}', [JadwalMengajarController::class, 'update'])
+    ->name('jadwal.update');
+
+    Route::delete('/admin/jadwal/{id}', [JadwalMengajarController::class, 'destroy'])
+    ->name('jadwal.destroy');
 });
 
 
@@ -95,6 +113,10 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     // kode absen
     Route::get('/guru/kode-absen', [GuruController::class, 'formKodeAbsen'])->name('guru.kode.form');
     Route::post('/guru/kode-absen', [GuruController::class, 'cekKodeAbsen'])->name('guru.kode.cek');
+
+    // Guru lihat jadwal mengajar sendiri
+    Route::get('/guru/jadwal', [GuruController::class, 'jadwalMengajar'])
+        ->name('guru.jadwal');
 });
 
 // siswa
