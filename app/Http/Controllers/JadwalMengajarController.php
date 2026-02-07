@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\JadwalMengajar;
 use App\Models\User;
 use App\Models\Kelas;
+use App\Models\Mapel;
 use Illuminate\Http\Request;
 
 class JadwalMengajarController extends Controller
 {
     public function index()
     {
-        $jadwal = JadwalMengajar::with(['guru', 'kelas'])
+        $jadwal = JadwalMengajar::with(['guru', 'kelas', 'mapel'])
             ->orderBy('hari')
             ->orderBy('jam_mulai')
             ->get();
@@ -21,11 +22,13 @@ class JadwalMengajarController extends Controller
         })->get();
 
         $kelas = Kelas::all();
+        $mapel = Mapel::all();
 
         return view('pages.admin.jadwal.index', compact(
             'jadwal',
             'guru',
-            'kelas'
+            'kelas',
+            'mapel'
         ));
     }
 
@@ -36,32 +39,32 @@ class JadwalMengajarController extends Controller
         })->get();
 
         $kelas = Kelas::all();
+        $mapel = Mapel::all();
 
-        return view('pages.admin.jadwal.create', compact('guru', 'kelas'));
+        return view('pages.admin.jadwal.create', compact(
+            'guru',
+            'kelas',
+            'mapel'
+        ));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'guru_id'     => 'required|exists:users,id',
+            'mapel_id'    => 'required|exists:mapel,id',
             'kelas_id'    => 'required|exists:kelas,id_kelas',
             'hari'        => 'required',
             'jam_mulai'   => 'required|date_format:H:i',
             'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
         ], [
-            'guru_id.required'       => 'Guru wajib dipilih.',
-            'guru_id.exists'         => 'Guru tidak ditemukan.',
-            'kelas_id.required'      => 'Kelas wajib dipilih.',
-            'kelas_id.exists'        => 'Kelas tidak ditemukan.',
-            'hari.required'          => 'Hari wajib diisi.',
-            'jam_mulai.required'     => 'Jam mulai wajib diisi.',
-            'jam_mulai.date_format'  => 'Format jam mulai harus HH:MM.',
-            'jam_selesai.required'   => 'Jam selesai wajib diisi.',
-            'jam_selesai.date_format'=> 'Format jam selesai harus HH:MM.',
-            'jam_selesai.after'      => 'Jam selesai harus setelah jam mulai.',
+            'guru_id.required'     => 'Guru wajib dipilih.',
+            'mapel_id.required'    => 'Mapel wajib dipilih.',
+            'kelas_id.required'    => 'Kelas wajib dipilih.',
+            'jam_selesai.after'    => 'Jam selesai harus setelah jam mulai.',
         ]);
 
-        // Cek jadwal bentrok
+        // Cek jadwal bentrok (guru / kelas)
         $bentrok = JadwalMengajar::where('hari', $request->hari)
             ->where(function ($q) use ($request) {
                 $q->where('kelas_id', $request->kelas_id)
@@ -85,6 +88,7 @@ class JadwalMengajarController extends Controller
 
         JadwalMengajar::create([
             'guru_id'     => $request->guru_id,
+            'mapel_id'    => $request->mapel_id,
             'kelas_id'    => $request->kelas_id,
             'hari'        => $request->hari,
             'jam_mulai'   => $request->jam_mulai,
@@ -99,24 +103,13 @@ class JadwalMengajarController extends Controller
     {
         $request->validate([
             'guru_id'     => 'required|exists:users,id',
+            'mapel_id'    => 'required|exists:mapel,id',
             'kelas_id'    => 'required|exists:kelas,id_kelas',
             'hari'        => 'required',
             'jam_mulai'   => 'required|date_format:H:i',
             'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
-        ], [
-            'guru_id.required'       => 'Guru wajib dipilih.',
-            'guru_id.exists'         => 'Guru tidak ditemukan.',
-            'kelas_id.required'      => 'Kelas wajib dipilih.',
-            'kelas_id.exists'        => 'Kelas tidak ditemukan.',
-            'hari.required'          => 'Hari wajib diisi.',
-            'jam_mulai.required'     => 'Jam mulai wajib diisi.',
-            'jam_mulai.date_format'  => 'Format jam mulai harus HH:MM.',
-            'jam_selesai.required'   => 'Jam selesai wajib diisi.',
-            'jam_selesai.date_format'=> 'Format jam selesai harus HH:MM.',
-            'jam_selesai.after'      => 'Jam selesai harus setelah jam mulai.',
         ]);
 
-        // Cek jadwal bentrok kecuali jadwal yang sedang diupdate
         $bentrok = JadwalMengajar::where('id', '!=', $id)
             ->where('hari', $request->hari)
             ->where(function ($q) use ($request) {
@@ -141,6 +134,7 @@ class JadwalMengajarController extends Controller
 
         JadwalMengajar::findOrFail($id)->update([
             'guru_id'     => $request->guru_id,
+            'mapel_id'    => $request->mapel_id,
             'kelas_id'    => $request->kelas_id,
             'hari'        => $request->hari,
             'jam_mulai'   => $request->jam_mulai,

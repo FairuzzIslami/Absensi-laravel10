@@ -34,7 +34,8 @@
                 <thead class="table-primary">
                     <tr>
                         <th>#</th>
-                        <th>Guru</th>
+                        <th class="text-start">Guru</th>
+                        <th>Mapel</th>
                         <th>Kelas</th>
                         <th>Hari</th>
                         <th>Jam</th>
@@ -51,6 +52,26 @@
                                 {{ $j->guru->username }}
                             </td>
 
+                            @php
+                                $mapelColors = [
+                                    'bg-primary',
+                                    'bg-success',
+                                    'bg-warning text-dark',
+                                    'bg-danger',
+                                    'bg-info text-dark',
+                                    'bg-secondary',
+                                    'bg-dark'
+                                ];
+
+                                $colorIndex = crc32($j->mapel->nama_mapel ?? 'x') % count($mapelColors);
+                            @endphp
+
+                            <td>
+                                <span class="badge {{ $mapelColors[$colorIndex] }}">
+                                    {{ $j->mapel->nama_mapel ?? '-' }}
+                                </span>
+                            </td>
+
                             <td>
                                 {{ $j->kelas->kelas }} -
                                 {{ strtoupper($j->kelas->jurusan) }}
@@ -58,12 +79,12 @@
 
                             @php
                                 $hariColors = [
-                                    'Senin' => 'bg-primary',   // biru
-                                    'Selasa' => 'bg-success',  // hijau
-                                    'Rabu' => 'bg-warning text-dark', // kuning
-                                    'Kamis' => 'bg-danger',    // merah
-                                    'Jumat' => 'bg-secondary', // abu-abu
-                                    'Sabtu' => 'bg-info text-dark' // biru muda
+                                    'Senin'  => 'bg-primary',
+                                    'Selasa' => 'bg-success',
+                                    'Rabu'   => 'bg-warning text-dark',
+                                    'Kamis'  => 'bg-danger',
+                                    'Jumat'  => 'bg-secondary',
+                                    'Sabtu'  => 'bg-info text-dark'
                                 ];
                             @endphp
 
@@ -80,7 +101,7 @@
 
                             <td>
                                 <div class="btn-group">
-                                    <!-- Edit Jadwal -->
+                                    {{-- Edit --}}
                                     <button class="btn btn-sm btn-outline-warning"
                                         data-bs-toggle="modal"
                                         data-bs-target="#editModal-{{ $j->id }}"
@@ -102,13 +123,12 @@
                                         @csrf
                                         @method('DELETE')
                                     </form>
-
                                 </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-muted">
+                            <td colspan="7" class="text-muted text-center">
                                 Belum ada jadwal mengajar
                             </td>
                         </tr>
@@ -119,11 +139,14 @@
 
     </div>
 </section>
+
+{{-- Modal Edit --}}
 @foreach ($jadwal as $j)
     @include('pages.admin.jadwal.modal.edit', [
         'j'     => $j,
         'guru'  => $guru,
-        'kelas' => $kelas
+        'kelas' => $kelas,
+        'mapel' => $mapel
     ])
 @endforeach
 @endsection
