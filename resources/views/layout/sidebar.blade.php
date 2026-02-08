@@ -67,12 +67,33 @@
             <a href="{{ route('guru.absensi') }}" class="sidebar-link">
                 <i class="fas fa-user-check me-2"></i> Absensi Saya
             </a>
-            <a href="{{ route('guru.riwayat') }}" class="sidebar-link">
-                <i class="fa-solid fa-clock-rotate-left me-2"></i> Riwayat Absensi
-            </a>
             <a href="{{ route('guru.jadwal') }}" class="sidebar-link">
                 <i class="fa-solid fa-calendar-days me-2"></i> Jadwal Mengajar
             </a>
+            <div class="dropdown">
+                <a class="sidebar-link dropdown-toggle text-white d-block mb-2" href="#" role="button"
+                    id="dropdownRiwayat" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-clock-rotate-left me-2"></i> Riwayat
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownRiwayat">
+                    <li>
+                        <a class="dropdown-item" href="{{ route('guru.riwayat.mengajar') }}">
+                            <i class="fas fa-user-check me-2"></i> Riwayat Mengajar
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('guru.absensi.rekap') }}">
+                            <i class="fas fa-table me-2"></i> Rekap Absensi KBM
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('guru.riwayat') }}">
+                            <i class="fa-solid fa-clock-rotate-left me-2"></i> Riwayat Absensi
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
         @elseif (auth()->user()->role->nama_role === 'siswa')
             <a href="{{ route('siswa.index') }}" class="sidebar-link text-white d-block mb-2">
                 <i class="fas fa-tachometer-alt me-2"></i> Dashboard

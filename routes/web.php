@@ -10,6 +10,7 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JadwalMengajarController;
+use App\Http\Controllers\AbsensiKbmController;
 
 
 /*
@@ -103,9 +104,6 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/guru/absensi', [GuruController::class, 'absensi'])->name('guru.absensi');
     Route::post('/guru/absensi', [GuruController::class, 'storeAbsensi'])->name('guru.absensi.store');
 
-    // Riwayat
-    Route::get('/guru/riwayat', [GuruController::class, 'riwayat'])->name('guru.riwayat');
-
     // Export PDF & CSV
     Route::get('/guru/kelas/{id}/export/pdf', [GuruController::class, 'exportPdf'])->name('guru.kelas.export.pdf');
     Route::get('/guru/kelas/{id}/export/csv', [GuruController::class, 'exportCsv'])->name('guru.kelas.export.csv');
@@ -117,6 +115,26 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     // Guru lihat jadwal mengajar sendiri
     Route::get('/guru/jadwal', [GuruController::class, 'jadwalMengajar'])
         ->name('guru.jadwal');
+
+    // Guru kbm (Perjam)
+     Route::get('/guru/absensi-kbm/{jadwal}',
+        [AbsensiKbmController::class, 'index']
+    )->name('guru.absensi.kbm');
+
+    Route::post('/guru/absensi-kbm',
+        [AbsensiKbmController::class, 'store']
+    )->name('guru.absensi.kbm.store');
+
+    // rekap absensi kbm
+      Route::get('absensi/rekap', [AbsensiKbmController::class, 'rekap'])->name('guru.absensi.rekap');
+
+    // Riwayat absensi
+    Route::get('/guru/riwayat-absensi', [GuruController::class, 'riwayat'])->name('guru.riwayat');
+    
+    // Riwayat mengajar
+    Route::get('/guru/riwayat-mengajar', [AbsensiKbmController::class, 'riwayat'])
+        ->name('guru.riwayat.mengajar');
+
 });
 
 // siswa

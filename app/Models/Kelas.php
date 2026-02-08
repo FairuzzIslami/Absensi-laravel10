@@ -14,11 +14,15 @@ class Kelas extends Model
 
     public function allUsers()
     {
-        return $this->hasMany(User::class, 'id_kelas'); 
+        return $this->hasMany(User::class, 'id_kelas');
     }
 
     public function users()
     {
         return $this->hasMany(User::class, 'id_kelas')->where('id_role', 3); // Hanya siswa
+    }
+    public function jadwalMengajar()
+    {
+        return $this->hasMany(JadwalMengajar::class, 'kelas_id', 'id_kelas');
     }
 }

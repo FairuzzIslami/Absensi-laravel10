@@ -32,4 +32,10 @@ class JadwalMengajar extends Model
     {
         return $this->belongsTo(Mapel::class, 'mapel_id');
     }
+        // absensi KBM (per jam)
+    public function absensiKbm()
+    {
+        return $this->hasMany(AbsensiKbm::class, 'jadwal_mengajar_id');
+    }
+
 }
