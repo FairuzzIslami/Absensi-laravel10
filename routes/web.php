@@ -11,7 +11,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JadwalMengajarController;
 use App\Http\Controllers\AbsensiKbmController;
-
+use App\Http\Controllers\RiwayatMengajarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +86,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::delete('/admin/jadwal/{id}', [JadwalMengajarController::class, 'destroy'])
     ->name('jadwal.destroy');
+
+    Route::get('/admin/riwayat-mengajar',[RiwayatMengajarController::class, 'adminIndex'])->name('admin.riwayat.mengajar');
 });
 
 
@@ -130,7 +132,7 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
 
     // Riwayat absensi
     Route::get('/guru/riwayat-absensi', [GuruController::class, 'riwayat'])->name('guru.riwayat');
-    
+
     // Riwayat mengajar
     Route::get('/guru/riwayat-mengajar', [AbsensiKbmController::class, 'riwayat'])
         ->name('guru.riwayat.mengajar');

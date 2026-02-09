@@ -54,6 +54,10 @@
             <a href="{{ route('jadwal.index') }}" class="sidebar-link">
                 <i class="fa-solid fa-calendar-days me-2"></i> Jadwal Mengajar
             </a>
+            <a href="{{ route('admin.riwayat.mengajar') }}" class="sidebar-link">
+                <i class="fa-solid fa-clock-rotate-left me-2"></i>
+                Riwayat Mengajar Guru
+            </a>
 
         @elseif(auth()->user()->role->nama_role === 'guru')
             <a href="{{ route('guru.index') }}" class="sidebar-link">

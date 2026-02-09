@@ -11,7 +11,7 @@ use Carbon\Carbon;
 class AbsensiKbmController extends Controller
 {
     /**
-     * Tampilkan daftar absensi KBM untuk jadwal tertentu
+     * Tampilkan halaman absensi KBM
      */
     public function index($jadwalId)
     {
@@ -21,93 +21,120 @@ class AbsensiKbmController extends Controller
             'absensiKbm'
         ])->findOrFail($jadwalId);
 
-        // Tambahkan default supaya Blade form rekap tidak error
+        // default untuk blade
         $tipe = 'minggu';
-        $start = \Carbon\Carbon::now();
+        $start = Carbon::now();
 
-        return view('pages.guru.absensi_kbm.index', compact('jadwal', 'tipe', 'start'));
+        return view('pages.guru.absensi_kbm.index', compact(
+            'jadwal',
+            'tipe',
+            'start'
+        ));
     }
 
     /**
-     * Simpan atau update absensi KBM
+     * Simpan / update absensi KBM
      */
     public function store(Request $request)
     {
-        // Validasi input
+        // ================= VALIDASI INPUT =================
         $request->validate([
             'jadwal_mengajar_id' => 'required|exists:jadwal_mengajar,id',
-            'siswa_id' => 'required|exists:users,id',
-            'status' => 'required|in:hadir,izin,sakit,alpha',
+            'siswa_id'           => 'required|exists:users,id',
+            'status'             => 'required|in:hadir,izin,sakit,alpha',
         ]);
 
-        // Ambil jadwal
-        $jadwal = JadwalMengajar::findOrFail($request->jadwal_mengajar_id);
+        // ================= AMBIL JADWAL =================
+        $jadwal = JadwalMengajar::with('kelas')->findOrFail(
+            $request->jadwal_mengajar_id
+        );
 
-        // Waktu sekarang
+        // ================= WAKTU SEKARANG =================
         $now = Carbon::now();
 
-        // Validasi hari
-        $hariSekarang = $now->translatedFormat('l'); // contoh: 'Monday'
-        $hariJadwal = $jadwal->hari; // misal 'Senin'
+        // ================= VALIDASI HARI =================
+        $hariMap = [
+            0 => 'Minggu',
+            1 => 'Senin',
+            2 => 'Selasa',
+            3 => 'Rabu',
+            4 => 'Kamis',
+            5 => 'Jumat',
+            6 => 'Sabtu',
+        ];
 
-        // Jika hari sekarang tidak sama dengan hari jadwal
-        if (strtolower($hariSekarang) !== strtolower($hariJadwal)) {
-            return back()->with('error', 'Belum saatnya mengajar. Hari KBM adalah ' . $jadwal->hari);
+        $hariSekarang = $hariMap[$now->dayOfWeek];
+        $hariJadwal   = $jadwal->hari;
+
+        if ($hariSekarang !== $hariJadwal) {
+            return back()->with(
+                'error',
+                'Belum saatnya mengajar. Hari KBM adalah ' . $hariJadwal
+            );
         }
 
-        // Format jam mulai & selesai
-        $jamMulai = Carbon::createFromFormat('H:i:s', $jadwal->jam_mulai);
-        $jamSelesai = Carbon::createFromFormat('H:i:s', $jadwal->jam_selesai);
+        // ================= VALIDASI JAM =================
+        $jamMulai = Carbon::today()
+            ->setTimeFromTimeString($jadwal->jam_mulai);
 
-        // Validasi jam absen
+        $jamSelesai = Carbon::today()
+            ->setTimeFromTimeString($jadwal->jam_selesai);
+
         if ($now->lt($jamMulai) || $now->gt($jamSelesai)) {
-            return back()->with('error', 'Belum saatnya mengajar. Absensi hanya bisa dilakukan antara '
-                . $jadwal->jam_mulai . ' - ' . $jadwal->jam_selesai);
+            return back()->with(
+                'error',
+                'Absensi hanya bisa dilakukan antara '
+                . $jadwal->jam_mulai . ' - ' . $jadwal->jam_selesai
+            );
         }
 
-        // Simpan atau update absensi
+        // ================= SIMPAN ABSENSI =================
         AbsensiKbm::updateOrCreate(
             [
                 'jadwal_mengajar_id' => $request->jadwal_mengajar_id,
-                'siswa_id' => $request->siswa_id,
-                'tanggal' => $now->toDateString(),
+                'siswa_id'           => $request->siswa_id,
+                'tanggal'            => $now->toDateString(),
             ],
             [
-                'status' => $request->status,
+                'status'    => $request->status,
                 'jam_absen' => $now->format('H:i:s'),
             ]
         );
 
         return back()->with('success', 'Absensi KBM berhasil disimpan');
     }
+
+    /**
+     * Rekap absensi guru
+     */
     public function rekap(Request $request)
     {
         $guruId = Auth::id();
-
-        // Tipe rekap: minggu atau bulan (default minggu)
         $tipe = $request->input('tipe', 'minggu');
 
-        // Ambil range tanggal
         if ($tipe === 'bulan') {
             $start = Carbon::now()->startOfMonth();
-            $end = Carbon::now()->endOfMonth();
+            $end   = Carbon::now()->endOfMonth();
 
             if ($request->filled('bulan')) {
                 $start = Carbon::parse($request->bulan . '-01')->startOfMonth();
-                $end = Carbon::parse($request->bulan . '-01')->endOfMonth();
+                $end   = Carbon::parse($request->bulan . '-01')->endOfMonth();
             }
-        } else { // minggu
+        } else {
             $start = Carbon::now()->startOfWeek();
-            $end = Carbon::now()->endOfWeek();
+            $end   = Carbon::now()->endOfWeek();
 
             if ($request->filled('tanggal')) {
                 $start = Carbon::parse($request->tanggal)->startOfWeek();
-                $end = Carbon::parse($request->tanggal)->endOfWeek();
+                $end   = Carbon::parse($request->tanggal)->endOfWeek();
             }
         }
 
-        // Ambil jadwal guru
-        $jadwals = JadwalMengajar::with(['kelas.users', 'mapel', 'absensiKbm'])
+        $jadwals = JadwalMengajar::with([
+                'kelas.users',
+                'mapel',
+                'absensiKbm'
+            ])
             ->where('guru_id', $guruId)
             ->get();
 
@@ -117,40 +144,78 @@ class AbsensiKbmController extends Controller
             foreach ($jadwal->kelas->users as $siswa) {
                 $absensi = $jadwal->absensiKbm()
                     ->where('siswa_id', $siswa->id)
-                    ->whereBetween('tanggal', [$start->toDateString(), $end->toDateString()])
+                    ->whereBetween('tanggal', [
+                        $start->toDateString(),
+                        $end->toDateString()
+                    ])
                     ->get();
 
-                $rekap[$jadwal->mapel->nama_mapel ?? 'Mapel belum diset'][$siswa->username] = $absensi;
+                $rekap[
+                    $jadwal->mapel->nama_mapel ?? 'Mapel belum diset'
+                ][$siswa->username] = $absensi;
             }
         }
 
-        return view('pages.guru.absensi_kbm.rekap', compact('rekap', 'tipe', 'start', 'end'));
+        return view('pages.guru.absensi_kbm.rekap', compact(
+            'rekap',
+            'tipe',
+            'start',
+            'end'
+        ));
     }
+
+    /**
+     * Riwayat mengajar guru
+     */
     public function riwayat(Request $request)
     {
         $guruId = Auth::id();
 
-        // Ambil periode filter, default 1 bulan terakhir
-        $start = Carbon::parse($request->start ?? now()->subMonth());
-        $end = Carbon::parse($request->end ?? now());
+        $start = Carbon::parse($request->start ?? now()->subMonth())->startOfDay();
+        $end   = Carbon::parse($request->end ?? now())->endOfDay();
 
-        // Ambil semua jadwal guru
-        $jadwals = JadwalMengajar::with(['kelas', 'mapel', 'absensiKbm.siswa'])
+        $jadwals = JadwalMengajar::with([
+                'kelas',
+                'mapel',
+                'absensiKbm'
+            ])
             ->where('guru_id', $guruId)
             ->get();
 
         $riwayat = [];
 
         foreach ($jadwals as $jadwal) {
-            $absensi = $jadwal->absensiKbm()
-                ->whereBetween('tanggal', [$start->toDateString(), $end->toDateString()])
-                ->get();
 
-            if ($absensi->count() > 0) {
-                $riwayat[$jadwal->mapel->nama_mapel ?? 'Mapel belum diset'][$jadwal->kelas->kelas] = $absensi;
+            // ambil absensi sesuai range tanggal
+            $absensiByTanggal = $jadwal->absensiKbm()
+                ->whereBetween('tanggal', [
+                    $start->toDateString(),
+                    $end->toDateString()
+                ])
+                ->get()
+                ->groupBy('tanggal');
+
+            foreach ($absensiByTanggal as $tanggal => $items) {
+                $riwayat[] = [
+                    'mapel'   => $jadwal->mapel->nama_mapel ?? 'Mapel belum diset',
+                    'kelas'   => $jadwal->kelas->kelas,
+                    'tanggal' => $tanggal,
+                    'hadir'   => $items->where('status', 'hadir')->count(),
+                    'izin'    => $items->where('status', 'izin')->count(),
+                    'sakit'   => $items->where('status', 'sakit')->count(),
+                    'alpha'   => $items->where('status', 'alpha')->count(),
+                ];
             }
         }
 
-        return view('pages.guru.riwayat', compact('riwayat', 'start', 'end'));
+        $riwayat = collect($riwayat)
+            ->sortByDesc('tanggal')
+            ->values();
+
+        return view('pages.guru.riwayat', compact(
+            'riwayat',
+            'start',
+            'end'
+        ));
     }
 }
