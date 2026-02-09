@@ -12,10 +12,11 @@ class JadwalMengajarController extends Controller
 {
     public function index()
     {
+        // Pagination: misal 10 jadwal per halaman
         $jadwal = JadwalMengajar::with(['guru', 'kelas', 'mapel'])
             ->orderBy('hari')
             ->orderBy('jam_mulai')
-            ->get();
+            ->paginate(5);
 
         $guru = User::whereHas('role', function ($q) {
             $q->where('nama_role', 'guru');

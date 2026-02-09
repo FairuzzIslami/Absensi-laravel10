@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -26,13 +27,19 @@ class ProfileController extends Controller
 
         $request->validate([
             'username' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $data = $request->only(['username', 'email']);
 
         if ($request->hasFile('foto')) {
+            // HAPUS FOTO LAMA JIKA ADA
+            if ($user->foto && Storage::disk('public')->exists($user->foto)) {
+                Storage::disk('public')->delete($user->foto);
+            }
+
+            // SIMPAN FOTO BARU
             $fotoPath = $request->file('foto')->store('foto', 'public');
             $data['foto'] = $fotoPath;
         }

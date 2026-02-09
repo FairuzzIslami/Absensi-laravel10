@@ -135,8 +135,10 @@
                     @endforelse
                 </tbody>
             </table>
+            <div class="mt-3">
+                {{ $jadwal->links('pagination::bootstrap-5') }}
+            </div>
         </div>
-
     </div>
 </section>
 
