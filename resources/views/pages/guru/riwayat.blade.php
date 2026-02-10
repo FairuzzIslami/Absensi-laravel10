@@ -4,67 +4,70 @@
     <section>
         <div class="content pt-5 mt-4" id="mainContent">
 
-            {{-- JUDUL --}}
             <h1 class="h3 mb-4 text-uppercase">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                Riwayat Mengajar
+                <i class="fa-solid fa-clock-rotate-left"></i> Riwayat Mengajar
             </h1>
 
-            {{-- FILTER TANGGAL --}}
+            {{-- FILTER --}}
             <div class="mb-4">
-                <form method="GET" action="{{ route('guru.riwayat.mengajar') }}"
-                    class="d-flex gap-2 flex-wrap align-items-center">
+                <div class="card shadow-sm p-3">
+                    <form method="GET" action="{{ route('guru.riwayat.mengajar') }}" class="row g-3 align-items-end">
 
-                    <label>Dari:</label>
-                    <input type="date" name="start" class="form-control w-auto" value="{{ $start->toDateString() }}">
+                        <div class="col-auto">
+                            <label class="form-label mb-1">Dari</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i></span>
+                                <input type="date" name="start" class="form-control"
+                                    value="{{ $start->toDateString() }}">
+                            </div>
+                        </div>
 
-                    <label>Sampai:</label>
-                    <input type="date" name="end" class="form-control w-auto" value="{{ $end->toDateString() }}">
+                        <div class="col-auto">
+                            <label class="form-label mb-1">Sampai</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i></span>
+                                <input type="date" name="end" class="form-control"
+                                    value="{{ $end->toDateString() }}">
+                            </div>
+                        </div>
 
-                    <button class="btn btn-primary">
-                        <i class="fa-solid fa-filter"></i> Tampilkan
-                    </button>
-                </form>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-filter"></i> Tampilkan
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
             </div>
 
-            {{-- DATA --}}
+            {{-- DATA RIWAYAT --}}
             @forelse ($riwayat as $item)
-                <h5 class="fw-bold mt-4">
-                    {{ $item['mapel'] }} - Kelas {{ $item['kelas'] }}
-                </h5>
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="fw-bold mb-2">
+                            {{ $item['mapel'] }} - Kelas {{ $item['kelas'] }}
+                        </h5>
+                        <p class="text-muted mb-3">
+                            {{ \Carbon\Carbon::parse($item['tanggal'])->format('d-m-Y') }}
+                            • {{ $item['jam_mulai'] ?? '-' }} - {{ $item['jam_selesai'] ?? '-' }}
+                        </p>
 
-                <p class="text-muted">
-                    Tanggal: {{ \Carbon\Carbon::parse($item['tanggal'])->format('d-m-Y') }}
-                </p>
-
-                <table class="table table-bordered text-center mb-4">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Hadir</th>
-                            <th>Izin</th>
-                            <th>Sakit</th>
-                            <th>Alpha</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{ $item['hadir'] }}</td>
-                            <td>{{ $item['izin'] }}</td>
-                            <td>{{ $item['sakit'] }}</td>
-                            <td>{{ $item['alpha'] }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                        <div class="d-flex justify-content-center gap-3">
+                            <span class="badge bg-success p-2 w-25">Hadir: {{ $item['hadir'] }}</span>
+                            <span class="badge bg-info p-2 w-25">Izin: {{ $item['izin'] }}</span>
+                            <span class="badge bg-warning text-dark p-2 w-25">Sakit: {{ $item['sakit'] }}</span>
+                            <span class="badge bg-danger p-2 w-25">Alpha: {{ $item['alpha'] }}</span>
+                        </div>
+                    </div>
+                </div>
             @empty
-                <div class="alert alert-secondary">
+                <div class="alert alert-secondary text-center">
                     Tidak ada data riwayat mengajar.
                 </div>
             @endforelse
 
-
-            {{-- KEMBALI --}}
-            <a href="{{ route('guru.jadwal') }}" class="btn btn-secondary">
+            <a href="{{ route('guru.jadwal') }}" class="btn btn-secondary d-flex align-items-center gap-1">
                 <i class="fa-solid fa-arrow-left"></i> Kembali ke Jadwal
             </a>
 
