@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AbsensiKbm;
 use App\Models\JadwalMengajar;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -52,37 +53,47 @@ class RiwayatMengajarController extends Controller
     }
 
     // ================= GURU =================
-   public function guruIndex(Request $request)
-{
-    $guruId = Auth::id();
+    public function guruIndex(Request $request)
+    {
+        $guruId = Auth::id();
 
-    $start = Carbon::parse($request->start ?? now()->subMonth())->startOfDay();
-    $end   = Carbon::parse($request->end ?? now())->endOfDay();
+        $start = $request->start
+            ? Carbon::parse($request->start)
+            : Carbon::now()->startOfMonth();
 
-    $jadwals = JadwalMengajar::with(['mapel', 'kelas', 'absensiKbm'])
-        ->where('guru_id', $guruId)
-        ->get();
+        $end = $request->end
+            ? Carbon::parse($request->end)
+            : Carbon::now()->endOfMonth();
 
-    $riwayat = [];
+        $jadwals = JadwalMengajar::with(['mapel', 'kelas'])
+            ->where('guru_id', $guruId)
+            ->get();
 
-    foreach ($jadwals as $jadwal) {
+        $riwayat = collect();
 
-        $absensi = $jadwal->absensiKbm
-            ->whereBetween('tanggal', [$start, $end]);
+        foreach ($jadwals as $jadwal) {
 
-        if ($absensi->isEmpty()) continue;
 
-        $mapel = optional($jadwal->mapel)->nama_mapel ?? 'Mapel Tidak Diketahui';
-        $kelas = optional($jadwal->kelas)->kelas ?? 'Kelas Tidak Diketahui';
+            $absensis = AbsensiKbm::where('jadwal_mengajar_id', $jadwal->id)
+                ->whereBetween('tanggal', [$start, $end])
+                ->get()
+                ->groupBy('tanggal');
 
-        $riwayat[$mapel][$kelas] = $absensi;
+            foreach ($absensis as $tanggal => $items) {
+                $riwayat->push([
+                    'mapel' => $jadwal->mapel->nama_mapel ?? '-',
+                    'kelas' => $jadwal->kelas->kelas ?? '-',
+                    'tanggal' => $tanggal,
+                    'jam_mulai' => $jadwal->jam_mulai,
+                    'jam_selesai' => $jadwal->jam_selesai,
+                    'hadir' => $items->where('status', 'hadir')->count(),
+                    'izin' => $items->where('status', 'izin')->count(),
+                    'sakit' => $items->where('status', 'sakit')->count(),
+                    'alpha' => $items->where('status', 'alpha')->count(),
+                ]);
+            }
+        }
+
+        return view('pages.guru.riwayat', compact('riwayat', 'start', 'end'));
     }
-
-    return view('pages.guru.riwayat', compact(
-        'riwayat',
-        'start',
-        'end'
-    ));
-}
-
 }

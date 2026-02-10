@@ -17,6 +17,7 @@ class AbsensiKbm extends Model
         'tanggal',
         'status',
         'jam_absen',
+        'materi',
     ];
 
     // relasi ke jadwal mengajar

@@ -137,6 +137,8 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/guru/riwayat-mengajar', [AbsensiKbmController::class, 'riwayat'])
         ->name('guru.riwayat.mengajar');
 
+    Route::post('/guru/absensi-kbm/materi',[AbsensiKbmController::class, 'simpanMateri'])
+        ->name('guru.absensi.kbm.materi');
 });
 
 // siswa

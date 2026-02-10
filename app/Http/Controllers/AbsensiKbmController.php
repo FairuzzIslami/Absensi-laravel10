@@ -84,7 +84,7 @@ class AbsensiKbmController extends Controller
             return back()->with(
                 'error',
                 'Absensi hanya bisa dilakukan antara '
-                . $jadwal->jam_mulai . ' - ' . $jadwal->jam_selesai
+                    . $jadwal->jam_mulai . ' - ' . $jadwal->jam_selesai
             );
         }
 
@@ -131,10 +131,10 @@ class AbsensiKbmController extends Controller
         }
 
         $jadwals = JadwalMengajar::with([
-                'kelas.users',
-                'mapel',
-                'absensiKbm'
-            ])
+            'kelas.users',
+            'mapel',
+            'absensiKbm'
+        ])
             ->where('guru_id', $guruId)
             ->get();
 
@@ -150,9 +150,7 @@ class AbsensiKbmController extends Controller
                     ])
                     ->get();
 
-                $rekap[
-                    $jadwal->mapel->nama_mapel ?? 'Mapel belum diset'
-                ][$siswa->username] = $absensi;
+                $rekap[$jadwal->mapel->nama_mapel ?? 'Mapel belum diset'][$siswa->username] = $absensi;
             }
         }
 
@@ -175,10 +173,10 @@ class AbsensiKbmController extends Controller
         $end   = Carbon::parse($request->end ?? now())->endOfDay();
 
         $jadwals = JadwalMengajar::with([
-                'kelas',
-                'mapel',
-                'absensiKbm'
-            ])
+            'kelas',
+            'mapel',
+            'absensiKbm'
+        ])
             ->where('guru_id', $guruId)
             ->get();
 
@@ -217,5 +215,22 @@ class AbsensiKbmController extends Controller
             'start',
             'end'
         ));
+    }
+    public function simpanMateri(Request $request)
+    {
+        $request->validate([
+            'jadwal_mengajar_id' => 'required|exists:jadwal_mengajar,id',
+            'tanggal' => 'required|date',
+            'materi' => 'nullable|string',
+        ]);
+
+        // update semua absensi di hari itu
+        AbsensiKbm::where('jadwal_mengajar_id', $request->jadwal_mengajar_id)
+            ->where('tanggal', $request->tanggal)
+            ->update([
+                'materi' => $request->materi
+            ]);
+
+        return back()->with('success', 'Materi KBM berhasil disimpan');
     }
 }
